@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import './TodoItem.css';
 class TodoItem extends Component {
   constructor(props) {
     super(props);
@@ -11,11 +12,17 @@ class TodoItem extends Component {
   }  
   render() {
     const { index, item, removeTodoItem, updateTodoItem } = this.props;
+    const completed = item.state ? 'completed' : "";
+
     return (
-      <li>
-        <button onClick={ () => updateTodoItem(index) }>업데이트</button>
+      <li className={`todo-item ${completed}`} >
+        <button onClick={ () => updateTodoItem(index, item.state) } className="todo-item__update-button">
+          <i className="fas fa-check"></i>
+        </button>
         <p onDoubleClick={ this.handleTodoItem }>{ item.text }</p>
-        <button onClick={() => removeTodoItem(index)}>삭제</button>
+        <button onClick={() => removeTodoItem(index)} className="todo-item__remove-button">
+          <i className="far fa-trash-alt"></i>
+        </button>
       </li>
     )
   }

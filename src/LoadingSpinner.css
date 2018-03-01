@@ -1,0 +1,25 @@
+.loader {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  text-align:center;
+  top:15px;
+  color: rgba(59, 201, 219, .8);
+  font-weight: bold;
+  font-size: 55px;
+  opacity: 0.8;
+}
+.loader > span {
+  display: inline-block;
+  animation: pulse 0.4s alternate infinite ease-in-out;  
+}
+.loader > span:nth-child(odd) {
+  animation-delay: 0.4s;
+}
+@keyframes pulse {
+  to {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+}

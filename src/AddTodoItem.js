@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 
+import './AddTodoItem.css';
 class AddTodoItem extends Component {
   constructor(props) {
     super(props);
@@ -26,6 +27,10 @@ class AddTodoItem extends Component {
         text: this.state.text,
         state: false
       });
+
+      this.setState({
+        text: ''
+      })
     }
   }
 
@@ -34,10 +39,11 @@ class AddTodoItem extends Component {
 
     return (
       <div>
-        <input 
+        <input
+          className="add-todo-item" 
           type="text" 
           value={ text } 
-          placeholder="what needs to be done?" 
+          placeholder="할일을 적어보즈아!" 
           onChange={ this.handleInputChange }
           onKeyPress={ this.handleInputKeyPress }
         />
