@@ -23,6 +23,9 @@ class AddTodoItem extends Component {
 
   handleInputKeyPress(e) {
     if (e.key === 'Enter') {
+      if (this.state.text === "") {
+        return;
+      }
       this.todoItemsRef.push().set({
         text: this.state.text,
         state: false
