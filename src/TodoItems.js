@@ -7,22 +7,23 @@ class TodoItems extends Component {
   constructor(props) {
     super(props);
 
-    this.todoItemsRef = firebase.database().ref('todoItems');
   }
   // remove todoItem
   removeTodoItem(key) {
-    this.todoItemsRef.child(key).remove();
+    firebase.database().ref('todoItems').child(key).remove();
   }
 
   // update todoItem
-  updateTodoItem(key) {
-
+  updateTodoItem(key, state) {
+    firebase.database().ref('todoItems').child(key).update({
+      state: !state
+    });
   }
 
   render() {
     const { todoItems } = this.props;
     return (
-      <ul>
+      <ul className="todo-items">
       {
         map(todoItems, (value, key) => (
           <TodoItem 
