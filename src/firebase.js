@@ -1,6 +1,10 @@
-// import firebase from 'firebase';
-// import DB_CONFIG from './config';
+import firebase from 'firebase';
+import DB_CONFIG from './config';
 
-// const app = firebase.initializeApp(DB_CONFIG);
-  
-// export default app;
+firebase.initializeApp(DB_CONFIG);
+
+export default firebase;
+
+export const database = firebase.database();
+export const auth = firebase.auth();
+export const GithubAuthProvider = new firebase.auth.GithubAuthProvider();

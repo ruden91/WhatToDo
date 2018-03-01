@@ -1,28 +1,40 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
+import { database, auth, GithubAuthProvider } from './firebase';
 
 import './App.css';
 
+import AppHeader from './AppHeader';
 import TodoBoard from './TodoBoard';
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      todoItems: null
+      todoItems: null,
+      currentUser: null
     }
-    firebase.database().ref('todoItems').on('value', (snapshot) => {
+
+    database.ref('/todoItems').on('value', (snapshot) => {
       this.setState({
         todoItems: snapshot.val()
       })
-    });    
+    })   
+  }
+
+  componentDidMount() {
+    auth.onAuthStateChanged(currentUser => {
+      this.setState({
+        currentUser
+      })
+    })
   }
 
   render() {
-    const { todoItems } = this.state;
+    const { todoItems, currentUser } = this.state;
     return (
       <div className="todo-app">
-        <TodoBoard todoItems={ todoItems } />
+      <AppHeader currentUser={ currentUser }/>
+      <TodoBoard todoItems={ todoItems } />
       </div>
     )
   }
