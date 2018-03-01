@@ -22,7 +22,10 @@ class AddTodoItem extends Component {
 
   handleInputKeyPress(e) {
     if (e.key === 'Enter') {
-      this.todoItemsRef.set(this.state.text)
+      this.todoItemsRef.push().set({
+        text: this.state.text,
+        state: false
+      });
     }
   }
 
