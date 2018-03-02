@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
+import { database, auth } from './firebase';
 
 import './AddTodoItem.css';
 class AddTodoItem extends Component {
@@ -9,8 +9,7 @@ class AddTodoItem extends Component {
     this.state = {
       text: ""
     }
-    this.todoItemsRef = firebase.database().ref('todoItems');
-
+    
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleInputKeyPress = this.handleInputKeyPress.bind(this);
   }
@@ -26,10 +25,14 @@ class AddTodoItem extends Component {
       if (this.state.text === "") {
         return;
       }
-      this.todoItemsRef.push().set({
+      database.ref('todoItems/' + this.props.currentUser.uid).push().set({
         text: this.state.text,
         state: false
-      });
+      })
+      // this.todoItemsRef.push().set({
+      //   text: this.state.text,
+      //   state: false
+      // });
 
       this.setState({
         text: ''
