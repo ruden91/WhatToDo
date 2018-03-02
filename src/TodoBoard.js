@@ -4,7 +4,7 @@ import './TodoBoard.css';
 
 import AddTodoItem from './AddTodoItem';
 import TodoItems from './TodoItems';
-import LoadingSpinner from './LoadingSpinner';
+import MainLoading from './MainLoading';
 
 class TodoBoard extends Component {
   constructor(props) {
@@ -19,16 +19,7 @@ class TodoBoard extends Component {
         <header>
           <AddTodoItem currentUser={ currentUser } />
         </header>
-        {
-          !todoItems 
-          ?
-          <LoadingSpinner />
-          :
-          <TodoItems todoItems={ todoItems } currentUser={ currentUser } />
-        }          
-        <footer>
-
-        </footer>
+        <TodoItems todoItems={ todoItems } currentUser={ currentUser } />
       </section>
     )
   }
