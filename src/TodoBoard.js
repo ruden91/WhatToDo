@@ -12,19 +12,19 @@ class TodoBoard extends Component {
   }
 
   render() {
-    const { todoItems } = this.props;
+    const { todoItems, currentUser } = this.props;
     
     return (
       <section className="todo-board">
         <header>
-          <AddTodoItem />
+          <AddTodoItem currentUser={ currentUser } />
         </header>
         {
           !todoItems 
           ?
           <LoadingSpinner />
           :
-          <TodoItems todoItems={ todoItems } />
+          <TodoItems todoItems={ todoItems } currentUser={ currentUser } />
         }          
         <footer>
 

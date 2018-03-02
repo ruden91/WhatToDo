@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
+import { database } from './firebase';
 import { map } from 'lodash';
 
 import TodoItem from './TodoItem';
@@ -7,15 +7,21 @@ class TodoItems extends Component {
   constructor(props) {
     super(props);
 
+    this.removeTodoItem = this.removeTodoItem.bind(this);
+    this.updateTodoItem = this.updateTodoItem.bind(this);
   }
   // remove todoItem
   removeTodoItem(key) {
-    firebase.database().ref('todoItems').child(key).remove();
+    const { currentUser } = this.props;
+    
+    database.ref('todoItems/' + currentUser.uid).child(key).remove();
   }
 
   // update todoItem
   updateTodoItem(key, state) {
-    firebase.database().ref('todoItems').child(key).update({
+    const { currentUser } = this.props;
+
+    database.ref('todoItems/' + currentUser.uid).child(key).update({
       state: !state
     });
   }

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import { auth, GithubAuthProvider } from './firebase';
+import { auth, GithubAuthProvider, GoogleAuthProvider } from './firebase';
 export default class Login extends Component {
   render() {
     return (
-      <button onClick={ () => auth.signInWithPopup(GithubAuthProvider) }>
+      <button onClick={ () => auth.signInWithPopup(GoogleAuthProvider) }>
         Login
       </button>
     )

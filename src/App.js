@@ -12,13 +12,7 @@ class App extends Component {
     this.state = {
       todoItems: null,
       currentUser: null
-    }
-
-    database.ref('/todoItems').on('value', (snapshot) => {
-      this.setState({
-        todoItems: snapshot.val()
-      })
-    })   
+    }   
   }
 
   componentDidMount() {
@@ -26,15 +20,27 @@ class App extends Component {
       this.setState({
         currentUser
       })
+
+      if (currentUser) {
+        database.ref('todoItems/' + this.state.currentUser.uid).on('value', (snap) => {
+          this.setState({
+            todoItems: snap.val()
+          })
+        })
+      } else {
+        console.log(this.state.currentUser);
+      }  
     })
   }
 
   render() {
     const { todoItems, currentUser } = this.state;
+
     return (
       <div className="todo-app">
       <AppHeader currentUser={ currentUser }/>
-      <TodoBoard todoItems={ todoItems } />
+      {!currentUser && 'user data 없다' }
+      {currentUser && <TodoBoard todoItems={ todoItems } currentUser={ currentUser } /> }
       </div>
     )
   }
