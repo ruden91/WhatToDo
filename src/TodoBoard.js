@@ -5,10 +5,13 @@ import './TodoBoard.css';
 import AddTodoItem from './AddTodoItem';
 import TodoItems from './TodoItems';
 import MainLoading from './MainLoading';
-
 class TodoBoard extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      isOpen: true
+    }
   }
 
   render() {
