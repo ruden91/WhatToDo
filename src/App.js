@@ -34,7 +34,8 @@ class App extends Component {
         })
       } else {
         this.setState({
-          todoItems: null
+          todoItems: null,
+          loading: false
         })        
       }  
     })
