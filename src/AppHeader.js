@@ -12,7 +12,6 @@ export default class AppHeader extends Component {
     const { currentUser } = this.props;
     return (
       <header className="app-header">
-        { !currentUser && <Login /> }
         { currentUser && <UserInfo currentUser={ currentUser } /> }
       </header>
     )
