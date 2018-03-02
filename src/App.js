@@ -23,13 +23,13 @@ class App extends Component {
   componentDidMount() {
     auth.onAuthStateChanged(currentUser => {
       this.setState({
-        currentUser,
-        loading: false
+        currentUser
       })
       if (currentUser) {
         database.ref('todoItems/' + this.state.currentUser.uid).on('value', (snap) => {
           this.setState({
-            todoItems: snap.val()
+            todoItems: snap.val(),
+            loading: false
           })
         })
       } else {
