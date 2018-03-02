@@ -10,21 +10,21 @@
 .todo-item {
   display: table;
   width: 100%;
-  padding: 10px 0;
+  padding: 10px;
   position: relative;
   font-size: 16px;
-  border-bottom: 1px solid #ededed;
+  border-bottom: 1px solid #CBD4D6;
 }
 .todo-item > button {
   display: table-cell;
   vertical-align: middle;
   cursor: pointer;
-  background: transparent;
   outline: none;
 }
 .todo-item > p {
   display: table-cell;
   margin:0;
+  padding-left: 10px;
   margin-left: 10px;
   width: 390px;
   padding-right: 10px;  
@@ -37,8 +37,7 @@
 }
 
 .todo-item__update-button {
-  margin-left: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #70D0D9;
   width:25px;
   height:25px;
   border-radius: 50%;
@@ -50,12 +49,16 @@
 }
 .todo-item__update-button > svg {
   display: inline;  
-  color: rgba(59, 201, 219, .8);    
+  color: #fff; 
   opacity: 0;
   position: relative;
   left: -3px;
   top: 2px;  
   transition: .2s opacity ease-in-out;
+}
+.completed > .todo-item__update-button {
+  background-color:#70D0D9;
+
 }
 .completed > .todo-item__update-button > svg {
   opacity: 1;

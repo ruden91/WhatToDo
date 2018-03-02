@@ -3,7 +3,7 @@
   text-align: center;
   font-size: 12px;
   padding: 12px;
-  width: 260px;
+  width: 285px;
   display: block;
   border: none;
   outline: none;
@@ -12,6 +12,11 @@
 }
 .todo-app__login-input::-webkit-input-placeholder {
   color:#fff;
+}
+.todo-app__logo-container {
+  color:#fff;
+  text-align:center;
+  margin-bottom: 20px;
 }
 .todo-app__login-box {
   position: absolute;

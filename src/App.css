@@ -1,12 +1,17 @@
+* {
+  box-sizing : border-box;
+}
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #F7FCFC;
   letter-spacing: -1px;
+  font-size: 14px;
 }
 p {
   margin:0;
   padding: 0;
   letter-spacing: -1px;
+  font-size: 14px;
 }
 input, button {
   background: transparent;
@@ -24,7 +29,21 @@ li {
 }
 .app-header {
   height: 40px;
-  background-color: #5DABB3;
+  background-color: #70D0D9;
+}
+.todo-app__show-add-button {
+  color:#fff;
+  float:right;
+  font-size: 22px;
+  padding-top: 8px;
+  padding-right: 10px;  
+}
+.todo-app__toggle-side-menu {
+  float: left;
+  font-size: 22px;
+  padding-top: 8px;
+  padding-left: 10px;
+  color: #fff;
 }
 .todo-app__content {
   max-width: 640px;

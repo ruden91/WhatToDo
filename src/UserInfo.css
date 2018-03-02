@@ -4,27 +4,11 @@
   clear: both;
 }
 .user-info__right-side-content {
-  float: right;
   font-size:12px;
 }
-.user-info p {
-  display: inline-block;
-  position: relative;
-  top: -8px;
-  color:#fff;
-}
-.user-info img {
-  position: relative;
-  top: 3px;
-  border-radius: 50%;
-  display: inline-block;
-  width: 35px;
-  height: 35px;
-  margin-left: 10px;
-  margin-right: 6px;
-}
 .user-info button {
-  position: relative;
-  top: -9px;  
+  position: absolute;
   color:#fff;
+  top:11px;
+  font-size:14px;
 }
