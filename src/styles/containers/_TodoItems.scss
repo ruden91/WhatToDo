@@ -11,9 +11,10 @@
   font-size: 12px;
   position: relative;
   border-bottom: 1px solid #CBD4D6;
-
+  width: 100%;
   p {
     position: relative;
+    width: 30ch;
     padding-left: 10px;
     display: inline-block;
     overflow: hidden;
@@ -21,7 +22,7 @@
     white-space: nowrap;
     color: #444;
     transition: color .2s ease-in-out;
-    @media screen and (max-width: 399px) {
+    @media screen and (max-width: 499px) {
       width: 70%;
     }
     @media screen and (min-width: 787px) {
