@@ -23,5 +23,5 @@ yarn-error.log*
 # firebase config
 /src/database/config.js
 .env
-.eslintrc
+.eslintrc 
 .firebaserc
