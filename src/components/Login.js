@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
-import { auth, GithubAuthProvider, GoogleAuthProvider, FacebookAuthProvider } from './firebase';
+import { auth, GithubAuthProvider, GoogleAuthProvider, FacebookAuthProvider } from 'database/firebase';
 
-import "./Login.css";
 export default class Login extends Component {
   render() {
     return (
