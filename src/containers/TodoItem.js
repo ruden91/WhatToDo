@@ -8,9 +8,10 @@ class TodoItem extends Component {
   }
   handleTodoItem() {
     console.log('double click');
-  }  
+  }
+
   render() {
-    const { index, item, removeTodoItem, updateTodoItem } = this.props;
+    const { index, item, removeTodoItem, updateTodoItem, created } = this.props;
     const completed = item.state ? 'completed' : "";
 
     return (
@@ -19,6 +20,7 @@ class TodoItem extends Component {
           <i className="fas fa-check"></i>
         </button>
         <p onDoubleClick={ this.handleTodoItem }>{ item.text }</p>
+        <p>{ created }</p>
         <button onClick={() => removeTodoItem(index)} className="todo-item__remove-button">
           <i className="far fa-trash-alt"></i>
         </button>
