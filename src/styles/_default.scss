@@ -1,6 +1,11 @@
-* {
-  box-sizing : border-box;
+html {
+  box-sizing: border-box;
 }
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #F7FCFC;
@@ -11,7 +16,6 @@ p {
   margin:0;
   padding: 0;
   letter-spacing: -1px;
-  font-size: 14px;
 }
 input, button {
   background: transparent;

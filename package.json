@@ -15,11 +15,10 @@
     "react-scripts": "1.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "start": "NODE_PATH=src/ react-scripts start | sass --watch src/styles/index.scss:src/styles/index.css",
+    "build": "NODE_PATH=src/ react-scripts build",
+    "test": "NODE_PATH=src/ react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "react-scripts build firebase deploy",
-    "sass" : "sass --watch src/styles/index.scss:src/styles/index.css"
+    "deploy": "NODE_PATH=src/ react-scripts build firebase deploy"
   }
 }
