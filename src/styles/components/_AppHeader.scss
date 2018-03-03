@@ -12,6 +12,7 @@
   }
   
   @include e('show-add-button') {
+    cursor: pointer;
     color:#fff;
     float:right;
     font-size: 22px;
