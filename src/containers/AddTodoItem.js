@@ -25,6 +25,8 @@ class AddTodoItem extends Component {
     
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleInputKeyPress = this.handleInputKeyPress.bind(this);
+    this.dispatchTodoItemData = this.dispatchTodoItemData.bind(this);
+    this.handleWriteButton = this.handleWriteButton.bind(this);
   }
 
   handleInputChange(e) {
@@ -34,27 +36,32 @@ class AddTodoItem extends Component {
   }
 
   handleInputKeyPress(e) {
-    let timestamp = new Date().getTime();
-    
     if (e.key === 'Enter') {
+      // input값이 빈 값일 때 예외처리
       if (this.state.text === "") {
         return;
       }
-      database.ref('todoItems/' + this.props.currentUser.uid).push().set({
-        text: this.state.text,
-        state: false,
-        created: timestamp
-      })
-      // this.todoItemsRef.push().set({
-      //   text: this.state.text,
-      //   state: false
-      // });
+      this.dispatchTodoItemData();
+    } 
+  }
 
-      this.setState({
-        text: ''
-      })
-      this.props.toggleAddTodoItem();
-    }
+  handleWriteButton() {
+    this.dispatchTodoItemData();
+  }
+
+  dispatchTodoItemData() {
+    let timestamp = new Date().getTime();
+
+    database.ref('todoItems/' + this.props.currentUser.uid).push().set({
+      text: this.state.text,
+      state: false,
+      created: timestamp
+    })
+
+    this.setState({
+      text: ''
+    })
+    this.props.toggleAddTodoItem();
   }
 
   render() {
@@ -69,6 +76,7 @@ class AddTodoItem extends Component {
         {
           (state) => (
             <div
+              className="todo-app__add-todo-item-container"
               style={{
                 ...defaultStyle,
                 ...transitionStyles[state]
@@ -82,6 +90,12 @@ class AddTodoItem extends Component {
               onChange={ this.handleInputChange }
               onKeyPress={ this.handleInputKeyPress }
             />
+            <button
+              onClick={this.handleWriteButton}
+              className={`todo-app__write-button ${toggleAddTodoItemButton ? 'show' : ''}`}
+            >
+              <i className="far fa-edit"></i>
+            </button>
             </div>
           )
         }

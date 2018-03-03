@@ -1,21 +1,29 @@
 .add-todo-item {
   width: 100%;
-  padding:12px;
-}
-.example-enter {
-  opacity: 0.01;
+  padding: 12px 45px 12px 12px;
+  color: rgba(0,0,0,0.6);
 }
 
-.example-enter.example-enter-active {
-  opacity: 1;
-  transition: opacity 100ms ease-in;
-}
+.add-todo-item {
 
-.example-leave {
-  opacity: 1;
 }
-
-.example-leave.example-leave-active {
-  opacity: 0.01;
-  transition: opacity 300ms ease-in;
+.todo-app__add-todo-item-container {
+  position: relative;
+}
+.todo-app__write-button {
+  position: absolute;
+  color: #70D0D9;
+  font-size: 18px;
+  cursor: pointer;
+  top: 9px;
+  right: 5px;  
+}
+.add-todo-item:focus {
+  button {
+    opacity: 1;
+  }
+}
+.add-todo-item:focus::-webkit-input-placeholder { 
+  color:transparent;
+  transition: color .2s ease-in-out;
 }

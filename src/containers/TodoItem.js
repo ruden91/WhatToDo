@@ -20,10 +20,10 @@ class TodoItem extends Component {
           <i className="fas fa-check"></i>
         </button>
         <p onDoubleClick={ this.handleTodoItem }>{ item.text }</p>
-        <p>{ created }</p>
         <button onClick={() => removeTodoItem(index)} className="todo-item__remove-button">
           <i className="far fa-trash-alt"></i>
         </button>
+        <span>{ created }</span>        
       </li>
     )
   }
