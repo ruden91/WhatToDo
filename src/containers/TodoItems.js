@@ -30,6 +30,7 @@ class TodoItems extends Component {
     const { todoItems } = this.props;
     return (
       <ul className="todo-items">
+      {!todoItems && <p>할일 목록을 추가해주세요!</p>}
       {
         map(todoItems, (value, key) => (
           <TodoItem 
