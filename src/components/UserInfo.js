@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
-import { auth } from './firebase';
+import { auth } from 'database/firebase';
 
-import Logout from './Logout';
-import './UserInfo.css';
+import Logout from 'components/Logout';
 export default class UserInfo extends Component {
   render() {
     const { displayName, email, photoURL } = this.props.currentUser;
     return (
       <div className="user-info">
         <div className="user-info__right-side-content">
-          <button onClick={ () => auth.signOut() }>
-            Logout
-          </button>
+          <Logout />
         </div>
       </div>
     )

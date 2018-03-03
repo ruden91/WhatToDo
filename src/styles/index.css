@@ -53,27 +53,192 @@ li {
     border: 8px solid white;
     width: 100%;
     height: 100%; } }
+.todo-app-header {
+  height: 40px;
+  background-color: #70D0D9; }
+  .todo-app-header:after {
+    content: "";
+    display: table;
+    clear: both; }
+  .todo-app-header__toggle-side-menu {
+    float: left;
+    font-size: 22px;
+    padding-top: 8px;
+    padding-left: 10px;
+    color: #fff; }
+  .todo-app-header__show-add-button {
+    color: #fff;
+    float: right;
+    font-size: 22px;
+    padding-top: 8px;
+    padding-right: 10px; }
+
+.todo-app__sign-in-button {
+  position: relative;
+  width: 285px;
+  display: block;
+  border: none;
+  background: transparent;
+  outline: none;
+  margin-top: 12px;
+  padding: 10px;
+  color: #fff;
+  letter-spacing: -1px;
+  font-size: 13px; }
+
+.todo-app__sign-in-button span {
+  font-size: 14px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-top: 10px;
+  width: 40px;
+  height: 34px;
+  box-shadow: 1px 0px 0px rgba(255, 255, 255, 0.4); }
+
+.todo-app__sign-in-google {
+  background-color: #dd4b39; }
+
+.todo-app__sign-in-facebook {
+  background-color: #3b5998; }
+
+.todo-app__sign-in-github {
+  background-color: #444; }
+
+.todo-app__sign-in-button svg {
+  font-size: 16px; }
+
+.add-todo-item {
+  width: 100%;
+  padding: 12px; }
+
+.todo-app__login-input {
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+  padding: 12px;
+  width: 285px;
+  display: block;
+  border: none;
+  outline: none;
+  background: transparent;
+  border-bottom: 1px solid #fff; }
+
+.todo-app__login-input::-webkit-input-placeholder {
+  color: #fff; }
+
+.todo-app__logo-container {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 20px; }
+
+.todo-app__login-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+.todo-app__login-submit {
+  width: 285px;
+  display: block;
+  border: none;
+  background: transparent;
+  outline: none;
+  margin-top: 15px;
+  padding: 10px;
+  border: 1px solid #fff;
+  color: #fff;
+  letter-spacing: -1px;
+  font-size: 14px; }
+
+.todo-app__login-container {
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background-color: #70D0D9; }
+
+.todo-app__login-container label {
+  position: relative; }
+
+.todo-app__login-container label span {
+  color: #fff;
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  left: 0px; }
+
+.todo-items {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid #e6e6e6;
+  margin: 0;
+  padding: 0; }
+
+.todo-item {
+  display: table;
+  width: 100%;
+  padding: 10px;
+  position: relative;
+  font-size: 16px;
+  border-bottom: 1px solid #CBD4D6; }
+
+.todo-item > button {
+  display: table-cell;
+  vertical-align: middle;
+  cursor: pointer;
+  outline: none; }
+
+.todo-item > p {
+  display: table-cell;
+  margin: 0;
+  padding-left: 10px;
+  margin-left: 10px;
+  width: 390px;
+  padding-right: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
+.completed > p {
+  text-decoration: line-through; }
+
+.todo-item__update-button {
+  border: 1px solid #70D0D9;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%; }
+
+.todo-item__remove-button {
+  border: none;
+  outline: none;
+  background: transparent; }
+
+.todo-item__update-button > svg {
+  display: inline;
+  color: #fff;
+  opacity: 0;
+  position: relative;
+  left: -3px;
+  top: 2px;
+  transition: .2s opacity ease-in-out; }
+
+.completed > .todo-item__update-button {
+  background-color: #70D0D9; }
+
+.completed > .todo-item__update-button > svg {
+  opacity: 1; }
+
+.todo-item__remove-button {
+  padding-top: 4px; }
+
+.todo-item__remove-button > svg {
+  color: #c2255c; }
+
 .todo-app {
   position: relative;
   height: 100vh; }
-
-.app-header {
-  height: 40px;
-  background-color: #70D0D9; }
-
-.todo-app__show-add-button {
-  color: #fff;
-  float: right;
-  font-size: 22px;
-  padding-top: 8px;
-  padding-right: 10px; }
-
-.todo-app__toggle-side-menu {
-  float: left;
-  font-size: 22px;
-  padding-top: 8px;
-  padding-left: 10px;
-  color: #fff; }
 
 .todo-app__content {
   max-width: 640px;

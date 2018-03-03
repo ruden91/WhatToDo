@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { database } from './firebase';
+import { database } from 'database/firebase';
 import { map } from 'lodash';
 
-import TodoItem from './TodoItem';
+import TodoItem from 'containers/TodoItem';
 class TodoItems extends Component {
   constructor(props) {
     super(props);
