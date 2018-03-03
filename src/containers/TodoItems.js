@@ -3,10 +3,14 @@ import { database } from 'database/firebase';
 import { map } from 'lodash';
 
 import TodoItem from 'containers/TodoItem';
+import moment from 'moment';
+import 'moment/locale/ko';
 class TodoItems extends Component {
   constructor(props) {
     super(props);
 
+    moment.locale('ko');
+    
     this.removeTodoItem = this.removeTodoItem.bind(this);
     this.updateTodoItem = this.updateTodoItem.bind(this);
   }
@@ -26,6 +30,10 @@ class TodoItems extends Component {
     });
   }
 
+  getCreatedDate(value) {
+    return moment(value).fromNow();
+  }
+
   render() {
     const { todoItems } = this.props;
     return (
@@ -37,6 +45,7 @@ class TodoItems extends Component {
             key={ key }
             index={ key }
             item={ value }
+            created={ this.getCreatedDate(value.created) }
             removeTodoItem={ this.removeTodoItem } 
             updateTodoItem={ this.updateTodoItem }
           />
