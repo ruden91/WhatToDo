@@ -14,7 +14,7 @@ class App extends Component {
       currentUser: null,
       loading: true,
       toggleAddTodoItemButton: false,
-      headerTitle: 'List of Todos'
+      settings: null
     }   
 
     this.toggleAddTodoItem = this.toggleAddTodoItem.bind(this);
@@ -31,6 +31,14 @@ class App extends Component {
     // fetch userData and user todoItems
     auth.onAuthStateChanged(currentUser => {
       if (currentUser) {
+        // user defaultSettings
+        database.ref('settings/' + currentUser.uid).on('value', (snap) => {
+          this.setState({
+            settings:snap.val()
+          })
+        })
+
+        // user todoItems
         database.ref('todoItems/' + currentUser.uid).on('value', (snap) => {
           this.setState({
             todoItems: snap.val(),
@@ -48,14 +56,14 @@ class App extends Component {
   }
 
   render() {
-    const { todoItems, currentUser, loading } = this.state;
+    const { todoItems, currentUser, loading, settings } = this.state;
     
     return (
       <div className="todo-app">
         {
           loading
           ?
-          <MainLoading />
+          <MainLoading settings={ settings }/>
           :
           <Switch>
             <Route exact path="/" render={(props) => (

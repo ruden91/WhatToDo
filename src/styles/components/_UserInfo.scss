@@ -21,3 +21,18 @@
     object-fit: cover;
   }
 }
+.todo-app__user-setting-button {
+  cursor: pointer;
+  margin: 0 auto;
+  margin-bottom:10px;
+  text-align: center;
+  display: block;
+  color: #fff;
+
+  svg {
+    margin-right: 5px;
+    position: relative;
+    font-size: 20px;
+    top: 2px;    
+  }
+}

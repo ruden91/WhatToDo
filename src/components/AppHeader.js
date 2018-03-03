@@ -6,10 +6,13 @@ export default class AppHeader extends Component {
   }
 
   render() {
+    const style = {
+      backgroundColor: this.props.settings ? this.props.settings.backgroundColor : ""
+    }
     const { toggleAddTodoItem, toggleAddTodoItemButton } = this.props;
 
     return (
-      <header className="todo-app-header">
+      <header className="todo-app-header" style={style}>
         <span className="todo-app-header__header-logo">
           <i className="fab fa-codepen"></i>
         </span>

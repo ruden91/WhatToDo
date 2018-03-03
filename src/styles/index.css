@@ -56,7 +56,8 @@ li {
 .todo-app-header {
   position: relative;
   height: 50px;
-  background-color: #70D0D9; }
+  background-color: #70D0D9;
+  transition: all .5s ease-in-out; }
   .todo-app-header:after {
     content: "";
     display: table;
@@ -184,11 +185,13 @@ li {
 .bm-menu {
   background: #70D0D9;
   padding: 2.5em 1.5em 0;
-  font-size: 1.15em; }
+  font-size: 1.15em;
+  transition: all .5s ease-in-out; }
 
 /* Morph shape necessary with bubble or elastic */
 .bm-morph-shape {
-  fill: #70D0D9; }
+  fill: #70D0D9;
+  transition: all .5s ease-in-out; }
 
 /* Wrapper for item list */
 .bm-item-list {
@@ -217,6 +220,19 @@ li {
     display: block;
     width: 100%;
     object-fit: cover; }
+
+.todo-app__user-setting-button {
+  cursor: pointer;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  text-align: center;
+  display: block;
+  color: #fff; }
+  .todo-app__user-setting-button svg {
+    margin-right: 5px;
+    position: relative;
+    font-size: 20px;
+    top: 2px; }
 
 .add-todo-item {
   width: 100%;
@@ -310,9 +326,11 @@ li {
   padding: 13px 10px;
   font-size: 12px;
   position: relative;
-  border-bottom: 1px solid #CBD4D6; }
+  border-bottom: 1px solid #CBD4D6;
+  width: 100%; }
   .todo-item p {
     position: relative;
+    width: 30ch;
     padding-left: 10px;
     display: inline-block;
     overflow: hidden;
@@ -320,7 +338,7 @@ li {
     white-space: nowrap;
     color: #444;
     transition: color .2s ease-in-out; }
-    @media screen and (max-width: 399px) {
+    @media screen and (max-width: 499px) {
       .todo-item p {
         width: 70%; } }
     @media screen and (min-width: 787px) {
