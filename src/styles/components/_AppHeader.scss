@@ -1,6 +1,7 @@
 .todo-app-header {
+  position: relative;
   @include clearfix;
-  height: 40px;
+  height: 50px;
   background-color: #70D0D9;
 
   @include e('toggle-side-menu') {
@@ -12,11 +13,58 @@
   }
   
   @include e('show-add-button') {
+    margin-top: 2px;
     cursor: pointer;
     color:#fff;
     float:right;
-    font-size: 22px;
-    padding-top: 8px;
-    padding-right: 10px;
+    width: 50px;
+    height: 50px;
+    span {
+      position: relative;
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #fff;
+      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      transform: rotate(-45deg);
+      &.open {
+        transform: rotate(0);
+      }
+      &:before {
+        display: block;
+        position: absolute;
+        z-index: 1;
+        width:1px;
+        top: 50%;
+        left: 50%;        
+        transform: translate(-50%, -50%) rotate(45deg);
+        height: 35%;
+        content: "";   
+        background-color: #70D0D9;   
+      }
+      &:after {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+        z-index: 1;
+        width:1px;
+        height: 35%;
+        content: "";   
+        background-color: #70D0D9;   
+      }      
+    }
+  }
+  @include e('header-logo') {
+    position: absolute;
+    font-size: 35px;
+    top: 3px;    
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-block;
+    line-height: 50px;
+    color: #fff;
   }
 }

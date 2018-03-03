@@ -6,15 +6,19 @@ export default class AppHeader extends Component {
   }
 
   render() {
-    const { toggleAddTodoItem } = this.props;
+    const { toggleAddTodoItem, toggleAddTodoItemButton } = this.props;
 
     return (
       <header className="todo-app-header">
+        <span className="todo-app-header__header-logo">
+          <i className="fab fa-codepen"></i>
+        </span>
         <button 
           className="todo-app-header__show-add-button"
           onClick={ () => toggleAddTodoItem() }
         >
-          <i className="fas fa-plus-circle"></i>
+          <span className={toggleAddTodoItemButton ? 'open' : 'close'}>
+          </span>
         </button>
       </header>
     )
