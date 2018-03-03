@@ -67,6 +67,7 @@ li {
     padding-left: 10px;
     color: #fff; }
   .todo-app-header__show-add-button {
+    cursor: pointer;
     color: #fff;
     float: right;
     font-size: 22px;
@@ -175,6 +176,20 @@ li {
 .add-todo-item {
   width: 100%;
   padding: 12px; }
+
+.example-enter {
+  opacity: 0.01; }
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in; }
+
+.example-leave {
+  opacity: 1; }
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in; }
 
 .todo-app__login-input {
   color: #fff;

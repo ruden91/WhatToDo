@@ -12,8 +12,18 @@ class App extends Component {
     this.state = {
       todoItems: null,
       currentUser: null,
-      loading: true
+      loading: true,
+      toggleAddTodoItemButton: false
     }   
+
+    this.toggleAddTodoItem = this.toggleAddTodoItem.bind(this);
+  }
+
+  toggleAddTodoItem() {
+    
+    this.setState({
+      toggleAddTodoItemButton: !this.state.toggleAddTodoItemButton
+    })
   }
 
   componentDidMount() {
@@ -51,7 +61,7 @@ class App extends Component {
               currentUser ? <Redirect to="/main"/> : <Main />
             )} />
             <Route exact path="/main" render={(props) => (
-              !currentUser ? <Main /> : <BoardMain { ...this.state } />
+              !currentUser ? <Main /> : <BoardMain { ...this.state } toggleAddTodoItem={ this.toggleAddTodoItem } />
             )} />
             <Route render={(props) => (
               currentUser ? <Redirect to="/main"/> : <Redirect to="/"/>

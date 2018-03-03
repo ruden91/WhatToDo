@@ -6,9 +6,10 @@ import { elastic as Menu } from 'react-burger-menu';
 
 import UserInfo from 'components/UserInfo';
 import ChatButton from 'containers/ChatButton';
+
 export default class BoardMain extends Component {
   render() {
-    const { todoItems, currentUser } = this.props;  
+    const { todoItems, currentUser, toggleAddTodoItem, toggleAddTodoItemButton } = this.props;  
     return (
       <div id="outer-container"> 
         <Menu 
@@ -19,9 +20,14 @@ export default class BoardMain extends Component {
           { currentUser && <UserInfo currentUser={ currentUser } /> }
         </Menu>
         <div id="page-wrap">
-          <AppHeader currentUser={ currentUser }/>
+          <AppHeader toggleAddTodoItem={ toggleAddTodoItem } />
           <div className="todo-app__content">
-            <TodoBoard todoItems={ todoItems } currentUser={ currentUser } />
+            <TodoBoard 
+              todoItems={ todoItems } 
+              currentUser={ currentUser } 
+              toggleAddTodoItemButton={ toggleAddTodoItemButton } 
+              toggleAddTodoItem={ toggleAddTodoItem }
+            />
             <ChatButton />
           </div>          
         </div>
