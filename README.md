@@ -1,6 +1,6 @@
-# Project Title
+# Realtime Todo Application
 
-Realtime Todo Application
+실시간 일정관리 애플리케이션입니다.
 
 ## Authors
 
