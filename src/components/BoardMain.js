@@ -13,8 +13,7 @@ export default class BoardMain extends Component {
         <Menu 
           pageWrapId={ "page-wrap" } 
           outerContainerId={ "outer-container" } 
-          width={ 240 } 
-          disableOverlayClick 
+          width={ 280 } 
         >
           { currentUser && <UserInfo currentUser={ currentUser } /> }
         </Menu>
