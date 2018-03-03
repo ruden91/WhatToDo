@@ -9,7 +9,7 @@ export default class Main extends Component {
           <div className="todo-app__logo-container">
             <i className="fab fa-codepen fa-8x"></i>
           </div>
-          <label htmlFor="username">
+          {/*<label htmlFor="username">
             <span><i className="far fa-user"></i></span>
             <input 
               type="email" 
@@ -31,7 +31,7 @@ export default class Main extends Component {
           </label>        
           <button type="submit" className="todo-app__login-submit">
             Sign In
-          </button>
+          </button>*/}
           <Login />
         </div>
       </div>

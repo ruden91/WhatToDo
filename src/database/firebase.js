@@ -1,10 +1,11 @@
 import firebase from 'firebase';
+import firebaseui from 'firebaseui';
+
 import DB_CONFIG from './config';
 
 firebase.initializeApp(DB_CONFIG);
 
 export default firebase;
-
 export const database = firebase.database();
 export const auth = firebase.auth();
 export const GithubAuthProvider = new firebase.auth.GithubAuthProvider();
