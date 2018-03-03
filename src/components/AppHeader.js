@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // import Login from './Login';
-// import UserInfo from './UserInfo';
+import UserInfo from 'components/UserInfo';
 
 export default class AppHeader extends Component {
   constructor(props) {
@@ -9,18 +9,18 @@ export default class AppHeader extends Component {
   }
 
   render() {
+    const { currentUser } = this.props;
+
     return (
-      <div>
-        app header
-      </div>
+      <header className="todo-app-header">
+        <button className="todo-app-header__toggle-side-menu">
+          <i className="fas fa-bars"></i>
+        </button>
+        { currentUser && <UserInfo currentUser={ currentUser } /> }
+        <button className="todo-app-header__show-add-button">
+          <i className="fas fa-plus-circle"></i>
+        </button>
+      </header>
     )
-    // const { currentUser } = this.props;
-    // return (
-    //   <header className="app-header">
-    //     <button className="todo-app__toggle-side-menu"><i className="fas fa-bars"></i></button>
-    //     { currentUser && <UserInfo currentUser={ currentUser } /> }
-    //     <button className="todo-app__show-add-button"><i className="fas fa-plus-circle"></i></button>
-    //   </header>
-    // )
   }
 }

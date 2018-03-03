@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { database, auth } from './firebase';
+import { database, auth } from 'database/firebase';
 
-import './AddTodoItem.css';
 class AddTodoItem extends Component {
   constructor(props) {
     super(props);
