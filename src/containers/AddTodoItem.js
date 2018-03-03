@@ -34,13 +34,16 @@ class AddTodoItem extends Component {
   }
 
   handleInputKeyPress(e) {
+    let timestamp = new Date().getTime();
+    
     if (e.key === 'Enter') {
       if (this.state.text === "") {
         return;
       }
       database.ref('todoItems/' + this.props.currentUser.uid).push().set({
         text: this.state.text,
-        state: false
+        state: false,
+        created: timestamp
       })
       // this.todoItemsRef.push().set({
       //   text: this.state.text,
@@ -61,7 +64,7 @@ class AddTodoItem extends Component {
       <div>
         <Transition
           in={ toggleAddTodoItemButton } 
-          timeout={500}
+          timeout={100}
         > 
         {
           (state) => (

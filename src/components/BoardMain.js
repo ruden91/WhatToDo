@@ -9,7 +9,7 @@ import ChatButton from 'containers/ChatButton';
 
 export default class BoardMain extends Component {
   render() {
-    const { todoItems, currentUser, toggleAddTodoItem, toggleAddTodoItemButton } = this.props;  
+    const { todoItems, currentUser, toggleAddTodoItem, toggleAddTodoItemButton, headerTitle } = this.props;  
     return (
       <div id="outer-container"> 
         <Menu 
@@ -20,7 +20,7 @@ export default class BoardMain extends Component {
           { currentUser && <UserInfo currentUser={ currentUser } /> }
         </Menu>
         <div id="page-wrap">
-          <AppHeader toggleAddTodoItem={ toggleAddTodoItem } />
+          <AppHeader toggleAddTodoItem={ toggleAddTodoItem } toggleAddTodoItemButton={toggleAddTodoItemButton} />
           <div className="todo-app__content">
             <TodoBoard 
               todoItems={ todoItems } 

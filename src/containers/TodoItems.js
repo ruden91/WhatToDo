@@ -40,7 +40,7 @@ class TodoItems extends Component {
             removeTodoItem={ this.removeTodoItem } 
             updateTodoItem={ this.updateTodoItem }
           />
-        ))
+        )).reverse()
       }
       </ul>
     )

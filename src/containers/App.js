@@ -13,7 +13,8 @@ class App extends Component {
       todoItems: null,
       currentUser: null,
       loading: true,
-      toggleAddTodoItemButton: false
+      toggleAddTodoItemButton: false,
+      headerTitle: 'List of Todos'
     }   
 
     this.toggleAddTodoItem = this.toggleAddTodoItem.bind(this);
