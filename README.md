@@ -1,1 +1,7 @@
-배포서버 https://todoapp-131c9.firebaseapp.com/
+# Project Title
+
+Realtime Todo Application
+
+## Authors
+
+* **박경두** - *Initial work* - [ruden91](https://github.com/ruden91)
