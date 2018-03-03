@@ -83,6 +83,8 @@ li {
       background-color: #fff;
       transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
       transform: rotate(-135deg); }
+      .todo-app-header__show-add-button span:hover {
+        background-color: rgba(255, 255, 255, 0.8); }
       .todo-app-header__show-add-button span.open {
         transform: rotate(0); }
       .todo-app-header__show-add-button span:before {
@@ -158,7 +160,7 @@ li {
 
 /* Position and sizing of burger button */
 .bm-burger-button {
-  position: fixed;
+  position: absolute;
   width: 20px;
   height: 18px;
   left: 15px;
@@ -218,21 +220,26 @@ li {
 
 .add-todo-item {
   width: 100%;
-  padding: 12px; }
+  padding: 12px 45px 12px 12px;
+  color: rgba(0, 0, 0, 0.6); }
 
-.example-enter {
-  opacity: 0.01; }
+.todo-app__add-todo-item-container {
+  position: relative; }
 
-.example-enter.example-enter-active {
-  opacity: 1;
-  transition: opacity 100ms ease-in; }
+.todo-app__write-button {
+  position: absolute;
+  color: #70D0D9;
+  font-size: 18px;
+  cursor: pointer;
+  top: 9px;
+  right: 5px; }
 
-.example-leave {
+.add-todo-item:focus button {
   opacity: 1; }
 
-.example-leave.example-leave-active {
-  opacity: 0.01;
-  transition: opacity 300ms ease-in; }
+.add-todo-item:focus::-webkit-input-placeholder {
+  color: transparent;
+  transition: color .2s ease-in-out; }
 
 .todo-app__login-input {
   color: #fff;
@@ -300,49 +307,54 @@ li {
   background-color: #F7FCFC; }
 
 .todo-item {
-  display: table;
-  width: 100%;
-  padding: 10px;
+  padding: 13px 10px;
+  font-size: 12px;
   position: relative;
-  font-size: 16px;
   border-bottom: 1px solid #CBD4D6; }
-
-.todo-item > button {
-  display: table-cell;
-  vertical-align: middle;
-  cursor: pointer;
-  outline: none; }
-
-.todo-item > p {
-  display: table-cell;
-  margin: 0;
-  padding-left: 10px;
-  margin-left: 10px;
-  width: 390px;
-  padding-right: 10px; }
+  .todo-item p {
+    position: relative;
+    padding-left: 10px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #444;
+    transition: color .2s ease-in-out; }
+    @media screen and (max-width: 399px) {
+      .todo-item p {
+        width: 70%; } }
+    @media screen and (min-width: 787px) {
+      .todo-item p {
+        width: 85%; } }
+  .todo-item span {
+    float: right;
+    line-height: 22px;
+    color: #777;
+    font-size: 11px; }
+  .todo-item button {
+    display: inline-block;
+    cursor: pointer; }
+  .todo-item__update-button {
+    position: relative;
+    border: 1px solid #70D0D9;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%; }
+    .todo-item__update-button svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: inline;
+      color: #fff;
+      opacity: 0;
+      transition: .2s opacity ease-in-out; }
+  .todo-item__remove-button {
+    float: right; }
 
 .completed > p {
-  text-decoration: line-through; }
-
-.todo-item__update-button {
-  border: 1px solid #70D0D9;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%; }
-
-.todo-item__remove-button {
-  border: none;
-  outline: none;
-  background: transparent; }
-
-.todo-item__update-button > svg {
-  display: inline;
-  color: #fff;
-  opacity: 0;
-  position: relative;
-  left: -3px;
-  top: 2px;
-  transition: .2s opacity ease-in-out; }
+  text-decoration: line-through;
+  color: rgba(0, 0, 0, 0.2); }
 
 .completed > .todo-item__update-button {
   background-color: #70D0D9; }
@@ -362,8 +374,8 @@ li {
   position: fixed;
   bottom: 15px;
   right: 15px;
-  width: 45px;
-  height: 45px;
+  width: 55px;
+  height: 55px;
   margin: 0;
   padding: 0;
   background-color: #70D0D9;
