@@ -1,0 +1,23 @@
+.user-info {
+  position: relative;
+  left: 10px;
+  top: 15px;
+  width: 200px;
+  text-align: center;
+  @include e('image-wrapper') {
+    margin: 0 auto;
+    display: block;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+  }
+  @include e('name') {
+    margin: 10px 0;
+  }
+  img {
+    display: block;
+    width:100%;
+    object-fit: cover;
+  }
+}

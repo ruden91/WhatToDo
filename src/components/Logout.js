@@ -9,14 +9,14 @@ export default class Logout extends Component {
 
   render() {
     return (
-      <button onClick={ () => {
+      <button className="todo-app__logout-button" onClick={ () => {
         let history = new createBrowserHistory();
         
         history.push('/');
         history.go('/');
         auth.signOut();
       } }>
-        Logout
+        로그아웃
       </button>
     )
   }

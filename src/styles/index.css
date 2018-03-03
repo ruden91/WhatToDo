@@ -108,6 +108,10 @@ li {
 .todo-app__sign-in-button svg {
   font-size: 16px; }
 
+.todo-app__logout-button {
+  cursor: pointer;
+  color: #fff; }
+
 /* Position and sizing of burger button */
 .bm-burger-button {
   position: fixed;
@@ -142,12 +146,31 @@ li {
 
 /* Wrapper for item list */
 .bm-item-list {
-  color: #b8b7ad;
-  padding: 0.8em; }
+  color: #fff; }
 
 /* Styling of overlay */
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3); }
+
+.user-info {
+  position: relative;
+  left: 10px;
+  top: 15px;
+  width: 200px;
+  text-align: center; }
+  .user-info__image-wrapper {
+    margin: 0 auto;
+    display: block;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    overflow: hidden; }
+  .user-info__name {
+    margin: 10px 0; }
+  .user-info img {
+    display: block;
+    width: 100%;
+    object-fit: cover; }
 
 .add-todo-item {
   width: 100%;

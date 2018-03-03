@@ -20,6 +20,6 @@
     "build": "NODE_PATH=src/ react-scripts build",
     "test": "NODE_PATH=src/ react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "NODE_PATH=src/ react-scripts build firebase deploy"
+    "deploy": "NODE_PATH=src/ npm run build | firebase deploy"
   }
 }
