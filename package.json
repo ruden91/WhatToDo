@@ -19,6 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "react-scripts build firebase deploy"
+    "deploy": "react-scripts build firebase deploy",
+    "sass" : "sass --watch src/styles/index.scss:src/styles/index.css"
   }
 }
