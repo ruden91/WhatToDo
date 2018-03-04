@@ -31,9 +31,9 @@
   }
   span {
     float: right;
-    line-height: 22px;
+    line-height: 25px;
     color: #777;
-    font-size: 11px;    
+    font-size: 10px;    
   }
   button {
     display: inline-block;
@@ -58,8 +58,16 @@
       transition: .2s opacity ease-in-out;      
     }
   }
-  @include e('remove-button') {
+  @include e('revise-button') {
+    width: 20px;
+    height: 20px;
     float: right;
+    color: #777;
+    font-size: 18px;
+    margin-left:5px;
+    padding: 0;
+    padding-top: 1px;    
+
   }
 }
 .completed > p {
@@ -79,4 +87,81 @@
 }
 .todo-item__remove-button > svg {
   color: #c2255c;
+}
+
+.todo-app__revise-modal-container {
+  padding:10px;
+  min-height: 150px;
+  min-width: 260px;  
+  color: #777;
+  header {
+    margin-bottom: 10px;
+    span {
+      font-size: 22px;
+    }
+  }
+  > div {
+    button {
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      color: #fff;        
+    }
+  }
+  form {
+    label {
+
+    }
+  
+    textarea {
+      margin-top: 5px;
+      display: block;
+      width: 100%;
+      resize: none;
+      border: 1px solid #ddd;
+      padding: 5px;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+.todo-app__revise-modal-close-button {
+  top: 3px;
+  cursor: pointer;
+  position: relative;
+  float: right;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  &:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 2px;
+    height: 100%;
+    content: "";
+    display: block;
+    background-color: #777;
+  }
+  &:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    width: 2px;
+    height: 100%;
+    content: "";
+    display: block;
+    background-color: #777;    
+  }
+}
+.todo-app__remove-todo-item {
+  background-color: #c2255c;
+}
+.todo-app__revise-todo-item {
+  background-color:rgb(0, 150, 136);
 }

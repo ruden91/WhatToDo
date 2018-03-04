@@ -32,8 +32,9 @@
     z-index: 11;
     background-color: #fff;
     border-top-left-radius: 10px;
-    transition: all .5s ease-in-out;
+    transition: all .4s ease-in-out;
     transform: translateY(100%);
+    opacity: 0;
     header {
       height: 35px;
       background-color: #70D0D9;
@@ -141,12 +142,12 @@
     }
     &.chat-button-open {
         transform: translateY(0);
+        opacity: 1;
     }    
   }
   @include e('chat-content') {
     height: 378px;
     overflow-y: auto;
-    padding-top: 10px;
     padding-left: 10px;
     padding-bottom: 5px;
     padding-right: 10px;    
