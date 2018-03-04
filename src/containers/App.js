@@ -6,6 +6,7 @@ import MainLoading from 'components/MainLoading';
 import BoardMain from 'components/BoardMain';
 import Main from 'containers/Main';
 import { map, omit } from 'lodash';
+import $ from 'jquery';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -35,6 +36,8 @@ class App extends Component {
       if (currentUser) {
         // user defaultSettings
         database.ref('settings/' + currentUser.uid).on('value', (snap) => {
+          $('meta[name=theme-color]').attr('content', snap.val().backgroundColor);
+          
           this.setState({
             settings:snap.val()
           })
