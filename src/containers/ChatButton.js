@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import Chat from 'containers/Chat';
 class ChatButton extends Component {
   constructor(props) {
     super(props);
@@ -25,6 +26,7 @@ class ChatButton extends Component {
   }
 
   render() {
+    const { currentUser, messages } = this.props;
     const style = {
       backgroundColor: this.props.settings ? this.props.settings.backgroundColor : ""
     }
@@ -42,11 +44,11 @@ class ChatButton extends Component {
           className={`todo-app__chat-container ${chatClass}`}
         >
           <header>
-            <p>chat application</p>
+            <p>test</p>
             <button onClick={ this.closeChatContainer }>close</button>
           </header>
           <div>
-            chat content
+            <Chat currentUser={ currentUser } messages={ messages }/>
           </div>
         </div>
       </div>

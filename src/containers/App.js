@@ -14,7 +14,8 @@ class App extends Component {
       currentUser: null,
       loading: true,
       toggleAddTodoItemButton: false,
-      settings: null
+      settings: null,
+      messages: null
     }   
 
     this.toggleAddTodoItem = this.toggleAddTodoItem.bind(this);
@@ -29,7 +30,7 @@ class App extends Component {
 
   componentDidMount() {
     // fetch userData and user todoItems
-    auth.onAuthStateChanged(currentUser => {
+    auth.onAuthStateChanged(currentUser => {  
       if (currentUser) {
         // user defaultSettings
         database.ref('settings/' + currentUser.uid).on('value', (snap) => {
@@ -38,8 +39,16 @@ class App extends Component {
           })
         })
 
+        // messages data
+        database.ref('messages').on('value', (snap) => {
+          this.setState({
+            messages: snap.val()
+          })
+        })
+
         // user todoItems
         database.ref('todoItems/' + currentUser.uid).on('value', (snap) => {
+          console.log(snap.val())
           this.setState({
             todoItems: snap.val(),
             loading: false,

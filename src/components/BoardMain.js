@@ -9,7 +9,14 @@ import ChatButton from 'containers/ChatButton';
 
 export default class BoardMain extends Component {
   render() {
-    const { todoItems, currentUser, toggleAddTodoItem, toggleAddTodoItemButton, settings } = this.props;  
+    const { 
+      todoItems, 
+      currentUser, 
+      toggleAddTodoItem, 
+      toggleAddTodoItemButton, 
+      settings,
+      messages
+    } = this.props;  
     const styles = {
       bmMenu: {
         backgroundColor: this.props.settings ? this.props.settings.backgroundColor : ''
@@ -42,7 +49,9 @@ export default class BoardMain extends Component {
               toggleAddTodoItem={ toggleAddTodoItem }
               settings= { settings }
             />
-            <ChatButton 
+            <ChatButton
+              currentUser={ currentUser }
+              messages={ messages }
               settings={ settings }
             />
           </div>          
