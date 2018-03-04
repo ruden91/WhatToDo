@@ -84,11 +84,9 @@ li {
       background-color: #fff;
       transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
       transform: rotate(-135deg); }
-      .todo-app-header__show-add-button span:hover {
-        background-color: rgba(255, 255, 255, 0.8); }
       .todo-app-header__show-add-button span.open {
         transform: rotate(0); }
-      .todo-app-header__show-add-button span:before {
+      .todo-app-header__show-add-button span span:nth-of-type(1) {
         display: block;
         position: absolute;
         z-index: 1;
@@ -99,7 +97,7 @@ li {
         height: 35%;
         content: "";
         background-color: #70D0D9; }
-      .todo-app-header__show-add-button span:after {
+      .todo-app-header__show-add-button span span:nth-of-type(2) {
         display: block;
         position: absolute;
         top: 50%;
@@ -108,7 +106,6 @@ li {
         z-index: 1;
         width: 1px;
         height: 35%;
-        content: "";
         background-color: #70D0D9; }
   .todo-app-header__header-logo {
     position: absolute;

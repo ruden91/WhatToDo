@@ -9,14 +9,23 @@ class TodoBoard extends Component {
   }
 
   render() {
-    const { todoItems, currentUser, toggleAddTodoItemButton, toggleAddTodoItem } = this.props;
+    const { todoItems, currentUser, toggleAddTodoItemButton, toggleAddTodoItem, settings } = this.props;
     
     return (
       <section className="todo-app-board">
         <header>
-          <AddTodoItem currentUser={ currentUser } toggleAddTodoItemButton={ toggleAddTodoItemButton } toggleAddTodoItem={ toggleAddTodoItem } />
+          <AddTodoItem 
+            currentUser={ currentUser } 
+            toggleAddTodoItemButton={ toggleAddTodoItemButton } 
+            toggleAddTodoItem={ toggleAddTodoItem }
+            settings={ settings } 
+          />
         </header>
-        <TodoItems todoItems={ todoItems } currentUser={ currentUser } />
+        <TodoItems 
+          todoItems={ todoItems } 
+          currentUser={ currentUser }
+          settings={ settings } 
+        />
       </section>
     )
   }

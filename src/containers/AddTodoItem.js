@@ -67,6 +67,9 @@ class AddTodoItem extends Component {
   render() {
     const { text } = this.state;
     const { toggleAddTodoItemButton } = this.props;
+    const style = {
+      color: this.props.settings ? this.props.settings.backgroundColor : ""
+    }    
     return (
       <div>
         <Transition
@@ -93,6 +96,7 @@ class AddTodoItem extends Component {
             <button
               onClick={this.handleWriteButton}
               className={`todo-app__write-button ${toggleAddTodoItemButton ? 'show' : ''}`}
+              style={ style }
             >
               <i className="far fa-edit"></i>
             </button>

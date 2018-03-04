@@ -35,7 +35,7 @@ class TodoItems extends Component {
   }
 
   render() {
-    const { todoItems } = this.props;
+    const { todoItems, settings } = this.props;
     return (
       <ul className="todo-items">
       {!todoItems && <p>할일 목록을 추가해주세요!</p>}
@@ -48,6 +48,7 @@ class TodoItems extends Component {
             created={ this.getCreatedDate(value.created) }
             removeTodoItem={ this.removeTodoItem } 
             updateTodoItem={ this.updateTodoItem }
+            settings= { settings }
           />
         )).reverse()
       }
