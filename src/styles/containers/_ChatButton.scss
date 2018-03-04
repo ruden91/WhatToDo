@@ -12,7 +12,13 @@
     background-color: #70D0D9;
     border-radius: 50%;
     color: #fff;
-    font-size: 22px;        
+    font-size: 22px;
+    box-shadow: 0 0 0 rgba(0,0,0,.3);
+    animation: pulse 1.5s infinite;
+
+    &:hover {
+      animation: none;
+    }            
   }
   @include e('chat-container') {
     position: fixed;
@@ -30,7 +36,7 @@
     transform: translateY(100%);
     header {
       height: 35px;
-      background-color: rgb(225, 190, 231);
+      background-color: #70D0D9;
       color: #fff;
       padding: 10px;
       button {
@@ -125,7 +131,7 @@
         font-size: 12px;
       }
       button {
-        color: rgb(225, 190, 231);
+        color: #70D0D9;
         position: absolute;
         bottom: 3px;
         font-size: 20px;
@@ -145,4 +151,16 @@
     padding-bottom: 5px;
     padding-right: 10px;    
   }
+
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(0,0,0,.2);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+    }
+  }  
 }
