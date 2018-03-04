@@ -235,6 +235,11 @@ li {
     font-size: 20px;
     top: 2px; }
 
+.swatches-picker {
+  position: relative;
+  left: -7px;
+  margin-top: 15px; }
+
 .add-todo-item {
   width: 100%;
   padding: 12px 45px 12px 12px;
@@ -417,9 +422,37 @@ li {
   transform: translateY(100%); }
   .todo-app__chat-container header {
     height: 35px;
-    background-color: #e1bee7; }
+    background-color: #e1bee7;
+    color: #fff;
+    padding: 10px; }
     .todo-app__chat-container header button {
+      cursor: pointer;
+      position: relative;
+      float: right;
+      display: inline-block;
+      width: 16px;
+      height: 16px;
       color: #fff; }
+      .todo-app__chat-container header button:before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        width: 2px;
+        height: 100%;
+        content: "";
+        display: block;
+        background-color: #fff; }
+      .todo-app__chat-container header button:after {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+        width: 2px;
+        height: 100%;
+        content: "";
+        display: block;
+        background-color: #fff; }
   .todo-app__chat-container ul li {
     margin: 10px 0;
     font-size: 12px; }

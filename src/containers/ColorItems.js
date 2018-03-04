@@ -23,6 +23,7 @@ class ColorItems extends Component {
       <SwatchesPicker 
         color={ this.state.background }
         onChangeComplete={ this.handleChangeComplete }
+        width="225px"
       />
     )
   }
