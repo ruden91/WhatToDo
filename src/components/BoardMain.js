@@ -42,7 +42,9 @@ export default class BoardMain extends Component {
               toggleAddTodoItem={ toggleAddTodoItem }
               settings= { settings }
             />
-            <ChatButton />
+            <ChatButton 
+              settings={ settings }
+            />
           </div>          
         </div>
       </div>

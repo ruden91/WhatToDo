@@ -11,12 +11,20 @@ class TodoItem extends Component {
   }
 
   render() {
-    const { index, item, removeTodoItem, updateTodoItem, created } = this.props;
+    const { index, item, removeTodoItem, updateTodoItem, created, settings } = this.props;
     const completed = item.state ? 'completed' : "";
-
+    const backgroundColor = item.state ? this.props.settings ? this.props.settings.backgroundColor : "" : ""
+    const style = {
+      borderColor: this.props.settings ? this.props.settings.backgroundColor : "",
+      backgroundColor
+    }    
     return (
       <li className={`todo-item ${completed}`} >
-        <button onClick={ () => updateTodoItem(index, item.state) } className="todo-item__update-button">
+        <button 
+          onClick={ () => updateTodoItem(index, item.state) } 
+          className="todo-item__update-button"
+          style={ style }
+        >
           <i className="fas fa-check"></i>
         </button>
         <p onDoubleClick={ this.handleTodoItem }>{ item.text }</p>

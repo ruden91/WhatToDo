@@ -12,10 +12,15 @@ class ChatButton extends Component {
   }
 
   render() {
+    const style = {
+      backgroundColor: this.props.settings ? this.props.settings.backgroundColor : ""
+    }
+
     return (
       <button 
         className="todo-app__chat-button"
         onClick={this.handleChatButton}
+        style={ style }
       >
         <i className="far fa-comment-alt"></i>
       </button>

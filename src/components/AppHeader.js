@@ -9,6 +9,11 @@ export default class AppHeader extends Component {
     const style = {
       backgroundColor: this.props.settings ? this.props.settings.backgroundColor : ""
     }
+
+    const writeButtonStyle = {
+      '&::before': this.props.settings ? this.props.settings.backgroundColor : "",
+      '&::after': this.props.settings ? this.props.settings.backgroundColor : ""
+    }
     const { toggleAddTodoItem, toggleAddTodoItemButton } = this.props;
 
     return (
@@ -21,6 +26,8 @@ export default class AppHeader extends Component {
           onClick={ () => toggleAddTodoItem() }
         >
           <span className={toggleAddTodoItemButton ? 'open' : 'close'}>
+            <span style={ style }></span>
+            <span style={ style }></span>
           </span>
         </button>
       </header>
