@@ -34,13 +34,16 @@ class Chat extends Component {
   dispatchMessageData() {
     const { message } = this.state;
     const { uid, displayName, photoURL } = this.props.currentUser;
+    const { settings } = this.props;
     const timestamp = new Date().getTime();
 
     database.ref('messages').push().set({
       sender: displayName,
       senderImg: photoURL,
       message,      
-      timestamp
+      timestamp,
+      uid,
+      selfColor: settings.backgroundColor
     })
   }
 
@@ -72,9 +75,9 @@ class Chat extends Component {
   }
 
   render() {
-    const { messages, settings } = this.props;
+    const { messages, settings, currentUser } = this.props;
     const { message } = this.state;
-
+    
     const styles = {
       color: settings ? settings.backgroundColor : ""
     }
@@ -83,12 +86,12 @@ class Chat extends Component {
       <div>
         <ul className="todo-app__chat-content" ref={(el) => { this.messagesContainer = el; }}>
           {messages && map(messages, (value, key) => (
-            <li key={key}>
+            <li key={key} className={currentUser.uid === value.uid ? 'self' : ''}>
               <span>
                 <img src={ value.senderImg ? value.senderImg : sampleImg } alt={value.sender} />
               </span>
               <em>{value.sender}</em>
-              <p>
+              <p style={{'backgroundColor': value.selfColor }}>
                 {value.message}
                 <span>{this.getCreatedDate(value.timestamp)}</span>
               </p>

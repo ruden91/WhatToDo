@@ -74,8 +74,21 @@
     }
     ul {
       li {
+        @include clearfix;
         margin: 10px 0;
         font-size: 12px;
+
+        &.self {
+          p {
+            float: right;
+          }
+          > span {
+            display: none;
+          }
+          em {
+            display: none;
+          } 
+        }
         em {
           color: #333;
           display: inline-block;

@@ -539,6 +539,16 @@ li {
   .todo-app__chat-container ul li {
     margin: 10px 0;
     font-size: 12px; }
+    .todo-app__chat-container ul li:after {
+      content: "";
+      display: table;
+      clear: both; }
+    .todo-app__chat-container ul li.self p {
+      float: right; }
+    .todo-app__chat-container ul li.self > span {
+      display: none; }
+    .todo-app__chat-container ul li.self em {
+      display: none; }
     .todo-app__chat-container ul li em {
       color: #333;
       display: inline-block;
