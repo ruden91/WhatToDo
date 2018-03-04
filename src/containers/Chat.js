@@ -78,14 +78,14 @@ class Chat extends Component {
     const styles = {
       color: settings ? settings.backgroundColor : ""
     }
-
+    const sampleImg = 'https://scontent-icn1-1.xx.fbcdn.net/v/t1.0-1/c14.0.48.48/p48x48/10354686_10150004552801856_220367501106153455_n.jpg?oh=26830885109cf41da057908f11c5ec33&oe=5B0FF559';
     return (
       <div>
         <ul className="todo-app__chat-content" ref={(el) => { this.messagesContainer = el; }}>
           {messages && map(messages, (value, key) => (
             <li key={key}>
               <span>
-                <img src={value.senderImg} alt={value.sender} />
+                <img src={ value.senderImg ? value.senderImg : sampleImg } alt={value.sender} />
               </span>
               <em>{value.sender}</em>
               <p>

@@ -45,7 +45,8 @@ class ChatButton extends Component {
           className={`todo-app__chat-container ${chatClass}`}
         >
           <header style={ style } >
-            <button onClick={ this.closeChatContainer }>close</button>
+            <span>실시간 채팅</span>
+            <button onClick={ this.closeChatContainer }></button>
           </header>
           <div>
             <Chat currentUser={ currentUser } messages={ messages } settings={ settings } />
