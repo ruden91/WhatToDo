@@ -352,9 +352,9 @@ li {
         width: 85%; } }
   .todo-item span {
     float: right;
-    line-height: 22px;
+    line-height: 25px;
     color: #777;
-    font-size: 11px; }
+    font-size: 10px; }
   .todo-item button {
     display: inline-block;
     cursor: pointer; }
@@ -373,8 +373,15 @@ li {
       color: #fff;
       opacity: 0;
       transition: .2s opacity ease-in-out; }
-  .todo-item__remove-button {
-    float: right; }
+  .todo-item__revise-button {
+    width: 20px;
+    height: 20px;
+    float: right;
+    color: #777;
+    font-size: 18px;
+    margin-left: 5px;
+    padding: 0;
+    padding-top: 1px; }
 
 .completed > p {
   text-decoration: line-through;
@@ -391,6 +398,67 @@ li {
 
 .todo-item__remove-button > svg {
   color: #c2255c; }
+
+.todo-app__revise-modal-container {
+  padding: 10px;
+  min-height: 150px;
+  min-width: 260px;
+  color: #777; }
+  .todo-app__revise-modal-container header {
+    margin-bottom: 10px; }
+    .todo-app__revise-modal-container header span {
+      font-size: 22px; }
+  .todo-app__revise-modal-container > div button {
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    color: #fff; }
+  .todo-app__revise-modal-container form textarea {
+    margin-top: 5px;
+    display: block;
+    width: 100%;
+    resize: none;
+    border: 1px solid #ddd;
+    padding: 5px; }
+    .todo-app__revise-modal-container form textarea:focus {
+      outline: none; }
+
+.todo-app__revise-modal-close-button {
+  top: 3px;
+  cursor: pointer;
+  position: relative;
+  float: right;
+  display: inline-block;
+  width: 16px;
+  height: 16px; }
+  .todo-app__revise-modal-close-button:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 2px;
+    height: 100%;
+    content: "";
+    display: block;
+    background-color: #777; }
+  .todo-app__revise-modal-close-button:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    width: 2px;
+    height: 100%;
+    content: "";
+    display: block;
+    background-color: #777; }
+
+.todo-app__remove-todo-item {
+  background-color: #c2255c; }
+
+.todo-app__revise-todo-item {
+  background-color: #009688; }
 
 .todo-app__chat-button {
   cursor: pointer;
@@ -422,8 +490,9 @@ li {
   z-index: 11;
   background-color: #fff;
   border-top-left-radius: 10px;
-  transition: all .5s ease-in-out;
-  transform: translateY(100%); }
+  transition: all .4s ease-in-out;
+  transform: translateY(100%);
+  opacity: 0; }
   .todo-app__chat-container header {
     height: 35px;
     background-color: #70D0D9;
@@ -512,11 +581,11 @@ li {
       cursor: pointer;
       right: 3px; }
   .todo-app__chat-container.chat-button-open {
-    transform: translateY(0); }
+    transform: translateY(0);
+    opacity: 1; }
 .todo-app__chat-content {
   height: 378px;
   overflow-y: auto;
-  padding-top: 10px;
   padding-left: 10px;
   padding-bottom: 5px;
   padding-right: 10px; }

@@ -11,7 +11,7 @@ class TodoItem extends Component {
   }
 
   render() {
-    const { index, item, removeTodoItem, updateTodoItem, created, settings } = this.props;
+    const { index, item, reviseTodoItem, updateTodoItem, created, settings } = this.props;
     const completed = item.state ? 'completed' : "";
     const backgroundColor = item.state ? this.props.settings ? this.props.settings.backgroundColor : "" : ""
     const style = {
@@ -28,8 +28,8 @@ class TodoItem extends Component {
           <i className="fas fa-check"></i>
         </button>
         <p onDoubleClick={ this.handleTodoItem }>{ item.text }</p>
-        <button onClick={() => removeTodoItem(index)} className="todo-item__remove-button">
-          <i className="far fa-trash-alt"></i>
+        <button onClick={() => reviseTodoItem(item, index)} className="todo-item__revise-button">
+          <i className="fas fa-angle-right"></i>
         </button>
         <span>{ created }</span>        
       </li>
