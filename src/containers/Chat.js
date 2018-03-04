@@ -3,6 +3,8 @@ import { database } from 'database/firebase';
 import { findDOMNode } from 'react-dom';
 
 import { map } from 'lodash';
+import moment from 'moment';
+import 'moment/locale/ko';
 class Chat extends Component {
   constructor(props) {
     super(props);
@@ -10,6 +12,8 @@ class Chat extends Component {
     this.state = {
       message: ''
     }
+
+    moment.locale('ko');
 
     this.handleMessageChange = this.handleMessageChange.bind(this);
     this.dispatchMessageData = this.dispatchMessageData.bind(this);
@@ -23,13 +27,18 @@ class Chat extends Component {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
   }
 
+  getCreatedDate(value) {
+    return moment(value).fromNow();
+  }
+
   dispatchMessageData() {
     const { message } = this.state;
-    const { uid, displayName } = this.props.currentUser;
+    const { uid, displayName, photoURL } = this.props.currentUser;
     const timestamp = new Date().getTime();
 
     database.ref('messages').push().set({
       sender: displayName,
+      senderImg: photoURL,
       message,      
       timestamp
     })
@@ -59,18 +68,31 @@ class Chat extends Component {
   }
 
   componentDidUpdate() {
-       this.scrollToBottom();
+    this.scrollToBottom();
   }
 
   render() {
-    const { messages } = this.props;
+    const { messages, settings } = this.props;
     const { message } = this.state;
+
+    const styles = {
+      color: settings ? settings.backgroundColor : ""
+    }
 
     return (
       <div>
         <ul className="todo-app__chat-content" ref={(el) => { this.messagesContainer = el; }}>
           {messages && map(messages, (value, key) => (
-            <li key={key}>{value.sender}: {value.message}</li>
+            <li key={key}>
+              <span>
+                <img src={value.senderImg} alt={value.sender} />
+              </span>
+              <em>{value.sender}</em>
+              <p>
+                {value.message}
+                <span>{this.getCreatedDate(value.timestamp)}</span>
+              </p>
+            </li>
           ))}
         </ul>
         <form onSubmit={ this.handleMessageSubmit }>
@@ -79,7 +101,7 @@ class Chat extends Component {
             value={ message }
             onChange={ this.handleMessageChange } 
           />
-          <button type="submit">
+          <button type="submit" style={styles}>
             <i className="far fa-paper-plane"></i>
           </button>
         </form>
