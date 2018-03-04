@@ -6,6 +6,7 @@ import TodoItem from 'containers/TodoItem';
 import moment from 'moment';
 import 'moment/locale/ko';
 import Modal from 'react-modal';
+
 class TodoItems extends Component {
   constructor(props) {
     super(props);
