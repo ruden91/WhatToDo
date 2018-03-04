@@ -328,6 +328,16 @@ li {
   padding: 0;
   background-color: #F7FCFC; }
 
+.todo-items__empty-title {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 18px; }
+
+.todo-item__date-label {
+  background-color: rgba(203, 212, 214, 0.3);
+  color: #70D0D9;
+  padding: 10px; }
+
 .todo-item {
   padding: 13px 10px;
   font-size: 12px;

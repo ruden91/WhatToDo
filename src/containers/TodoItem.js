@@ -11,14 +11,19 @@ class TodoItem extends Component {
   }
 
   render() {
-    const { index, item, reviseTodoItem, updateTodoItem, created, settings } = this.props;
+    const { index, item, reviseTodoItem, updateTodoItem, created, settings, label, date } = this.props;
     const completed = item.state ? 'completed' : "";
     const backgroundColor = item.state ? this.props.settings ? this.props.settings.backgroundColor : "" : ""
     const style = {
       borderColor: this.props.settings ? this.props.settings.backgroundColor : "",
       backgroundColor
+    }
+    const labelStyle = {
+      color: this.props.settings ? this.props.settings.backgroundColor : ""
     }    
     return (
+      <ul>
+      {label && <li className="todo-item__date-label" style={labelStyle}>{date}</li>}
       <li className={`todo-item ${completed}`} >
         <button 
           onClick={ () => updateTodoItem(index, item.state) } 
@@ -33,6 +38,7 @@ class TodoItem extends Component {
         </button>
         <span>{ created }</span>        
       </li>
+      </ul>
     )
   }
 }

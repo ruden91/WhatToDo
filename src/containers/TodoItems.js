@@ -16,7 +16,7 @@ class TodoItems extends Component {
       selectedTodoItem: null,
       selectedKey: null
     }
-
+    this.splitDate = null;
     this.reviseTodoItem = this.reviseTodoItem.bind(this);
     this.updateTodoItem = this.updateTodoItem.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -75,11 +75,22 @@ class TodoItems extends Component {
       }
     })
   }
+
+  splitByDay(item) {
+    let check = moment(item.created).format("YYYY년 MM월 DD일");
+    
+    if (this.splitDate !== check) {
+      this.splitDate = check;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   render() {
     const { todoItems, settings } = this.props;
-
     const customStyles = {
-      overlay: {zIndex: 1001, backgroundColor: 'rgba(0, 0, 0, 0.3)'},
+      overlay: {zIndex: 1001, backgroundColor: 'rgba(0, 0, 0, 0.3)', transition: 'all .5s ease-in-out'},
       content : {
         top: '50%',
         left: '50%',
@@ -87,25 +98,30 @@ class TodoItems extends Component {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
-        padding: 0
+        padding: 0,
+        transition: 'all .5s ease-in-out'
       }
     };    
     return (
       <div>
         <ul className="todo-items">
-        {!todoItems && <p>할일 목록을 추가해주세요!</p>}
+        {!todoItems && <p className="todo-items__empty-title">할일을 추가해 주세요.</p>}
         {
-          map(todoItems, (value, key) => (
-            <TodoItem 
-              key={ key }
-              index={ key }
-              item={ value }
-              created={ this.getCreatedDate(value.created) }
-              reviseTodoItem={ this.reviseTodoItem } 
-              updateTodoItem={ this.updateTodoItem }
-              settings= { settings }
-            />
-          )).reverse()
+          map(todoItems, (value, key) => {
+            return (
+              <TodoItem 
+                key={ key }
+                index={ key }
+                item={ value }
+                created={ this.getCreatedDate(value.created) }
+                reviseTodoItem={ this.reviseTodoItem } 
+                updateTodoItem={ this.updateTodoItem }
+                settings= { settings }
+                label={this.splitByDay(value)}
+                date={moment(value.created).format("YYYY년 MM월 DD일")}
+              />
+            )
+          })
         }
         </ul>
         {
@@ -146,6 +162,9 @@ class TodoItems extends Component {
         }
       </div>
     )
+  }
+  componentWillUpdate() {
+    this.splitDate = null;
   }
 }
 
