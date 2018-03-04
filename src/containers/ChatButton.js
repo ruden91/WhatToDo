@@ -27,9 +27,9 @@ class ChatButton extends Component {
   }
 
   render() {
-    const { currentUser, messages } = this.props;
+    const { currentUser, messages, settings } = this.props;
     const style = {
-      backgroundColor: this.props.settings ? this.props.settings.backgroundColor : ""
+      backgroundColor: settings ? settings.backgroundColor : ""
     }
     const chatClass = this.state.chatContainerIsOpen ? 'chat-button-open' : '';
     return (
@@ -44,11 +44,11 @@ class ChatButton extends Component {
         <div 
           className={`todo-app__chat-container ${chatClass}`}
         >
-          <header>
+          <header style={ style } >
             <button onClick={ this.closeChatContainer }>close</button>
           </header>
           <div>
-            <Chat currentUser={ currentUser } messages={ messages }/>
+            <Chat currentUser={ currentUser } messages={ messages } settings={ settings } />
           </div>
         </div>
       </div>
