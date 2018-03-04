@@ -405,7 +405,11 @@ li {
   background-color: #70D0D9;
   border-radius: 50%;
   color: #fff;
-  font-size: 22px; }
+  font-size: 22px;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.3);
+  animation: pulse 1.5s infinite; }
+  .todo-app__chat-button:hover {
+    animation: none; }
 .todo-app__chat-container {
   position: fixed;
   border: 1px solid #ddd;
@@ -422,7 +426,7 @@ li {
   transform: translateY(100%); }
   .todo-app__chat-container header {
     height: 35px;
-    background-color: #e1bee7;
+    background-color: #70D0D9;
     color: #fff;
     padding: 10px; }
     .todo-app__chat-container header button {
@@ -501,7 +505,7 @@ li {
       padding-right: 30px;
       font-size: 12px; }
     .todo-app__chat-container form button {
-      color: #e1bee7;
+      color: #70D0D9;
       position: absolute;
       bottom: 3px;
       font-size: 20px;
@@ -516,7 +520,13 @@ li {
   padding-left: 10px;
   padding-bottom: 5px;
   padding-right: 10px; }
-
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2); }
+  70% {
+    box-shadow: 0 0 0 10px rgba(204, 169, 44, 0); }
+  100% {
+    box-shadow: 0 0 0 0 rgba(204, 169, 44, 0); } }
 .todo-app {
   position: relative;
   height: 100vh; }
