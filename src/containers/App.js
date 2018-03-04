@@ -5,6 +5,7 @@ import { database, auth } from 'database/firebase';
 import MainLoading from 'components/MainLoading';
 import BoardMain from 'components/BoardMain';
 import Main from 'containers/Main';
+import { map, omit } from 'lodash';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -48,9 +49,8 @@ class App extends Component {
 
         // user todoItems
         database.ref('todoItems/' + currentUser.uid).on('value', (snap) => {
-          console.log(snap.val())
           this.setState({
-            todoItems: snap.val(),
+            todoItems: this.sortTodoItems(snap.val()),
             loading: false,
             currentUser
           })
@@ -63,7 +63,22 @@ class App extends Component {
       }  
     })
   }
+  // 최신순으로 todoItems를 정렬해주는 함수
+  sortTodoItems(items) {
+    let results = {};
+    let tempArray = map(items, (value, key) => {
+      return {
+        ...value,
+        key
+      }
+    }).reverse();
 
+    map(tempArray, (value) => {
+      results[value.key] = omit(value, 'key');
+    })
+
+    return results;
+  }
   render() {
     const { todoItems, currentUser, loading, settings } = this.state;
     
