@@ -34,7 +34,6 @@ class Chat extends Component {
   dispatchMessageData() {
     const { message } = this.state;
     const { uid, displayName, photoURL } = this.props.currentUser;
-    const { settings } = this.props;
     const timestamp = new Date().getTime();
 
     database.ref('messages').push().set({
@@ -42,8 +41,7 @@ class Chat extends Component {
       senderImg: photoURL,
       message,      
       timestamp,
-      uid,
-      selfColor: settings.backgroundColor
+      uid
     })
   }
 
@@ -91,7 +89,7 @@ class Chat extends Component {
                 <img src={ value.senderImg ? value.senderImg : sampleImg } alt={value.sender} />
               </span>
               <em>{value.sender}</em>
-              <p style={{'backgroundColor': value.selfColor }}>
+              <p>
                 {value.message}
                 <span>{this.getCreatedDate(value.timestamp)}</span>
               </p>
