@@ -23,6 +23,11 @@ input, button {
   outline: none;  
   letter-spacing: -1px;
 }
+p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
 li {
   list-style: none;
 }

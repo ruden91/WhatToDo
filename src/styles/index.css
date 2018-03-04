@@ -21,6 +21,10 @@ input, button {
   outline: none;
   letter-spacing: -1px; }
 
+p, ul, li {
+  margin: 0;
+  padding: 0; }
+
 li {
   list-style: none; }
 
@@ -407,15 +411,31 @@ li {
   padding: 0;
   z-index: 11;
   background-color: #fff;
-  /* padding: 10px; */
   border-top-left-radius: 10px;
   transition: all .5s ease-in-out;
   transform: translateY(100%); }
-  .todo-app__chat-container.chat-button-open {
-    overflow-y: auto;
-    overflow-x: hidden;
+  .todo-app__chat-container form {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 35px;
     padding: 10px;
+    border-top: 1px solid #ddd; }
+    .todo-app__chat-container form input {
+      width: 100%;
+      padding-right: 15px; }
+    .todo-app__chat-container form button {
+      color: #e1bee7;
+      position: absolute;
+      bottom: 3px;
+      font-size: 20px;
+      cursor: pointer;
+      right: 3px; }
+  .todo-app__chat-container.chat-button-open {
     transform: translateY(0); }
+.todo-app__chat-content {
+  height: 244px;
+  overflow-y: auto; }
 
 .todo-app {
   position: relative;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { database } from 'database/firebase';
+import { findDOMNode } from 'react-dom';
 
 import { map } from 'lodash';
 class Chat extends Component {
@@ -13,6 +14,13 @@ class Chat extends Component {
     this.handleMessageChange = this.handleMessageChange.bind(this);
     this.dispatchMessageData = this.dispatchMessageData.bind(this);
     this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
+    this.scrollToBottom = this.scrollToBottom.bind(this);
+  }
+
+  scrollToBottom() {
+    const messagesContainer = findDOMNode(this.messagesContainer);
+
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
   }
 
   dispatchMessageData() {
@@ -35,6 +43,9 @@ class Chat extends Component {
 
   handleMessageSubmit(e) {
     e.preventDefault();
+    if (this.state.message === '') {
+      return;
+    }
 
     this.dispatchMessageData();
 
@@ -43,13 +54,21 @@ class Chat extends Component {
     })
   }
 
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+       this.scrollToBottom();
+  }
+
   render() {
     const { messages } = this.props;
     const { message } = this.state;
 
     return (
       <div>
-        <ul>
+        <ul className="todo-app__chat-content" ref={(el) => { this.messagesContainer = el; }}>
           {messages && map(messages, (value, key) => (
             <li key={key}>{value.sender}: {value.message}</li>
           ))}
@@ -61,7 +80,7 @@ class Chat extends Component {
             onChange={ this.handleMessageChange } 
           />
           <button type="submit">
-            send
+            <i className="far fa-paper-plane"></i>
           </button>
         </form>
       </div>
