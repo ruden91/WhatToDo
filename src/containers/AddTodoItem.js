@@ -37,19 +37,20 @@ class AddTodoItem extends Component {
 
   handleInputKeyPress(e) {
     if (e.key === 'Enter') {
-      // input값이 빈 값일 때 예외처리
-      if (this.state.text === "") {
-        return;
-      }
       this.dispatchTodoItemData();
     } 
   }
 
-  handleWriteButton() {
+  handleWriteButton() {    
     this.dispatchTodoItemData();
   }
 
   dispatchTodoItemData() {
+    // input값이 빈 값일 때 예외처리
+    if (this.state.text === "") {
+      return;
+    }
+        
     let timestamp = new Date().getTime();
 
     database.ref('todoItems/' + this.props.currentUser.uid).push().set({

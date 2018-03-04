@@ -14,4 +14,25 @@
     color: #fff;
     font-size: 22px;        
   }
+  @include e('chat-container') {
+    position: fixed;
+    border: 1px solid #ddd;
+    width: 285px;
+    height: 300px;
+    bottom: 0;
+    right: 0;
+    padding: 0;
+    z-index: 11;
+    background-color: #fff;
+    /* padding: 10px; */
+    border-top-left-radius: 10px;
+    transition: all .5s ease-in-out;
+    transform: translateY(100%);
+    &.chat-button-open {
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 10px;
+        transform: translateY(0);
+    }    
+  }
 }
