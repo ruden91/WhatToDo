@@ -33,7 +33,7 @@ export default class BoardMain extends Component {
           width={ 280 } 
           styles={styles}
         >
-          { currentUser && <UserInfo currentUser={ currentUser } settings={ settings }/> }
+          <UserInfo currentUser={ currentUser } settings={ settings }/>
         </Menu>
         <div id="page-wrap">
           <AppHeader 
