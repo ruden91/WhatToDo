@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
 import { database, auth } from 'database/firebase';
 
 import MainLoading from 'components/MainLoading';
-import BoardMain from 'components/BoardMain';
+import Dashboard from 'components/Dashboard';
 import Main from 'containers/Main';
 import { map, omit } from 'lodash';
+
+import LoginForm from 'containers/LoginForm';
+import Signup from 'containers/Signup';
 import $ from 'jquery';
 class App extends Component {
   constructor(props) {
@@ -17,7 +19,8 @@ class App extends Component {
       loading: true,
       toggleAddTodoItemButton: false,
       settings: null,
-      messages: null
+      messages: null,
+      verified: false
     }   
 
     this.toggleAddTodoItem = this.toggleAddTodoItem.bind(this);
@@ -32,14 +35,31 @@ class App extends Component {
 
   componentDidMount() {
     // fetch userData and user todoItems
-    auth.onAuthStateChanged(currentUser => {  
+    auth.onAuthStateChanged(currentUser => {
+      this.setState({
+        currentUser,
+        loading: false
+      })
+      console.log('auth check')      
       if (currentUser) {
-        // user defaultSettings
-        database.ref('settings/' + currentUser.uid).on('value', (snap) => {
-          $('meta[name=theme-color]').attr('content', snap.val().backgroundColor);
-          
+        // email 인증 유무 체크
+        if (currentUser.emailVerified) {
           this.setState({
-            settings:snap.val()
+            verified: true
+          })
+        } else {
+          this.setState({
+            verified: false
+          })
+        }
+        // // user defaultSettings
+        database.ref('settings/' + currentUser.uid).on('value', (snap) => {
+          if (snap.val()) {
+            $('meta[name=theme-color]').attr('content', snap.val().backgroundColor);
+          }
+          $(document).prop('title', `${currentUser.displayName}의 todoApp`);
+          this.setState({
+            settings: snap.val()
           })
         })
 
@@ -47,15 +67,13 @@ class App extends Component {
         database.ref('messages').on('value', (snap) => {
           this.setState({
             messages: snap.val()
-          })
+          })          
         })
 
         // user todoItems
         database.ref('todoItems/' + currentUser.uid).on('value', (snap) => {
           this.setState({
-            todoItems: this.sortTodoItems(snap.val()),
-            loading: false,
-            currentUser
+            todoItems: snap.val()
           })
         })
       } else {
@@ -83,27 +101,26 @@ class App extends Component {
     return results;
   }
   render() {
-    const { todoItems, currentUser, loading, settings } = this.state;
-    
+    const { todoItems, settings, currentUser, loading, verified } = this.state;
+    let template;
+
+    if (currentUser) {
+      if (verified) {
+        // dashboard 컴포넌트
+        template = <Dashboard { ...this.state } toggleAddTodoItem={ this.toggleAddTodoItem } />
+      } else {
+        // 이메일 인증 문구와 함께 첫화면 컴포넌트
+        template = <LoginForm />
+      }
+    } else {
+        // 첫화면 컴포넌트
+        template = <LoginForm />
+    }
+
     return (
       <div className="todo-app">
-        {
-          loading
-          ?
-          <MainLoading settings={ settings }/>
-          :
-          <Switch>
-            <Route exact path="/" render={(props) => (
-              currentUser ? <Redirect to="/main"/> : <Main />
-            )} />
-            <Route exact path="/main" render={(props) => (
-              !currentUser ? <Main /> : <BoardMain { ...this.state } toggleAddTodoItem={ this.toggleAddTodoItem } />
-            )} />
-            <Route render={(props) => (
-              currentUser ? <Redirect to="/main"/> : <Redirect to="/"/>
-            )} />
-          </Switch>
-        }      
+        {loading && <MainLoading />}
+        { template }
       </div>
     )
   }

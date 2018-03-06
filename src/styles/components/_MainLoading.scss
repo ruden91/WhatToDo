@@ -16,18 +16,18 @@
     left: 50%;
     border: 0px solid white;
     transform: translate(-50%, -50%);
-    animation: loading 1000ms ease-out forwards infinite;
+    animation: loading 900ms ease-out forwards infinite;
   }  
 
   @keyframes loading {
     0% {
       border: 0px solid white;
+      width: 0%;
+      height: 0%;      
     }
     
     20% {
       border: 8px solid white;
-      width: 0%;
-      height: 0%;
     }
     
     100% {
