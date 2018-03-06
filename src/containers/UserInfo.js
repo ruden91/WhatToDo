@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { database } from 'database/firebase';
 
 import Logout from 'components/Logout';
-import ColorItems from 'containers/ColorItems';
+import UserSetting from 'containers/UserSetting';
 export default class UserInfo extends Component {
   constructor(props) {
     super(props);
@@ -12,7 +11,6 @@ export default class UserInfo extends Component {
     }
 
     this.handleSettingButton = this.handleSettingButton.bind(this);
-    this.dispatchSettingData = this.dispatchSettingData.bind(this);
   }
 
   handleSettingButton() {
@@ -21,17 +19,10 @@ export default class UserInfo extends Component {
     })
   }
 
-  dispatchSettingData(color) {
-    const { uid } = this.props.currentUser;
-
-    database.ref('settings/' + uid).set({
-      backgroundColor: color
-    })
-  }
-
   render() {
     const { displayName, email, photoURL } = this.props.currentUser;
     const { settings } = this.props;
+    const settingMenuClass = this.state.toggleSettingMenu ? 'open' : '';
     return (
       <div className="todo-app__user-info user-info">
         <div className="user-info__right-side-content">
@@ -46,8 +37,12 @@ export default class UserInfo extends Component {
             <i className="fas fa-cog"></i>설정
           </button>
           <Logout />
-
-          {this.state.toggleSettingMenu && <ColorItems dispatchSettingData={ this.dispatchSettingData } settings={settings}/>}
+          <UserSetting 
+            currentUser={ this.props.currentUser }
+            settings={ settings } 
+            settingMenuClass={ settingMenuClass } 
+            handleSettingButton={ this.handleSettingButton }
+          />
         </div>
       </div>
     )
