@@ -37,9 +37,9 @@ class App extends Component {
     // fetch userData and user todoItems
     auth.onAuthStateChanged(currentUser => {
       this.setState({
-        currentUser
+        currentUser,
+        loading: true
       })
-      console.log('auth check')      
       if (currentUser) {
         // email 인증 유무 체크
         if (currentUser.emailVerified) {
