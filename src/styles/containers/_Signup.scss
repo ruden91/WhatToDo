@@ -1,0 +1,28 @@
+.todo-app {
+  @include e('signup-form') {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+    width: 295px;
+
+    label {
+      display: block;
+    }
+    input {
+      display: block;
+      width: 100%;
+      border-bottom: 1px solid #70D0D9;
+      padding: 8px 0;
+      margin-bottom: 15px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border-radius: 35px;
+      border: 1px solid #009ac8;      
+    }
+  }
+}

@@ -3,9 +3,36 @@ import React, { Component } from 'react';
 import { auth, GithubAuthProvider, GoogleAuthProvider, FacebookAuthProvider } from 'database/firebase';
 
 export default class Login extends Component {
+  constructor() {
+    super();
+
+    this.handleSignInForm = this.handleSignInForm.bind(this);
+  }
+
+  handleSignInForm(e) {
+    e.preventDefault();
+    let email = document.getElementById('loginEmail').value;
+    let password = document.getElementById('loginPassword').value;
+
+    auth.signInWithEmailAndPassword(email, password).catch((error) => {
+      // Handle Errors here.
+      let errorCode = error.code;
+      let errorMessage = error.message;
+    })
+  }
+
   render() {
     return (
       <div>
+        <form onSubmit={ this.handleSignInForm }>
+          <label htmlFor="email">이메일</label>
+          <input type="email" placeholder="email" id="loginEmail" />
+
+          <label htmlFor="password-one">비밀번호</label>
+          <input type="password" placeholder="password" id="loginPassword" />
+
+          <button type="submit">로그인</button>                
+        </form>      
       <button 
         onClick={ () => auth.signInWithPopup(GoogleAuthProvider) }
         className="todo-app__sign-in-button todo-app__sign-in-google"
