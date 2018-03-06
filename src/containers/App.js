@@ -37,8 +37,7 @@ class App extends Component {
     // fetch userData and user todoItems
     auth.onAuthStateChanged(currentUser => {
       this.setState({
-        currentUser,
-        loading: false
+        currentUser
       })
       console.log('auth check')      
       if (currentUser) {
@@ -57,7 +56,6 @@ class App extends Component {
           if (snap.val()) {
             $('meta[name=theme-color]').attr('content', snap.val().backgroundColor);
           }
-          $(document).prop('title', `${currentUser.displayName}의 todoApp`);
           this.setState({
             settings: snap.val()
           })
@@ -73,7 +71,8 @@ class App extends Component {
         // user todoItems
         database.ref('todoItems/' + currentUser.uid).on('value', (snap) => {
           this.setState({
-            todoItems: snap.val()
+            todoItems: this.sortTodoItems(snap.val()),
+            loading: false
           })
         })
       } else {
@@ -120,7 +119,7 @@ class App extends Component {
     return (
       <div className="todo-app">
         {loading && <MainLoading />}
-        { template }
+        {!loading && template }
       </div>
     )
   }
