@@ -604,62 +604,106 @@ li {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 295px; }
-  .todo-app__signup-form label {
-    display: block; }
-  .todo-app__signup-form input {
-    display: block;
-    width: 100%;
-    border-bottom: 1px solid #70D0D9;
-    padding: 8px 0;
-    margin-bottom: 15px; }
   .todo-app__signup-form button {
     display: block;
     width: 100%;
     padding: 10px;
     border-radius: 35px;
-    border: 1px solid #009ac8; }
+    color: #70d0d9;
+    border: 1px solid #70D0D9; }
 
-.todo-app__login-container {
-  top: 0;
-  left: 0;
-  position: fixed;
-  width: 100%;
-  height: 100vh;
-  background: linear-gradient(132deg, #ec5218, #1665c1);
-  background-size: 400% 400%;
-  animation: BackgroundGradient 30s ease infinite; }
-  .todo-app__login-container label {
-    position: relative; }
-    .todo-app__login-container label span {
-      color: #fff;
-      display: inline-block;
+.todo-app {
+  /* ANIMATIONS ================ */ }
+  .todo-app__signup-input-group {
+    position: relative;
+    margin-bottom: 30px; }
+    .todo-app__signup-input-group input {
+      font-size: 14px;
+      padding: 10px 10px 10px 5px;
+      display: block;
+      width: 300px;
+      border: none;
+      border-bottom: 1px solid #ddd; }
+      .todo-app__signup-input-group input:focus {
+        outline: none; }
+    .todo-app__signup-input-group label {
+      color: #999;
+      font-size: 14px;
+      font-weight: normal;
       position: absolute;
+      pointer-events: none;
+      left: 5px;
       top: 10px;
-      left: 0px; }
-.todo-app__login-inner-container {
-  width: 260px;
-  min-height: 350px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); }
-  .todo-app__login-inner-container > span {
-    padding-top: 80px;
-    color: #fff;
-    font-size: 35px;
-    text-align: center;
-    display: block; }
-  .todo-app__login-inner-container > div {
-    margin-top: 50px; }
-  .todo-app__login-inner-container .todo-app__signup-button, .todo-app__login-inner-container .todo-app__login-button {
-    border: 1px solid #fff;
-    border-radius: 25px;
+      transition: 0.2s ease all; }
+    .todo-app__signup-input-group input:focus ~ label, .todo-app__signup-input-group input:valid ~ label {
+      top: -20px;
+      font-size: 14px;
+      color: #70D0D9; }
+    .todo-app__signup-input-group .bar {
+      position: relative;
+      display: block;
+      width: 300px; }
+      .todo-app__signup-input-group .bar:before, .todo-app__signup-input-group .bar:after {
+        content: '';
+        height: 2px;
+        width: 0;
+        bottom: 1px;
+        position: absolute;
+        background: #70D0D9;
+        transition: 0.2s ease all; }
+      .todo-app__signup-input-group .bar:before {
+        left: 50%; }
+      .todo-app__signup-input-group .bar:after {
+        right: 50%; }
+    .todo-app__signup-input-group input:focus ~ .bar:before, .todo-app__signup-input-group input:focus ~ .bar:after {
+      width: 50%; }
+    .todo-app__signup-input-group .highlight {
+      position: absolute;
+      height: 60%;
+      width: 100px;
+      top: 25%;
+      left: 0;
+      pointer-events: none;
+      opacity: 0.5; }
+    .todo-app__signup-input-group input:focus ~ .highlight {
+      animation: inputHighlighter 0.3s ease; }
+@keyframes inputHighlighter {
+  from {
+    background: #fff; }
+  to {
+    width: 0;
+    background: transparent; } }
+  .todo-app__login-container {
+    top: 0;
+    left: 0;
+    position: fixed;
     width: 100%;
-    display: block;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-    margin-bottom: 10px; }
+    height: 100vh; }
+  .todo-app__login-inner-container {
+    width: 260px;
+    min-height: 350px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); }
+    .todo-app__login-inner-container > span {
+      padding-top: 80px;
+      color: #fff;
+      font-size: 35px;
+      text-align: center;
+      display: block; }
+    .todo-app__login-inner-container > div {
+      margin-top: 50px; }
+    .todo-app__login-inner-container .todo-app__signup-button, .todo-app__login-inner-container .todo-app__login-button {
+      background-color: #70d0d9;
+      border: 1px solid #70d0d9;
+      border-radius: 25px;
+      width: 100%;
+      display: block;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      margin-bottom: 10px; }
 @keyframes BackgroundGradient {
   0% {
     background-position: 0% 50%; }

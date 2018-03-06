@@ -1,24 +1,86 @@
 .todo-app {
+  @include e('signup-input-group') {
+    position:relative; 
+    margin-bottom:30px; 
+    input {
+      font-size:14px;
+      padding:10px 10px 10px 5px;
+      display:block;
+      width:300px;
+      border:none;
+      border-bottom:1px solid #ddd;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    label {
+      color:#999; 
+      font-size:14px;
+      font-weight:normal;
+      position:absolute;
+      pointer-events:none;
+      left:5px;
+      top:10px;
+      transition:0.2s ease all; 
+    }
+    input:focus ~ label, input:valid ~ label {
+      top:-20px;
+      font-size:14px;
+      color:#70D0D9;
+    }
+
+    .bar {
+      position:relative; 
+      display:block; 
+      width:300px;
+
+      &:before, &:after {
+        content:'';
+        height:2px; 
+        width:0;
+        bottom:1px; 
+        position:absolute;
+        background:#70D0D9; 
+        transition:0.2s ease all; 
+      }
+
+      &:before {
+        left: 50%;
+      }
+      &:after {
+        right: 50%;
+      }
+    }
+    input:focus ~ .bar:before, input:focus ~ .bar:after {
+      width: 50%;
+    }
+    .highlight {
+      position:absolute;
+      height:60%; 
+      width:100px; 
+      top:25%; 
+      left:0;
+      pointer-events:none;
+      opacity:0.5;
+    }
+    input:focus ~ .highlight {
+      animation:inputHighlighter 0.3s ease;
+    }
+  }
+
+  /* ANIMATIONS ================ */
+  @keyframes inputHighlighter {
+    from { background:#fff; }
+    to  { width:0; background:transparent; }
+  }
   @include e('login-container') {
     top: 0;
     left: 0;
     position: fixed;
     width: 100%;
     height: 100vh;
-    background: linear-gradient(132deg, #ec5218, #1665c1);
-    background-size: 400% 400%;
-    animation: BackgroundGradient 30s ease infinite; 
-    label {
-      position: relative;
-
-      span {
-        color: #fff;
-        display: inline-block;
-        position: absolute;
-        top: 10px;
-        left: 0px;
-      }
-    }
   }
 
   @include e('login-inner-container') {
@@ -40,7 +102,8 @@
       margin-top: 50px;
     }
     .todo-app__signup-button, .todo-app__login-button {
-      border: 1px solid #fff;
+      background-color: #70d0d9;
+      border: 1px solid #70d0d9;
       border-radius: 25px;
       width: 100%;
       display: block;
