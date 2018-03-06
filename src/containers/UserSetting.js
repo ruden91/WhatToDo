@@ -8,12 +8,15 @@ export default class UserSetting extends Component {
 
     this.state = {
       background: this.props.settings ? this.props.settings.backgroundColor : '',
-      toggleColorSettingMenu: false
+      toggleColorSettingMenu: false,
+      displayName: this.props.currentUser.displayName
     };        
 
     this.handleChangeComplete = this.handleChangeComplete.bind(this);
     this.handleColorSettingButton = this.handleColorSettingButton.bind(this);
     this.dispatchSettingData = this.dispatchSettingData.bind(this);
+
+    this.handleDisplayNameForm = this.handleDisplayNameForm.bind(this);
   }
 
   dispatchSettingData(color) {
@@ -37,6 +40,20 @@ export default class UserSetting extends Component {
     })
   }
 
+  handleDisplayNameForm(e) {
+    e.preventDefault();
+    if (this.props.currentUser.displayName === this.state.displayName) {
+      return;
+    }
+    
+    const { displayName } = this.state;
+    this.props.currentUser.updateProfile({
+      displayName
+    })
+
+    alert('닉네임이 변경되었습니다.');
+  }
+
   render() {
     const { handleSettingButton, settingMenuClass, settings } = this.props;
     const styles = {
@@ -53,7 +70,10 @@ export default class UserSetting extends Component {
         </header>
         <div className="todo-app__user-setting-content">
           <p>기본설정</p>
-
+          <form onSubmit={this.handleDisplayNameForm}>
+            <input type="text" value={ this.state.displayName } onChange={ (e) => { this.setState({ displayName: e.target.value }) }}/>
+            <button type="submit">수정</button>
+          </form>
           <p>사용자 컨트롤</p>
           <button onClick={ this.handleColorSettingButton }>테마변경</button>
           {this.state.toggleColorSettingMenu && <div>
