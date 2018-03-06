@@ -35,14 +35,26 @@ export default class Signup extends Component {
     return (
       <div className="todo-app__signup-form">
         <form onSubmit={ this.handleSignupForm }>
-          <label htmlFor="email">이메일</label>
-          <input type="email" placeholder="email" id="email" />
+          <div className="todo-app__signup-input-group">      
+            <input type="email" id="email" required />
+            <span className="highlight"></span>
+            <span className="bar"></span>
+            <label htmlFor="email">Email</label>
+          </div>        
 
-          <label htmlFor="password-one">비밀번호</label>
-          <input type="password" placeholder="password" id="password-one" />
+          <div className="todo-app__signup-input-group">      
+            <input type="password" id="password-one" required />
+            <span className="highlight"></span>
+            <span className="bar"></span>
+            <label htmlFor="password-one">Password</label>
+          </div>
 
-          <label htmlFor="password-two">비밀번호 재입력</label>
-          <input type="password" placeholder="password" id="password-two" />
+          <div className="todo-app__signup-input-group">      
+            <input type="password" id="password-two" required />
+            <span className="highlight"></span>
+            <span className="bar"></span>
+            <label htmlFor="password-two">Password again</label>
+          </div>                  
 
           <button type="submit">가입완료</button>                
         </form>
