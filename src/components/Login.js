@@ -39,7 +39,7 @@ export default class Login extends Component {
             <label htmlFor="login-password">Password</label>
           </div>
 
-          <button type="submit">로그인</button>                
+          <button type="submit" className="todo-app__signin-submit-button">로그인</button>                
         </form>      
       <button 
         onClick={ () => auth.signInWithPopup(GoogleAuthProvider) }

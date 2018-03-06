@@ -1,11 +1,5 @@
 .todo-app {
   @include e('signup-form') {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform:translate(-50%, -50%);
-    width: 295px;
-
     button {
       display: block;
       width: 100%;
@@ -14,5 +8,12 @@
       color: #70d0d9;
       border: 1px solid #70D0D9;      
     }
+  }
+  @include e('login-back-button') {
+    margin-bottom: 20px;
+    display: block;
+    width: 100%;
+    text-align: right;
+    color: #777;    
   }
 }
