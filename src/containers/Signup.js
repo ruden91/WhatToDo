@@ -10,6 +10,7 @@ export default class Signup extends Component {
 
   handleSignupForm(e) {
     e.preventDefault();
+    let regx = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
     const { handleStateClearButton } = this.props;
     let email = document.getElementById('email').value;
     let password = document.getElementById('password-one').value;
@@ -20,14 +21,23 @@ export default class Signup extends Component {
       return;
     }
 
+    if (!regx.test(password)) {
+      alert('암호는 하나 이상의 특수문자 그리고 숫자를 포함해야 합니다.');
+      return;
+    }
     let promise = auth.createUserWithEmailAndPassword (email, password); 
 
     promise.then(function(user) {
      user.sendEmailVerification().then((success) => {
+        alert('가입이 완료됐습니다. 이메일 인증을 마치시면, 서비스를 이용하실 수 있습니다.');
         handleStateClearButton();      
      }, function(error) {
-       console.log(error)
       });
+   }).catch((error) => {
+    let { code } = error;
+    if (code === 'auth/email-already-in-use') {
+      alert('이미 동일한 이메일 아이디가 존재합니다.')
+    }
    });
   }
 
