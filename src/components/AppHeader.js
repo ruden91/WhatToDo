@@ -19,7 +19,7 @@ export default class AppHeader extends Component {
     return (
       <header className="todo-app-header" style={style}>
         <span className="todo-app-header__header-logo">
-          <i className="fab fa-codepen"></i>
+          <i className="fas fa-list-ol"></i>
         </span>
         <button 
           className="todo-app-header__show-add-button"

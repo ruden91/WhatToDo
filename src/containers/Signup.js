@@ -29,8 +29,6 @@ export default class Signup extends Component {
 
     promise.then(function(user) {
      user.sendEmailVerification().then((success) => {
-        alert('가입이 완료됐습니다. 이메일 인증을 마치시면, 서비스를 이용하실 수 있습니다.');
-        handleStateClearButton();      
      }, function(error) {
       });
    }).catch((error) => {
