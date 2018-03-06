@@ -45,9 +45,9 @@ export default class LoginForm extends Component {
       <div className="todo-app__login-container">
         <div className="todo-app__login-inner-container">
           {active && <button onClick={ this.handleStateClearButton }>clear!</button>}
-          <span>LOGO</span>
           {!active &&
           <div>
+            <span>LOGO</span>
             <button onClick={ this.handleSignupButton } className="todo-app__signup-button">회원가입</button>
             <button onClick={ this.handleLoginButton } className="todo-app__login-button">로그인</button>
           </div>

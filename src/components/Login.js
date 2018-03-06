@@ -25,11 +25,19 @@ export default class Login extends Component {
     return (
       <div>
         <form onSubmit={ this.handleSignInForm }>
-          <label htmlFor="email">이메일</label>
-          <input type="email" placeholder="email" id="loginEmail" />
+          <div className="todo-app__signin-input-group">      
+            <input type="email" id="loginEmail" required />
+            <span className="highlight"></span>
+            <span className="bar"></span>
+            <label htmlFor="login-email">Email</label>
+          </div> 
 
-          <label htmlFor="password-one">비밀번호</label>
-          <input type="password" placeholder="password" id="loginPassword" />
+          <div className="todo-app__signin-input-group">      
+            <input type="password" id="loginPassword" required />
+            <span className="highlight"></span>
+            <span className="bar"></span>
+            <label htmlFor="login-password">Password</label>
+          </div>
 
           <button type="submit">로그인</button>                
         </form>      

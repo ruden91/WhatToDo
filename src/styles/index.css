@@ -614,19 +614,19 @@ li {
 
 .todo-app {
   /* ANIMATIONS ================ */ }
-  .todo-app__signup-input-group {
+  .todo-app .todo-app__signin-input-group, .todo-app .todo-app__signup-input-group {
     position: relative;
     margin-bottom: 30px; }
-    .todo-app__signup-input-group input {
+    .todo-app .todo-app__signin-input-group input, .todo-app .todo-app__signup-input-group input {
       font-size: 14px;
       padding: 10px 10px 10px 5px;
       display: block;
-      width: 300px;
+      width: 100%;
       border: none;
       border-bottom: 1px solid #ddd; }
-      .todo-app__signup-input-group input:focus {
+      .todo-app .todo-app__signin-input-group input:focus, .todo-app .todo-app__signup-input-group input:focus {
         outline: none; }
-    .todo-app__signup-input-group label {
+    .todo-app .todo-app__signin-input-group label, .todo-app .todo-app__signup-input-group label {
       color: #999;
       font-size: 14px;
       font-weight: normal;
@@ -635,15 +635,15 @@ li {
       left: 5px;
       top: 10px;
       transition: 0.2s ease all; }
-    .todo-app__signup-input-group input:focus ~ label, .todo-app__signup-input-group input:valid ~ label {
+    .todo-app .todo-app__signin-input-group input:focus ~ label, .todo-app .todo-app__signin-input-group input:valid ~ label, .todo-app .todo-app__signup-input-group input:focus ~ label, .todo-app .todo-app__signup-input-group input:valid ~ label {
       top: -20px;
       font-size: 14px;
       color: #70D0D9; }
-    .todo-app__signup-input-group .bar {
+    .todo-app .todo-app__signin-input-group .bar, .todo-app .todo-app__signup-input-group .bar {
       position: relative;
       display: block;
-      width: 300px; }
-      .todo-app__signup-input-group .bar:before, .todo-app__signup-input-group .bar:after {
+      width: 100%; }
+      .todo-app .todo-app__signin-input-group .bar:before, .todo-app .todo-app__signin-input-group .bar:after, .todo-app .todo-app__signup-input-group .bar:before, .todo-app .todo-app__signup-input-group .bar:after {
         content: '';
         height: 2px;
         width: 0;
@@ -651,13 +651,13 @@ li {
         position: absolute;
         background: #70D0D9;
         transition: 0.2s ease all; }
-      .todo-app__signup-input-group .bar:before {
+      .todo-app .todo-app__signin-input-group .bar:before, .todo-app .todo-app__signup-input-group .bar:before {
         left: 50%; }
-      .todo-app__signup-input-group .bar:after {
+      .todo-app .todo-app__signin-input-group .bar:after, .todo-app .todo-app__signup-input-group .bar:after {
         right: 50%; }
-    .todo-app__signup-input-group input:focus ~ .bar:before, .todo-app__signup-input-group input:focus ~ .bar:after {
+    .todo-app .todo-app__signin-input-group input:focus ~ .bar:before, .todo-app .todo-app__signin-input-group input:focus ~ .bar:after, .todo-app .todo-app__signup-input-group input:focus ~ .bar:before, .todo-app .todo-app__signup-input-group input:focus ~ .bar:after {
       width: 50%; }
-    .todo-app__signup-input-group .highlight {
+    .todo-app .todo-app__signin-input-group .highlight, .todo-app .todo-app__signup-input-group .highlight {
       position: absolute;
       height: 60%;
       width: 100px;
@@ -665,7 +665,7 @@ li {
       left: 0;
       pointer-events: none;
       opacity: 0.5; }
-    .todo-app__signup-input-group input:focus ~ .highlight {
+    .todo-app .todo-app__signin-input-group input:focus ~ .highlight, .todo-app .todo-app__signup-input-group input:focus ~ .highlight {
       animation: inputHighlighter 0.3s ease; }
 @keyframes inputHighlighter {
   from {
