@@ -43,13 +43,18 @@ class App extends Component {
       if (currentUser) {
         // email 인증 유무 체크
         if (currentUser.emailVerified) {
+          if (!currentUser.displayName) {
+            currentUser.updateProfile({
+              displayName: '흑미밥',
+              photoURL: 'https://scontent-icn1-1.xx.fbcdn.net/v/t1.0-1/c14.0.48.48/p48x48/10354686_10150004552801856_220367501106153455_n.jpg?oh=26830885109cf41da057908f11c5ec33&oe=5B0FF559'
+            })
+          }
           this.setState({
             verified: true
           })
         } else {
-          this.setState({
-            verified: false
-          })
+          alert('본인 확인을 위해 이메일 인증을 해주세요.');
+          auth.signOut();
         }
         // // user defaultSettings
         database.ref('settings/' + currentUser.uid).on('value', (snap) => {
