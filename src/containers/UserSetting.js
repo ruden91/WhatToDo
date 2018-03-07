@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-
-import { database } from 'database/firebase';
+import { database, storage } from 'database/firebase';
 import { SwatchesPicker } from 'react-color';
 export default class UserSetting extends Component {
   constructor(props) {
@@ -11,12 +10,14 @@ export default class UserSetting extends Component {
       toggleColorSettingMenu: false,
       displayName: this.props.currentUser.displayName
     };        
+    this.storageRef = storage.ref('/user-images').child(this.props.currentUser.uid);
 
     this.handleChangeComplete = this.handleChangeComplete.bind(this);
     this.handleColorSettingButton = this.handleColorSettingButton.bind(this);
     this.dispatchSettingData = this.dispatchSettingData.bind(this);
 
     this.handleDisplayNameForm = this.handleDisplayNameForm.bind(this);
+    this.handleImageUploadButton = this.handleImageUploadButton.bind(this);
   }
 
   dispatchSettingData(color) {
@@ -53,7 +54,22 @@ export default class UserSetting extends Component {
 
     alert('닉네임이 변경되었습니다.');
   }
+  handleImageUploadButton(e) {
+    const file = e.target.files[0];
+    const uploadTask = this.storageRef.child(this.props.currentUser.uid).put(file, { contentType: file.type });
 
+    uploadTask.on('state_changed', (snap) => {
+      let progress = (snap.bytesTransferred / snap.totalBytes) * 100;
+
+      console.log('Upload is ' + progress + '% done');
+    }, (error) => {
+      console.log(error)
+    }, () => {
+      this.props.currentUser.updateProfile({
+        photoURL: uploadTask.snapshot.downloadURL
+      })
+    })
+  }
   render() {
     const { handleSettingButton, settingMenuClass, settings } = this.props;
     const styles = {
@@ -74,6 +90,10 @@ export default class UserSetting extends Component {
             <input type="text" value={ this.state.displayName } onChange={ (e) => { this.setState({ displayName: e.target.value }) }}/>
             <button type="submit">수정</button>
           </form>
+          <input
+            type="file"
+            onChange={ this.handleImageUploadButton }
+          />
           <p>사용자 컨트롤</p>
           <button onClick={ this.handleColorSettingButton }>테마변경</button>
           {this.state.toggleColorSettingMenu && <div>
