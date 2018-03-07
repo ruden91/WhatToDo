@@ -76,6 +76,9 @@ export default class UserSetting extends Component {
       backgroundColor: settings ? settings.backgroundColor : ''
     }
 
+    const tempStyle = {
+      display: 'none'
+    }
     return (
       <div className={`todo-app__user-setting ${settingMenuClass}`}>
         <header style={styles}>
@@ -92,8 +95,12 @@ export default class UserSetting extends Component {
           </form>
           <input
             type="file"
+            accept="image/*"
             onChange={ this.handleImageUploadButton }
+            id="files"
+            style={tempStyle}
           />
+          <label htmlFor="files">Select file</label>
           <p>사용자 컨트롤</p>
           <button onClick={ this.handleColorSettingButton }>테마변경</button>
           {this.state.toggleColorSettingMenu && <div>
