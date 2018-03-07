@@ -8,6 +8,7 @@ firebase.initializeApp(DB_CONFIG);
 export default firebase;
 export const database = firebase.database();
 export const auth = firebase.auth();
+export const storage = firebase.storage();
 
 export const GithubAuthProvider = new firebase.auth.GithubAuthProvider();
 export const GoogleAuthProvider = new firebase.auth.GoogleAuthProvider();
