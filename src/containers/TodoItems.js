@@ -78,7 +78,7 @@ class TodoItems extends Component {
   }
 
   splitByDay(item) {
-    let check = moment(item.created).format("YYYY년 MM월 DD일");
+    let check = moment(item.created).format("YYYY년 MM월 DD일 dddd");
     
     if (this.splitDate !== check) {
       this.splitDate = check;
@@ -119,7 +119,7 @@ class TodoItems extends Component {
                 updateTodoItem={ this.updateTodoItem }
                 settings= { settings }
                 label={this.splitByDay(value)}
-                date={moment(value.created).format("YYYY년 MM월 DD일")}
+                date={moment(value.created).format("YYYY년 MM월 DD일 dddd")}
               />
             )
           })

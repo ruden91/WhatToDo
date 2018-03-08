@@ -1,8 +1,7 @@
 .user-info {
-  left: 10px;
-  top: 15px;
   width: 200px;
   text-align: center;
+  margin-left: 13px;
   @include e('image-wrapper') {
     margin: 0 auto;
     display: block;
@@ -38,8 +37,7 @@
 }
 .swatches-picker {
   position: relative;
-  left: -7px;
-  margin-top: 15px;  
+  margin: 10px auto;  
 }
 
 /// UserSetting style
@@ -75,6 +73,6 @@
   }
 }
 .todo-app__user-setting-content {
-  padding: 10px;
+  padding: 0 10px 10px 10px;
   color: #444;
 }
