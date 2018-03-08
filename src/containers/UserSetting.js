@@ -89,27 +89,31 @@ export default class UserSetting extends Component {
         </header>
         <div className="todo-app__user-setting-content">
           <p>기본설정</p>
-          <form onSubmit={this.handleDisplayNameForm}>
-            <input type="text" value={ this.state.displayName } onChange={ (e) => { this.setState({ displayName: e.target.value }) }}/>
-            <button type="submit">수정</button>
-          </form>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={ this.handleImageUploadButton }
-            id="files"
-            style={tempStyle}
-          />
-          <label htmlFor="files">Select file</label>
-          <p>사용자 컨트롤</p>
-          <button onClick={ this.handleColorSettingButton }>테마변경</button>
-          {this.state.toggleColorSettingMenu && <div>
-            <SwatchesPicker 
-              color={ this.state.background }
-              onChangeComplete={ this.handleChangeComplete }
-              width="225px"
+          <div>
+            <form onSubmit={this.handleDisplayNameForm}>
+              <input type="text" value={ this.state.displayName } onChange={ (e) => { this.setState({ displayName: e.target.value }) }}/>
+              <button type="submit"><i className="fas fa-pencil-alt"></i></button>
+            </form>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={ this.handleImageUploadButton }
+              id="files"
+              style={tempStyle}
             />
-          </div>}          
+            <label htmlFor="files">Select file</label>
+          </div>
+          <p>사용자 컨트롤</p>
+          <div>
+            <button onClick={ this.handleColorSettingButton }>테마변경</button>
+            {this.state.toggleColorSettingMenu && <div>
+              <SwatchesPicker 
+                color={ this.state.background }
+                onChangeComplete={ this.handleChangeComplete }
+                width="225px"
+              />
+            </div>}
+          </div>          
           <p>정보</p>
         </div>
       </div>
