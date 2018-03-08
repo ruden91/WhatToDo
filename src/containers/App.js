@@ -27,7 +27,6 @@ class App extends Component {
   }
 
   toggleAddTodoItem() {
-    
     this.setState({
       toggleAddTodoItemButton: !this.state.toggleAddTodoItemButton
     })
@@ -91,21 +90,14 @@ class App extends Component {
   // 최신순으로 todoItems를 정렬해주는 함수
   sortTodoItems(items) {
     let results = {};
-    let tempArray = map(items, (value, key) => {
-      return {
-        ...value,
-        key
-      }
-    }).reverse();
+    let tempArray = map(items, (value, key) => ({ ...value, key })).reverse();
 
-    map(tempArray, (value) => {
-      results[value.key] = omit(value, 'key');
-    })
+    map(tempArray, (value) => results[value.key] = omit(value, 'key'));
 
     return results;
   }
   render() {
-    const { todoItems, settings, currentUser, loading, verified } = this.state;
+    const { currentUser, loading, verified } = this.state;
     let template;
 
     if (currentUser) {

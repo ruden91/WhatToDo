@@ -7,7 +7,7 @@ import { elastic as Menu } from 'react-burger-menu';
 import UserInfo from 'containers/UserInfo';
 import ChatButton from 'containers/ChatButton';
 
-export default class BoardMain extends Component {
+export default class Dashboard extends Component {
   render() {
     const { 
       todoItems, 
