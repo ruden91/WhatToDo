@@ -1,4 +1,4 @@
-# [Realtime Todo Application](https://todoapp-131c9.firebaseapp.com/main)
+# [Realtime Todo Application](https://todoapp-131c9.firebaseapp.com)
 
 실시간 일정관리 애플리케이션입니다.
 
