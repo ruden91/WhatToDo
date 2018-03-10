@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import AppHeader from 'components/AppHeader';
 import IntroComponent from 'components/IntroComponent';
 import AppFooter from 'components/AppFooter';
+import $ from 'jquery';
 export default class App extends Component {
 
   // 로그인 모달 제어 이벤트
@@ -17,8 +18,23 @@ export default class App extends Component {
     console.log('signup modal open');
   }
 
+  handleScroll = (e) => {
+    let scrollTop = e.srcElement.all[0].scrollTop;
+    let headerElement = document.querySelector('.wtd-header');
+    
+    if (scrollTop > 20) {
+      headerElement.classList.add('wtd-header--is-detached');
+    } else {
+      headerElement.classList.remove('wtd-header--is-detached');
+    }
+  }
+
   componentDidMount() {
-    console.log('component did mount')
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
   }
 
   render() {

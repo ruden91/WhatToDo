@@ -40,7 +40,7 @@ const AppHeader = ({ handleSignUpButton, handleLoginButton }) => (
               <li className="wtd-header__action">
                 <a 
                   href="javascript:;" 
-                  className="wtd-header__action-link"
+                  className="wtd-header__action-link wtd-header__action-link--sign-up"
                   onClick={ handleSignUpButton }
                 >
                   가입
