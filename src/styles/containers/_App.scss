@@ -1,0 +1,85 @@
+.wtd-signup-modal {
+  @include e('inner-container') {
+    padding: 0 15px;
+  }
+  @include e('header') {
+    @include clearfix;
+
+    p {
+      float: left;
+    }
+  }
+  @include e('close-btn-wrap') {
+    display: block;
+    float: right;
+    > button {
+      display: block;
+      position: relative;
+      width: 15px;
+      height: 15px;
+      
+      &:hover {
+        &:before, &:after {
+          opacity: .4;
+        }
+      }
+      @include close-button;     
+    }
+  }
+  @include e('separator') {
+    position: relative;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    height: 0;
+    border-top: 1px solid #ddd;
+
+    span {
+      @include center-layout;
+      padding: 0 16px;
+      color: #ccc;
+      background: #fff;
+      font-size: 11px;
+    }    
+  }
+  @include e('signup-form') {
+    label {
+      position: relative;
+      svg {
+        position: absolute;
+        top: 13px;
+        left: 12px;
+        fill: $defaultFontColor;
+        opacity: .5;
+        width: 1.1em !important;
+        font-size:15px;
+      }
+    }
+    input {
+      display: block;
+      font-size: 13px;
+      font-weight: normal;
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ddd;
+      margin-bottom: 1em;
+      padding-left: 45px;
+      &:focus::-webkit-input-placeholder { 
+        color:transparent;
+        transition: color .2s ease-in-out;
+      } 
+      &[type="submit"] {
+        cursor: pointer;
+        background-color: #db4c3f;
+        color: #fff;
+        padding-left: 13px;
+        border: 1px solid transparent;
+        border-radius: 3px;
+        transition: all .3s ease;
+        &:hover {
+          background-color: #c53727;
+          border-color: #c53727;
+        }
+      }      
+    }
+  }
+}

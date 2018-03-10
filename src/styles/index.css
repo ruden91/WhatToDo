@@ -26,6 +26,8 @@ p, h1, h2, h3, h4, h5, h6 {
   letter-spacing: -1px; }
 
 input, button {
+  padding: 0;
+  margin: 0;
   background: transparent;
   color: #6f6f6f;
   border: none;
@@ -133,6 +135,19 @@ li {
       .wtd-header__action-link:hover:after {
         border-top-width: 2px;
         opacity: 1; }
+
+.ReactModal__Content {
+  opacity: 0;
+  transform: scale(0.8); }
+
+.ReactModal__Content--after-open {
+  opacity: 1;
+  transition: all .2s ease-in-out;
+  transform: scale(1); }
+
+.ReactModal__Content--before-close {
+  opacity: 0;
+  transform: scale(0.8); }
 
 .wtd-footer {
   background-color: #f7f7f7;
@@ -359,6 +374,86 @@ li {
     font-size: 25px;
     line-height: 33px;
     margin: 25px 0; }
+
+.wtd-signup-modal__inner-container {
+  padding: 0 15px; }
+.wtd-signup-modal__header:after {
+  content: "";
+  display: table;
+  clear: both; }
+.wtd-signup-modal__header p {
+  float: left; }
+.wtd-signup-modal__close-btn-wrap {
+  display: block;
+  float: right; }
+  .wtd-signup-modal__close-btn-wrap > button {
+    display: block;
+    position: relative;
+    width: 15px;
+    height: 15px; }
+    .wtd-signup-modal__close-btn-wrap > button:hover:before, .wtd-signup-modal__close-btn-wrap > button:hover:after {
+      opacity: .4; }
+    .wtd-signup-modal__close-btn-wrap > button:before, .wtd-signup-modal__close-btn-wrap > button:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 2px;
+      height: 100%;
+      background-color: #6f6f6f;
+      opacity: .15; }
+    .wtd-signup-modal__close-btn-wrap > button:before {
+      transform: translate(-50%, -50%) rotate(45deg); }
+    .wtd-signup-modal__close-btn-wrap > button:after {
+      transform: translate(-50%, -50%) rotate(-45deg); }
+.wtd-signup-modal__separator {
+  position: relative;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  height: 0;
+  border-top: 1px solid #ddd; }
+  .wtd-signup-modal__separator span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0 16px;
+    color: #ccc;
+    background: #fff;
+    font-size: 11px; }
+.wtd-signup-modal__signup-form label {
+  position: relative; }
+  .wtd-signup-modal__signup-form label svg {
+    position: absolute;
+    top: 13px;
+    left: 12px;
+    fill: #6f6f6f;
+    opacity: .5;
+    width: 1.1em !important;
+    font-size: 15px; }
+.wtd-signup-modal__signup-form input {
+  display: block;
+  font-size: 13px;
+  font-weight: normal;
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #ddd;
+  margin-bottom: 1em;
+  padding-left: 45px; }
+  .wtd-signup-modal__signup-form input:focus::-webkit-input-placeholder {
+    color: transparent;
+    transition: color .2s ease-in-out; }
+  .wtd-signup-modal__signup-form input[type="submit"] {
+    cursor: pointer;
+    background-color: #db4c3f;
+    color: #fff;
+    padding-left: 13px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    transition: all .3s ease; }
+    .wtd-signup-modal__signup-form input[type="submit"]:hover {
+      background-color: #c53727;
+      border-color: #c53727; }
 
 .add-todo-item {
   width: 100%;
