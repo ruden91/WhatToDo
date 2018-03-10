@@ -111,11 +111,7 @@
   }
   @include e('login-inner-container') {
     width: 260px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
+    @include center-layout;
     > span {
       padding-top: 80px;
       color: #fff;

@@ -22,7 +22,7 @@ export default class AppHeader extends Component {
           <i className="fas fa-list-ol"></i>
         </span>
         <button 
-          className="todo-app-header__show-add-button"
+          className="todo-app-header__add-button-toggle js-todo-app-header__add-button-toggle"
           onClick={ () => toggleAddTodoItem() }
         >
           <span className={toggleAddTodoItemButton ? 'open' : 'close'}>

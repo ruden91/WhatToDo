@@ -58,10 +58,7 @@
     border-radius: 50%;
 
     svg {
-      position: absolute;
-      top:50%;
-      left:50%;
-      transform: translate(-50%, -50%);
+      @include center-layout;
       display: inline;  
       color: #fff; 
       opacity: 0;

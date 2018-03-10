@@ -75,14 +75,14 @@ li {
     padding-top: 8px;
     padding-left: 10px;
     color: #fff; }
-  .todo-app-header__show-add-button {
+  .todo-app-header__add-button-toggle {
     margin-top: 2px;
     cursor: pointer;
     color: #fff;
     float: right;
     width: 50px;
     height: 48px; }
-    .todo-app-header__show-add-button span {
+    .todo-app-header__add-button-toggle span {
       position: relative;
       display: inline-block;
       width: 30px;
@@ -91,9 +91,9 @@ li {
       background-color: #fff;
       transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
       transform: rotate(-135deg); }
-      .todo-app-header__show-add-button span.open {
+      .todo-app-header__add-button-toggle span.open {
         transform: rotate(0); }
-      .todo-app-header__show-add-button span span:nth-of-type(1) {
+      .todo-app-header__add-button-toggle span span:nth-of-type(1) {
         display: block;
         position: absolute;
         z-index: 1;
@@ -104,7 +104,7 @@ li {
         height: 35%;
         content: "";
         background-color: #70D0D9; }
-      .todo-app-header__show-add-button span span:nth-of-type(2) {
+      .todo-app-header__add-button-toggle span span:nth-of-type(2) {
         display: block;
         position: absolute;
         top: 50%;
