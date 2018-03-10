@@ -336,6 +336,26 @@ li {
     .wtd-about-developer a:hover {
       text-decoration: underline; }
 
+.wtd-no-match {
+  margin: 53px auto;
+  max-width: 400px;
+  text-align: left;
+  padding: 20px;
+  background: #fff; }
+  .wtd-no-match__logo {
+    margin-bottom: 60px; }
+  .wtd-no-match__support {
+    font-size: 14px;
+    margin: 8px 0 0;
+    line-height: 20px; }
+    .wtd-no-match__support a {
+      display: inline;
+      color: #e44232; }
+  .wtd-no-match h3 {
+    font-size: 25px;
+    line-height: 33px;
+    margin: 25px 0; }
+
 .add-todo-item {
   width: 100%;
   padding: 12px 45px 12px 12px;
