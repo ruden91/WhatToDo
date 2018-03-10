@@ -6,9 +6,14 @@ html {
 
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #F7FCFC;
   letter-spacing: -1px;
-  font-size: 14px; }
+  font-size: 14px;
+  color: #222; }
+
+a {
+  text-decoration: none;
+  color: #222;
+  display: block; }
 
 p {
   margin: 0;
@@ -30,6 +35,11 @@ button {
 
 li {
   list-style: none; }
+
+.wtd-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1rem; }
 
 .todo-app__main-loading {
   position: relative;
@@ -60,69 +70,50 @@ li {
     border: 8px solid white;
     width: 100%;
     height: 100%; } }
-.todo-app-header {
-  position: relative;
-  height: 50px;
-  background-color: #70D0D9;
-  transition: all .5s ease-in-out; }
-  .todo-app-header:after {
+.wtd-header {
+  height: 64px;
+  line-height: 64px; }
+  .wtd-header:after {
     content: "";
     display: table;
     clear: both; }
-  .todo-app-header__toggle-side-menu {
-    float: left;
-    font-size: 22px;
-    padding-top: 8px;
-    padding-left: 10px;
-    color: #fff; }
-  .todo-app-header__add-button-toggle {
-    margin-top: 2px;
-    cursor: pointer;
-    color: #fff;
-    float: right;
-    width: 50px;
-    height: 48px; }
-    .todo-app-header__add-button-toggle span {
-      position: relative;
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background-color: #fff;
-      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-      transform: rotate(-135deg); }
-      .todo-app-header__add-button-toggle span.open {
-        transform: rotate(0); }
-      .todo-app-header__add-button-toggle span span:nth-of-type(1) {
-        display: block;
-        position: absolute;
-        z-index: 1;
-        width: 1px;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(45deg);
-        height: 35%;
-        content: "";
-        background-color: #70D0D9; }
-      .todo-app-header__add-button-toggle span span:nth-of-type(2) {
-        display: block;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(-45deg);
-        z-index: 1;
-        width: 1px;
-        height: 35%;
-        background-color: #70D0D9; }
-  .todo-app-header__header-logo {
-    position: absolute;
-    font-size: 35px;
-    top: 3px;
-    left: 50%;
-    transform: translateX(-50%);
+  .wtd-header__floating {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+    backface-visibility: hidden;
+    border-bottom: 1px solid #e1e1e1;
+    box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.08);
+    transition: background-color .3s ease; }
+  .wtd-header__brand {
+    float: left; }
+  .wtd-header__actions-holder {
+    float: right; }
+  .wtd-header__action {
     display: inline-block;
-    line-height: 50px;
-    color: #fff; }
+    margin-right: 20px; }
+    .wtd-header__action:last-child {
+      margin-right: 0; }
+  .wtd-header__action-link {
+    position: relative;
+    color: #6f6f6f;
+    transition: color .25s ease; }
+    .wtd-header__action-link:after {
+      bottom: 0;
+      border-top: 0 solid #e44232;
+      content: '';
+      display: block;
+      opacity: 0;
+      position: absolute;
+      transition: all .25s ease;
+      width: 100%; }
+    .wtd-header__action-link:hover {
+      color: #474747; }
+      .wtd-header__action-link:hover:after {
+        border-top-width: 2px;
+        opacity: 1; }
 
 .todo-app__sign-in-button {
   position: relative;
