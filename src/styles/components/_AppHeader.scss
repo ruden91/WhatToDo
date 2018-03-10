@@ -74,3 +74,18 @@
     }
   }
 }
+.ReactModal__Content {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.ReactModal__Content--after-open {
+  opacity: 1;
+  transition: all .2s ease-in-out;
+  transform: scale(1);
+}
+
+.ReactModal__Content--before-close {
+  opacity: 0;
+  transform: scale(0.8);
+}
