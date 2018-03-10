@@ -1,0 +1,18 @@
+.wtd-brand-intro {
+  padding: 50px 0;
+  text-align: center;
+  p {
+    font-size: 24px;
+    margin-bottom: 20px;
+    letter-spacing: 0;
+  }
+  a {
+    display: inline-block;
+    border-radius: 5px;
+    border-color: $mainColor;
+    padding: 20px 40px;
+    background-color: $mainColor;
+    color: #fff;
+    letter-spacing: 0;
+  }
+}
