@@ -14,10 +14,12 @@ body {
 a {
   text-decoration: none;
   color: #6f6f6f;
-  display: block; }
+  display: block;
+  outline: none; }
 
 p, h1, h2, h3, h4, h5, h6 {
   font-size: 14px;
+  color: #6f6f6f;
   font-weight: 400;
   margin: 0;
   padding: 0;
@@ -25,6 +27,7 @@ p, h1, h2, h3, h4, h5, h6 {
 
 input, button {
   background: transparent;
+  color: #6f6f6f;
   border: none;
   outline: none;
   letter-spacing: -1px; }
@@ -84,6 +87,7 @@ li {
     display: inline;
     transition: all .25s ease; }
     .wtd-header.wtd-header--is-detached .wtd-header__action-link--sign-up:hover {
+      transition: all .25s ease;
       background-color: #e44232;
       color: #fff; }
       .wtd-header.wtd-header--is-detached .wtd-header__action-link--sign-up:hover:after {
