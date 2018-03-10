@@ -1,10 +1,12 @@
 import React from 'react';
 
+import MainBanner from 'components/intro/MainBanner';
 import BrandIntro from 'components/intro/BrandIntro';
 import AboutDeveloper from 'components/intro/AboutDeveloper';
-const IntroComponent = () => (
+const IntroComponent = ({ handleSignUpButton }) => (
   <div>
-    <BrandIntro />
+    <MainBanner />
+    <BrandIntro handleSignUpButton={ handleSignUpButton } />
     <AboutDeveloper />
   </div>
 )
