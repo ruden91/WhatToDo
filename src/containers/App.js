@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 
 import AppHeader from 'components/AppHeader';
+import IntroComponent from 'components/IntroComponent';
+import AppFooter from 'components/AppFooter';
 export default class App extends Component {
   render() {
     return (
       <div className="wtd">
         <AppHeader />
+        <IntroComponent />
+        <AppFooter />
       </div>
     )
   }

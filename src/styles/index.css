@@ -7,15 +7,18 @@ html {
 body {
   font-family: 'Roboto', sans-serif;
   letter-spacing: -1px;
+  font-weight: 400;
   font-size: 14px;
-  color: #222; }
+  color: #6f6f6f; }
 
 a {
   text-decoration: none;
-  color: #222;
+  color: #6f6f6f;
   display: block; }
 
-p {
+p, h1, h2, h3, h4, h5, h6 {
+  font-size: 14px;
+  font-weight: 400;
   margin: 0;
   padding: 0;
   letter-spacing: -1px; }
@@ -98,7 +101,6 @@ li {
       margin-right: 0; }
   .wtd-header__action-link {
     position: relative;
-    color: #6f6f6f;
     transition: color .25s ease; }
     .wtd-header__action-link:after {
       bottom: 0;
@@ -114,6 +116,29 @@ li {
       .wtd-header__action-link:hover:after {
         border-top-width: 2px;
         opacity: 1; }
+
+.wtd-footer {
+  background-color: #f7f7f7;
+  box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.08);
+  padding: 1.5rem 0 1rem; }
+  .wtd-footer__separator {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border-top: 1px solid #e1e1e1; }
+  .wtd-footer__copyright {
+    display: inline-block;
+    font-size: 14px; }
+  .wtd-footer__site-nav-container:after {
+    content: "";
+    display: table;
+    clear: both; }
+  .wtd-footer__site-nav {
+    float: left;
+    width: 16.66666667%;
+    margin-bottom: 20px; }
+    .wtd-footer__site-nav h2 {
+      font-size: 14px;
+      margin-bottom: 15px; }
 
 .todo-app__sign-in-button {
   position: relative;
@@ -260,6 +285,16 @@ li {
 .todo-app__user-setting-content {
   padding: 0 10px 10px 10px;
   color: #444; }
+
+.wtd-about-developer {
+  border-top: 1px solid #e1e1e1;
+  padding: 50px 0;
+  text-align: center; }
+  .wtd-about-developer p {
+    font-size: 24px;
+    margin-bottom: 20px; }
+  .wtd-about-developer a {
+    color: #e44232; }
 
 .add-todo-item {
   width: 100%;
@@ -767,14 +802,7 @@ li {
     padding-top: 10px;
     padding-bottom: 10px; }
 
-.todo-app {
-  position: relative;
-  height: 100vh; }
-
-.todo-app__content {
-  max-width: 640px;
-  margin: 0 auto;
-  position: relative;
-  height: calc(100vh - 50px); }
+.wtd {
+  overflow: hidden; }
 
 /*# sourceMappingURL=index.css.map */

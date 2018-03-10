@@ -9,16 +9,19 @@ html {
 body {
   font-family: 'Roboto', sans-serif;
   letter-spacing: -1px;
+  font-weight: 400;
   font-size: 14px;
-  color: #222;
+  color: $defaultFontColor;
 }
 
 a {
   text-decoration: none;
-  color: #222;
+  color: $defaultFontColor;
   display: block;
 }
-p {
+p, h1, h2, h3, h4, h5, h6 {
+  font-size: 14px;
+  font-weight: 400;
   margin:0;
   padding: 0;
   letter-spacing: -1px;
