@@ -3,8 +3,12 @@ import React, { Component } from 'react';
 import AppHeader from 'components/AppHeader';
 import IntroComponent from 'components/IntroComponent';
 import AppFooter from 'components/AppFooter';
-import $ from 'jquery';
+
+import Modal from 'react-modal';
 export default class App extends Component {
+  state = {
+    toggleModal: false
+  }
 
   // 로그인 모달 제어 이벤트
   handleLoginButton = (e) => {
@@ -15,7 +19,15 @@ export default class App extends Component {
   // 회원가입 모달 제어 이벤트
   handleSignUpButton = (e) => {
     e.preventDefault();
-    console.log('signup modal open');
+    
+    this.setState({
+      toggleModal: true
+    })
+  }
+
+  // 회원가입 모달 닫기버튼 제어 함수
+  handleSignUpModalClose = () => {
+    this.setState({ toggleModal: false });
   }
 
   handleScroll = (e) => {
@@ -38,6 +50,20 @@ export default class App extends Component {
   }
 
   render() {
+    const { toggleModal } = this.state;
+    const customStyles = {
+      overlay: {zIndex: 2, backgroundColor: 'rgba(102,102,102,0.5)'},
+      content: {
+        boxShadow: '0 0 2px 0 rgba(0,0,0,0.5), 0 0 10px 0 rgba(0,0,0,0.2)',
+        width: '420px',
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'        
+      }
+    };    
     return (
       <div className="wtd">
         <AppHeader 
@@ -46,6 +72,17 @@ export default class App extends Component {
         />
         <IntroComponent handleSignUpButton={ this.handleSignUpButton } />
         <AppFooter />
+
+        <Modal
+          isOpen={ toggleModal }
+          onRequestClose={this.handleSignUpModalClose}
+          ariaHideApp={ false }
+          contentLabel="loginModal"
+          style={ customStyles }
+        >
+          modal hello
+          <button onClick={ this.handleSignUpModalClose }>close</button>
+        </Modal>
       </div>
     )
   }

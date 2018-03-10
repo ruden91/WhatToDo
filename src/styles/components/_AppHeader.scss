@@ -10,6 +10,7 @@
         display: inline;
         transition: all .25s ease;
         &:hover {
+          transition: all .25s ease;
           background-color: $mainColor;
           color: #fff;          
           &:after {

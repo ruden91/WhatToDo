@@ -18,9 +18,11 @@ a {
   text-decoration: none;
   color: $defaultFontColor;
   display: block;
+  outline: none;
 }
 p, h1, h2, h3, h4, h5, h6 {
   font-size: 14px;
+  color: $defaultFontColor;
   font-weight: 400;
   margin:0;
   padding: 0;
@@ -28,6 +30,7 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 input, button {
   background: transparent;
+  color: $defaultFontColor;
   border: none;
   outline: none;  
   letter-spacing: -1px;
