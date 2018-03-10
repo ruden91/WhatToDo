@@ -286,15 +286,35 @@ li {
   padding: 0 10px 10px 10px;
   color: #444; }
 
+.wtd-brand-intro {
+  padding: 50px 0;
+  text-align: center; }
+  .wtd-brand-intro p {
+    font-size: 24px;
+    margin-bottom: 20px;
+    letter-spacing: 0; }
+  .wtd-brand-intro a {
+    display: inline-block;
+    border-radius: 5px;
+    border-color: #e44232;
+    padding: 20px 40px;
+    background-color: #e44232;
+    color: #fff;
+    letter-spacing: 0; }
+
 .wtd-about-developer {
   border-top: 1px solid #e1e1e1;
   padding: 50px 0;
   text-align: center; }
   .wtd-about-developer p {
     font-size: 24px;
-    margin-bottom: 20px; }
+    margin-bottom: 20px;
+    letter-spacing: 0; }
   .wtd-about-developer a {
-    color: #e44232; }
+    color: #e44232;
+    letter-spacing: 0; }
+    .wtd-about-developer a:hover {
+      text-decoration: underline; }
 
 .add-todo-item {
   width: 100%;
