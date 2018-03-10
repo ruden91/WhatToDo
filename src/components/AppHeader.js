@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 
-const AppHeader = () => (
-  <header className="wtd-header">
+import { Link } from 'react-router-dom';
+const AppHeader = ({ handleSignUpButton, handleLoginButton }) => (
+  <header className="wtd-header js-wtd-header">
     <div className="wtd-header__floating">
       <div className="wtd-container">
         <div className="wtd-header-inner">
           <div className="wtd-header__brand">
-            <a href="#" className="wtd-header__logo-holder">
+            <Link to="/" className="wtd-header__logo-holder">
               WhatToDo
-            </a>
+            </Link>
           </div>
           <div className="wtd-header__actions-holder">
             <ul className="wtd-header__actions">
               <li className="wtd-header__action">
-                <a href="#" className="wtd-header__action-link">
+                <Link to="tour" className="wtd-header__action-link">
                   설명
-                </a>
+                </Link>
               </li>  
               <li className="wtd-header__action">
                 <a href="#" className="wtd-header__action-link">
@@ -28,12 +29,20 @@ const AppHeader = () => (
                 </a>
               </li>                                      
               <li className="wtd-header__action">
-                <a href="#" className="wtd-header__action-link">
+                <a 
+                  href="javascript:;" 
+                  className="wtd-header__action-link"
+                  onClick={ handleLoginButton }
+                >
                   로그인
                 </a>
               </li>
               <li className="wtd-header__action">
-                <a href="#" className="wtd-header__action-link">
+                <a 
+                  href="javascript:;" 
+                  className="wtd-header__action-link"
+                  onClick={ handleSignUpButton }
+                >
                   가입
                 </a>
               </li>              

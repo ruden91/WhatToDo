@@ -87,6 +87,7 @@ li {
     width: 100%;
     z-index: 2;
     backface-visibility: hidden;
+    background-color: #fff;
     border-bottom: 1px solid #e1e1e1;
     box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.08);
     transition: background-color .3s ease; }
@@ -127,7 +128,7 @@ li {
     border-top: 1px solid #e1e1e1; }
   .wtd-footer__copyright {
     display: inline-block;
-    font-size: 14px; }
+    font-size: 12px; }
   .wtd-footer__site-nav-container:after {
     content: "";
     display: table;
@@ -285,6 +286,13 @@ li {
 .todo-app__user-setting-content {
   padding: 0 10px 10px 10px;
   color: #444; }
+
+.wtd-main-banner {
+  height: calc(100vh - 64px);
+  background-image: url(http://via.placeholder.com/1920x1000);
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat; }
 
 .wtd-brand-intro {
   padding: 50px 0;

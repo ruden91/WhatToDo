@@ -4,11 +4,31 @@ import AppHeader from 'components/AppHeader';
 import IntroComponent from 'components/IntroComponent';
 import AppFooter from 'components/AppFooter';
 export default class App extends Component {
+
+  // 로그인 모달 제어 이벤트
+  handleLoginButton = (e) => {
+    e.preventDefault();
+    console.log('handle login Button');
+  }
+
+  // 회원가입 모달 제어 이벤트
+  handleSignUpButton = (e) => {
+    e.preventDefault();
+    console.log('signup modal open');
+  }
+
+  componentDidMount() {
+    console.log('component did mount')
+  }
+
   render() {
     return (
       <div className="wtd">
-        <AppHeader />
-        <IntroComponent />
+        <AppHeader 
+          handleLoginButton={ this.handleLoginButton }
+          handleSignUpButton={ this.handleSignUpButton } 
+        />
+        <IntroComponent handleSignUpButton={ this.handleSignUpButton } />
         <AppFooter />
       </div>
     )
