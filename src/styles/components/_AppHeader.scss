@@ -31,7 +31,6 @@
   }
   @include e('action-link') {
     position: relative;
-    color: #6f6f6f;
     transition: color .25s ease;
     
     &:after {
