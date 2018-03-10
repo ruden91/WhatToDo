@@ -91,6 +91,11 @@ export default class App extends Component {
               </span>
             </header>
             <div className="wtd-signup-modal__content">
+              <div className="wtd-signup-modal__social-login">
+                <button>구글 계정으로 가입</button>
+                <button>페이스북 계정으로 가입</button>
+                <button>깃허브 계정으로 가입</button>                
+              </div>
               <div className="wtd-signup-modal__separator">
                 <span>또는</span>
               </div>
