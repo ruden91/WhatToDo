@@ -2,7 +2,7 @@ import React from 'react';
 
 const NextWeekPanel = () => (
   <div>
-    NextWeekPanel
+    <h2>다음 7일</h2>
   </div>
 )
 

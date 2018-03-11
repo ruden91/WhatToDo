@@ -2,7 +2,7 @@ import React from 'react';
 
 const TodayPanel = () => (
   <div>
-    TodayPanel
+    <h2>오늘</h2>
   </div>
 )
 
