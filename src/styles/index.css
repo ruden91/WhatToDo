@@ -50,7 +50,7 @@ li {
   padding: 0 1rem; }
 
 .todo-app__main-loading {
-  position: relative;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -120,19 +120,22 @@ li {
       margin-right: 0; }
   .wtd-header__action-link {
     position: relative;
-    transition: all .25s ease; }
+    transition: all .4s ease;
+    font-size: 15px;
+    font-weight: 300; }
     .wtd-header__action-link:after {
       bottom: 0;
+      width: 0;
       border-top: 0 solid #e44232;
       content: '';
       display: block;
       opacity: 0;
       position: absolute;
-      transition: all .25s ease;
-      width: 100%; }
+      transition: all .4s ease; }
     .wtd-header__action-link:hover {
       color: #474747; }
       .wtd-header__action-link:hover:after {
+        width: 100%;
         border-top-width: 2px;
         opacity: 1; }
 
