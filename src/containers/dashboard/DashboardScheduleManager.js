@@ -4,7 +4,7 @@ export default class DashboardScheduleManager extends Component {
   render() {
     return (
       <section className="wtd-dashboard-schedule-manager">
-        DashboardScheduleManager
+        { this.props.children }
       </section>
     )
   }

@@ -75,6 +75,7 @@
 .wtd-dashboard-header__setting-panels {
   width: 100%;
   td {
+    cursor:pointer;
     padding: 10px 12px;
     font-size: 12px;
     span {
@@ -160,6 +161,11 @@
     padding: 9px 0;
     transition: color .1s ease-in,background-color .1s ease-in;
     line-height: 1.25;
+
+    &:hover {
+      background-color: #fff;
+    }
+
     span {
       display: inline-block;
     }
@@ -201,14 +207,12 @@
   float: left;
   width: 260px;
   padding-right: 30px;
-  height: 100vh;
   padding-top: 80px;
   border-right: 1px solid #f1f1f1;  
 }
 .wtd-dashboard-user-setting__right-side-content {
   float: left;
   width: calc(100% - 260px);
-  height: 100vh;
   padding: 80px 25px 12px 45px;
   background-color: #fff;
   border-right: 1px solid #f1f1f1;  
