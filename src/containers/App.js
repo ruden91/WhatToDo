@@ -1,20 +1,35 @@
 import React, { Component } from 'react';
+import { withRouter } from "react-router-dom";
 
 import AppHeader from 'components/AppHeader';
 import IntroComponent from 'components/IntroComponent';
 import AppFooter from 'components/AppFooter';
+import AppLoginForm from 'components/AppLoginForm';
+import AppSignupForm from 'components/AppSignupForm';
+import MainLoading from 'components/MainLoading';
 
 import ReactModal from 'react-modal';
+import { auth, GithubAuthProvider, GoogleAuthProvider, FacebookAuthProvider } from 'database/firebase';
+import * as actions from '../actions';
+import Store from '../store';
 
-export default class App extends Component {
+class App extends Component {
   state = {
-    toggleModal: false
+    toggleSignupModal: false,
+    toggleLoginModal: false,
+    loading: true,
+    data: Store.getState()
   }
 
   // 로그인 모달 제어 이벤트
   handleLoginButton = (e) => {
     e.preventDefault();
-    console.log('handle login Button');
+    this.setState({ toggleLoginModal: true });
+  }
+
+  // 로그인 모달 닫기버튼 제어 함수
+  handleLoginModalClose = () => {
+    this.setState({ toggleLoginModal: false });
   }
 
   // 회원가입 모달 제어 이벤트
@@ -22,13 +37,44 @@ export default class App extends Component {
     e.preventDefault();
     
     this.setState({
-      toggleModal: true
+      toggleSignupModal: true
     })
   }
 
   // 회원가입 모달 닫기버튼 제어 함수
   handleSignUpModalClose = () => {
-    this.setState({ toggleModal: false });
+    this.setState({ toggleSignupModal: false });
+  }
+
+  handleProviderLogin = (provider) => {
+    let providerName;
+    if (provider === 'GoogleAuthProvider') {
+      providerName = GoogleAuthProvider;
+    } else if (provider === 'FacebookAuthProvider') {
+      providerName = FacebookAuthProvider;
+    } else if (provider === 'GithubAuthProvider') {
+      providerName = GithubAuthProvider;
+    }
+
+    auth.signInWithPopup(providerName).then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      let token = result.credential.accessToken;
+      // The signed-in user info.
+      let user = result.user;
+
+      actions.fetchCurrentUser(user);      
+    }).catch((error) => {
+      console.log('인증실패');
+      console.log(error)
+      // Handle Errors here.
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      // The email of the user's account used.
+      let email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      let credential = error.credential;
+      // ...
+    })
   }
 
   handleScroll = (e) => {
@@ -42,16 +88,34 @@ export default class App extends Component {
     }
   }
 
+  updateState = () => {
+    this.setState(Store.getState());
+  }
+
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
+    Store.on('change', this.updateState);
+
+    auth.onAuthStateChanged(currentUser => {
+      if (currentUser) {
+
+        this.props.history.push('/dashboard');
+      } else {
+        this.setState({
+          loading: false
+        })
+      }
+    })    
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
+    console.log(Store)
+    // Store.off('change', this.updateState);
   }
 
   render() {
-    const { toggleModal } = this.state;
+    const { toggleLoginModal, toggleSignupModal } = this.state;
     const customStyles = {
       overlay: {zIndex: 2, backgroundColor: 'rgba(102,102,102,0.5)'},
       content: {
@@ -67,7 +131,8 @@ export default class App extends Component {
     };    
     return (
       <div className="wtd">
-        <AppHeader 
+        {this.state.loading && <MainLoading />}
+        {!this.state.loading && <div><AppHeader 
           handleLoginButton={ this.handleLoginButton }
           handleSignUpButton={ this.handleSignUpButton } 
         />
@@ -75,58 +140,38 @@ export default class App extends Component {
         <AppFooter />
 
         <ReactModal
-          isOpen={ toggleModal }
-          onRequestClose={this.handleSignUpModalClose}
+          isOpen={ toggleLoginModal }
+          onRequestClose={this.handleLoginModalClose}
           ariaHideApp={ false }
           contentLabel="loginModal"
           style={ customStyles }
           closeTimeoutMS={200}
         >
-          <div className="wtd-signup-modal__inner-container">
-            <header className="wtd-signup-modal__header">
-              <p>바로 가입</p>
-              <span className="wtd-signup-modal__close-btn-wrap">
-                <button onClick={ this.handleSignUpModalClose }>
-                </button>              
-              </span>
-            </header>
-            <div className="wtd-signup-modal__content">
-              <div className="wtd-signup-modal__social-login">
-                <button>구글 계정으로 가입</button>
-                <button>페이스북 계정으로 가입</button>
-                <button>깃허브 계정으로 가입</button>                
-              </div>
-              <div className="wtd-signup-modal__separator">
-                <span>또는</span>
-              </div>
-              <form className="wtd-signup-modal__signup-form">
-                <label htmlFor="signup-modal-nickname">
-                  <i className="fas fa-user"></i>
-                  <input 
-                    type="text" 
-                    placeholder="당신의 닉네임" 
-                    title="당신의 닉네임" 
-                    id="signup-modal-nickname"
-                    maxLength="10"
-                  />
-                </label>
-                <label htmlFor="signup-modal-email">
-                  <i className="far fa-envelope"></i>
-                  <input type="email" placeholder="이메일" title="이메일" id="signup-modal-email" maxLength="30"/>
-                </label>
-                <label htmlFor="signup-modal-password">
-                  <i className="fas fa-unlock"></i>
-                  <input type="password" placeholder="패스워드" title="패스워드" id="signup-modal-password" />
-                </label>
-                <input type="submit" value="내 계정 생성" />
-              </form>
-            </div>          
-          </div>
+          <AppLoginForm 
+            handleLoginModalClose={ this.handleLoginModalClose } 
+            handleProviderLogin={ this.handleProviderLogin }
+          />
         </ReactModal>
+
+        <ReactModal
+          isOpen={ toggleSignupModal }
+          onRequestClose={this.handleSignUpModalClose}
+          ariaHideApp={ false }
+          contentLabel="signupModal"
+          style={ customStyles }
+          closeTimeoutMS={200}
+        >
+          <AppSignupForm 
+            handleSignUpModalClose={ this.handleSignUpModalClose } 
+            handleProviderLogin={ this.handleProviderLogin }
+          />
+        </ReactModal></div>}
       </div>
     )
   }
 }
+
+export default withRouter(App);
 // import React, { Component } from 'react';
 // import { database, auth } from 'database/firebase';
 

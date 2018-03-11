@@ -1,5 +1,5 @@
 .todo-app__main-loading {
-  position: relative;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -7,7 +7,7 @@
   height: 50px;
   background-color: #70D0D9;
   border-radius: 50%;
-
+  
   &:after {
     content: '';
     position: absolute;
