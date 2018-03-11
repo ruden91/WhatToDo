@@ -12,6 +12,10 @@ import NextWeekPanel from 'components/dashboard/NextWeekPanel';
 
 import { uniqueId } from 'lodash';
 
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from 'react-dnd';
+
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -96,4 +100,4 @@ class Dashboard extends Component {
   }
 }
 
-export default withRouter(Dashboard);
+export default DragDropContext(HTML5Backend)(Dashboard);

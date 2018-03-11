@@ -1,6 +1,6 @@
 {
   "name": "WhatToDo",
-  "version": "0.1.5",
+  "version": "0.2.6",
   "private": true,
   "dependencies": {
     "eslint": "^4.18.1",
@@ -12,6 +12,7 @@
     "moment": "^2.21.0",
     "normalize.css": "^8.0.0",
     "react": "^16.2.0",
+    "react-addons-update": "^15.6.2",
     "react-burger-menu": "^2.3.0",
     "react-color": "^2.14.0",
     "react-dnd": "^2.5.4",
