@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
+import SettingButton from 'containers/dashboard/SettingButton';
 const DashboardHeader = () => (
   <header className="wtd-dashboard-header">
     <div className="wtd-container">
@@ -22,9 +24,7 @@ const DashboardHeader = () => (
             <button className="wtd-dashboard-header__action"><i className="fas fa-bell"></i></button>
           </li>      
           <li className="wtd-dashboard-header__actions">
-            <button className="wtd-dashboard-header__action wtd-dashboard-header__action--setting">
-              <i className="fas fa-cog"></i>
-            </button>
+            <SettingButton />
           </li>        
         </ul>
       </div>    

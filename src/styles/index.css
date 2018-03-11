@@ -447,6 +447,18 @@ li {
     transform: rotate(0deg); }
   to {
     transform: rotate(360deg); } }
+.wtd-dashboard-header__setting-panels {
+  width: 100%; }
+  .wtd-dashboard-header__setting-panels td {
+    padding: 10px 12px;
+    font-size: 12px; }
+    .wtd-dashboard-header__setting-panels td.separator {
+      padding: 4px 0; }
+      .wtd-dashboard-header__setting-panels td.separator > div {
+        padding: 0;
+        height: 1px;
+        background-color: #ddd; }
+
 .wtd-dashboard-aside-menu {
   float: left;
   width: 260px;
@@ -482,6 +494,28 @@ li {
     padding-left: 8px; }
   .wtd-dashboard-aside-menu__panel-title {
     padding-left: 20px; }
+  .wtd-dashboard-aside-menu__tabs {
+    margin-top: 30px; }
+    .wtd-dashboard-aside-menu__tabs table {
+      width: 100%; }
+    .wtd-dashboard-aside-menu__tabs td {
+      width: 50%;
+      cursor: pointer;
+      font-size: 13px;
+      line-height: 1;
+      padding: 0 5px 5px 2px;
+      text-align: center;
+      color: #999;
+      border-bottom: 1px solid #e0e0e0;
+      transition: color .1s ease-in; }
+    .wtd-dashboard-aside-menu__tabs.project td.project {
+      border-bottom: solid 1px #737373;
+      font-weight: bold;
+      color: #555; }
+    .wtd-dashboard-aside-menu__tabs.filters td.filters {
+      border-bottom: solid 1px #737373;
+      font-weight: bold;
+      color: #555; }
 
 .wtd-signup-modal__inner-container {
   padding: 0 15px; }
@@ -602,6 +636,18 @@ li {
       background-color: #c53727;
       border-color: #c53727;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); }
+
+.wtd-login-modal__help-block p {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  font-weight: 300; }
+  .wtd-login-modal__help-block p a {
+    color: #e44232;
+    display: inline-block;
+    margin-left: 5px;
+    font-weight: 400; }
 
 .add-todo-item {
   width: 100%;

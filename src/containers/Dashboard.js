@@ -40,7 +40,6 @@ class Dashboard extends Component {
           <DashboardAsideMenu />
           <DashboardScheduleManager />          
         </div>
-        <button onClick={ this.handleLogOutButton }>로그아웃</button>
       </div>
     )
   }

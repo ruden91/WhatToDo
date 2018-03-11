@@ -47,4 +47,43 @@
   @include e('panel-title') {
     padding-left: 20px;
   }
+  @include e('tabs') {
+    margin-top: 30px;
+    table {
+      width: 100%;
+    }
+
+    td {
+      width: 50%;
+      cursor: pointer;
+      font-size: 13px;
+      line-height: 1;
+      padding: 0 5px 5px 2px;
+      text-align: center;
+      color: #999;
+      border-bottom: 1px solid #e0e0e0;
+      transition: color .1s ease-in;      
+    }
+    &.project {
+
+      td {
+        &.project {
+          border-bottom: solid 1px #737373;
+          font-weight: bold;
+          color: #555;          
+        }
+      }
+    }
+
+    &.filters {
+
+      td {
+        &.filters {
+          border-bottom: solid 1px #737373;
+          font-weight: bold;
+          color: #555;          
+        }
+      }
+    }    
+  }
 }
