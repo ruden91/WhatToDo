@@ -142,3 +142,20 @@
     }
   }
 }
+.wtd-login-modal {
+  @include e('help-block') {
+    p {
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      font-weight: 300;
+      a {
+        color: $mainColor;
+        display: inline-block;
+        margin-left: 5px;
+        font-weight: 400;
+      }
+    }
+  }
+}

@@ -70,3 +70,21 @@
     }
   } 
 }
+
+
+.wtd-dashboard-header__setting-panels {
+  width: 100%;
+  td {
+    padding: 10px 12px;
+    font-size: 12px;
+    
+    &.separator {
+      padding: 4px 0;
+      > div {
+        padding: 0;
+        height: 1px;
+        background-color: #ddd;        
+      }
+    }
+  }
+}

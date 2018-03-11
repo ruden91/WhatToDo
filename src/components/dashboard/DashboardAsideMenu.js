@@ -16,6 +16,16 @@ const DashboardAsideMenu = () => (
         <span className="wtd-dashboard-aside-menu__panel-title">다음 7일</span> <small>1</small>
       </li>
     </ul>
+    <div className="wtd-dashboard-aside-menu__tabs project">
+      <table>
+        <tbody>
+          <tr>
+            <td className="wtd-dashboard-aside-menu__tab-control project">프로젝트</td>
+            <td className="wtd-dashboard-aside-menu__tab-control filters">필터</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </aside>
 )
 

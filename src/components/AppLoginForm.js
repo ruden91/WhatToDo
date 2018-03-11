@@ -30,7 +30,7 @@ const AppLoginForm = ({ handleLoginModalClose, handleProviderLogin }) => (
         <input type="submit" value="로그인" />
       </form>
       <div className="wtd-login-modal__help-block">
-        <p>패스워드를 잊어버렸습니까?</p>
+        <p><a href="#">패스워드를 잊어버렸습니까?</a></p>
         <p>추가 도움이 필요합니까? <a href="#">WhatToDo 지원 연락</a></p>
         <p>계정이 없습니까? <a href="#">바로 가입</a></p>                  
       </div>
