@@ -1,8 +1,8 @@
 /// variables
 $mainColor: #e44232;
 $defaultFontColor: #6f6f6f; 
+@import 'partials/base';
 @import 'default';
 
-@import 'partials/base';
 @import 'components/index';
 @import 'containers/index';

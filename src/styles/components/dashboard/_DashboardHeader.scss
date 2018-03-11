@@ -1,0 +1,72 @@
+.wtd-dashboard-header {
+  position: fixed;
+  width: 100%;
+  background-color: #3d3d3d;
+  height: 43px;
+
+  @include e('inner') {
+    @include clearfix;
+    padding: 13px 0 10px 0;
+    a {
+      color: #fff;
+    }
+  }
+  
+  @include e('logo-holder') {
+    float: left;
+  }
+  @include e('actions-holder') {
+    float: right;
+  }
+
+  @include e('actions') {
+    display: inline-block;
+    margin-right: 30px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  @include e('action') {
+    color: #fff;
+    font-size: 18px;
+    position: relative;
+
+    @include m('add') {
+      position: relative;
+      top: 1px;
+      transform: rotate(45deg);
+      width: 16px;
+      height: 16px;
+      @include close-button;
+      &:before, &:after {
+        background-color: #fff;
+        opacity: 1;
+      }
+    }
+
+    span {
+      font-size: 12px;
+      font-weight: 300;
+      margin-left: 6px;
+      color: #cecece;
+      display: inline-block;
+      vertical-align: middle;      
+    }
+    @include m('setting') {
+      &:hover {
+        animation: rotateButton 2s linear infinite;      
+      }
+    }
+  }
+  @keyframes rotateButton {
+    from {
+      transform: rotate(0deg);
+    }
+    
+    to {
+      transform: rotate(360deg);
+    }
+  } 
+}
