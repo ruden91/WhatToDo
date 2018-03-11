@@ -7,11 +7,43 @@ import UserSetting from 'containers/dashboard/settings/UserSetting';
 import DefaultSetting from 'containers/dashboard/settings/DefaultSetting';
 import ThemeSetting from 'containers/dashboard/settings/ThemeSetting';
 import KarmaSetting from 'containers/dashboard/settings/KarmaSetting';
+import { uniqueId } from 'lodash';
 class SettingButton extends Component {
-  state = {
-    toggleSettingModal: false,
-    toggleUserSettingModal: false,
-    toggleSettingComponent: 'user'
+  constructor() {
+    super();
+
+    this.state = {
+      toggleSettingModal: false,
+      toggleUserSettingModal: false,
+      toggleSettingComponent: 'user'
+    }    
+
+    this.settingPanels = [
+      {
+        title: '계정',
+        icon: 'fas fa-user',
+        component: 'user',
+        key: uniqueId()
+      },
+      {
+        title: '기본',
+        icon: 'fas fa-cogs',
+        component: 'basic',
+        key: uniqueId()
+      },
+      {
+        title: '테마',
+        icon: 'fas fa-paint-brush',
+        component: 'theme',
+        key: uniqueId()
+      },
+      {
+        title: 'Karma',
+        icon: 'fas fa-trophy',
+        component: 'karma',
+        key: uniqueId()
+      }                  
+    ]
   }
 
   handleSettingModalClose = () => {
@@ -23,6 +55,12 @@ class SettingButton extends Component {
   handleUserSettingModalClose = () => {
     this.setState({
       toggleUserSettingModal: false
+    })
+  }
+
+  handlePanel = (panel) => {
+    this.setState({
+      toggleSettingComponent: panel
     })
   }
 
@@ -41,6 +79,7 @@ class SettingButton extends Component {
   }
 
   render() {
+    const { toggleSettingComponent } = this.state;
     const customStyles = {
       overlay: {},
       content: {
@@ -91,7 +130,7 @@ class SettingButton extends Component {
                 <td>동기화</td>
               </tr>
               <tr>
-                <td><button onClick={ () => this.setState({ toggleUserSettingModal: true }) }>설정</button></td>
+                <td onClick={ () => this.setState({ toggleUserSettingModal: true }) }>설정</td>
               </tr>
               <tr>
                 <td>활동 로그 보기</td>
@@ -137,22 +176,16 @@ class SettingButton extends Component {
             <div className="wtd-container">
               <aside className="wtd-dashboard-user-setting__left-side-content">
                 <ul className="wtd-dashboard-user-setting__panels">
-                  <li className="wtd-dashboard-user-setting__panel current" onClick={ () => this.setState({ toggleSettingComponent: 'user' })}>
-                    <span className="wtd-dashboard-user-setting__panel-icon"><i className="fas fa-user"></i></span>
-                    <span className="wtd-dashboard-user-setting__panel-title">계정</span>
-                  </li>
-                  <li className="wtd-dashboard-user-setting__panel" onClick={ () => this.setState({ toggleSettingComponent: 'basic' })}>
-                    <span className="wtd-dashboard-user-setting__panel-icon"><i className="fas fa-cogs"></i></span>
-                    <span className="wtd-dashboard-user-setting__panel-title">일반</span>
-                  </li>
-                  <li className="wtd-dashboard-user-setting__panel" onClick={ () => this.setState({ toggleSettingComponent: 'theme' })}>
-                    <span className="wtd-dashboard-user-setting__panel-icon"><i className="fas fa-paint-brush"></i></span>
-                    <span className="wtd-dashboard-user-setting__panel-title">테마</span>
-                  </li>
-                  <li className="wtd-dashboard-user-setting__panel" onClick={ () => this.setState({ toggleSettingComponent: 'karma' })}>
-                    <span className="wtd-dashboard-user-setting__panel-icon"><i className="fas fa-trophy"></i></span>
-                    <span className="wtd-dashboard-user-setting__panel-title">Karma</span>
-                  </li>                  
+                  {this.settingPanels.map(panel => (
+                    <li 
+                      className={`wtd-dashboard-user-setting__panel ${toggleSettingComponent === panel.component ? 'current' : ''}`} 
+                      onClick={ () => this.handlePanel(panel.component) } 
+                      key={panel.key}
+                    >
+                      <span className="wtd-dashboard-user-setting__panel-icon"><i className={panel.icon}></i></span>
+                      <span className="wtd-dashboard-user-setting__panel-title">{panel.title}</span>
+                    </li>
+                  ))}                  
                 </ul>                
               </aside>
               <div className="wtd-dashboard-user-setting__right-side-content">
