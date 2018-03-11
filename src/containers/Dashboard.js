@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { auth } from 'database/firebase';
 
+import DashboardHeader from 'components/dashboard/DashboardHeader';
+import DashboardAsideMenu from 'components/dashboard/DashboardAsideMenu';
+import DashboardScheduleManager from 'containers/dashboard/DashboardScheduleManager';
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -31,6 +35,11 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="wtd-dashboard">
+        <DashboardHeader />
+        <div className="wtd-container">
+          <DashboardAsideMenu />
+          <DashboardScheduleManager />          
+        </div>
         <button onClick={ this.handleLogOutButton }>로그아웃</button>
       </div>
     )

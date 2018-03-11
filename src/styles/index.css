@@ -48,6 +48,10 @@ li {
   max-width: 960px;
   margin: 0 auto;
   padding: 0 1rem; }
+  .wtd-container:after {
+    content: "";
+    display: table;
+    clear: both; }
 
 .todo-app__main-loading {
   position: absolute;
@@ -377,6 +381,78 @@ li {
     font-size: 25px;
     line-height: 33px;
     margin: 25px 0; }
+
+.wtd-dashboard {
+  background-color: #fafafa; }
+
+.wtd-dashboard-header {
+  position: fixed;
+  width: 100%;
+  background-color: #3d3d3d;
+  height: 43px; }
+  .wtd-dashboard-header__inner {
+    padding: 13px 0 10px 0; }
+    .wtd-dashboard-header__inner:after {
+      content: "";
+      display: table;
+      clear: both; }
+    .wtd-dashboard-header__inner a {
+      color: #fff; }
+  .wtd-dashboard-header__logo-holder {
+    float: left; }
+  .wtd-dashboard-header__actions-holder {
+    float: right; }
+  .wtd-dashboard-header__actions {
+    display: inline-block;
+    margin-right: 30px; }
+    .wtd-dashboard-header__actions:last-child {
+      margin-right: 0; }
+  .wtd-dashboard-header__action {
+    color: #fff;
+    font-size: 18px;
+    position: relative; }
+    .wtd-dashboard-header__action--add {
+      position: relative;
+      top: 1px;
+      transform: rotate(45deg);
+      width: 16px;
+      height: 16px; }
+      .wtd-dashboard-header__action--add:before, .wtd-dashboard-header__action--add:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 2px;
+        height: 100%;
+        background-color: #6f6f6f;
+        opacity: .15; }
+      .wtd-dashboard-header__action--add:before {
+        transform: translate(-50%, -50%) rotate(45deg); }
+      .wtd-dashboard-header__action--add:after {
+        transform: translate(-50%, -50%) rotate(-45deg); }
+      .wtd-dashboard-header__action--add:before, .wtd-dashboard-header__action--add:after {
+        background-color: #fff;
+        opacity: 1; }
+    .wtd-dashboard-header__action span {
+      font-size: 12px;
+      font-weight: 300;
+      margin-left: 6px;
+      color: #cecece;
+      display: inline-block;
+      vertical-align: middle; }
+    .wtd-dashboard-header__action--setting:hover {
+      animation: rotateButton 2s linear infinite; }
+@keyframes rotateButton {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+.wtd-dashboard-aside-menu {
+  float: left;
+  width: 260px;
+  height: 100vh;
+  padding-top: 80px;
+  border-right: 1px solid #f1f1f1; }
 
 .wtd-signup-modal__inner-container {
   padding: 0 15px; }
@@ -1003,5 +1079,13 @@ li {
   .todo-app__user-setting-content > div {
     padding-top: 10px;
     padding-bottom: 10px; }
+
+.wtd-dashboard-schedule-manager {
+  float: left;
+  width: calc(100% - 260px);
+  height: 100vh;
+  padding: 80px 25px 12px 45px;
+  background-color: #fff;
+  border-right: 1px solid #f1f1f1; }
 
 /*# sourceMappingURL=index.css.map */
