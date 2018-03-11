@@ -8,6 +8,8 @@ import DefaultSetting from 'containers/dashboard/settings/DefaultSetting';
 import ThemeSetting from 'containers/dashboard/settings/ThemeSetting';
 import KarmaSetting from 'containers/dashboard/settings/KarmaSetting';
 import { uniqueId } from 'lodash';
+
+import { version } from '../../../package.json';
 class SettingButton extends Component {
   constructor() {
     super();
@@ -43,7 +45,9 @@ class SettingButton extends Component {
         component: 'karma',
         key: uniqueId()
       }                  
-    ]
+    ];
+
+    this.versionUrl = 'https://github.com/ruden91/react-firebase-project/commits/master';
   }
 
   handleSettingModalClose = () => {
@@ -149,7 +153,7 @@ class SettingButton extends Component {
               <tr><td className="separator"><div></div></td></tr>
               <tr>
                 <td>
-                  <span>버전 0.1.5. <a href="https://github.com/ruden91" target="_blank">체인지로그 보기</a></span>
+                  <span>버전 { version }. <a href={ this.versionUrl } target="_blank">체인지로그 보기</a></span>
                 </td>
               </tr>                                                                                    
             </tbody>
