@@ -77,7 +77,18 @@
   td {
     padding: 10px 12px;
     font-size: 12px;
-    
+    span {
+      color: #999;
+      font-size: 11px;
+    }
+    a {
+      color: #999;
+      display: inline-block;
+      margin-left: 2px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
     &.separator {
       padding: 4px 0;
       > div {
@@ -85,6 +96,54 @@
         height: 1px;
         background-color: #ddd;        
       }
+    }
+  }
+}
+
+.wtd-dashboard-user-setting__header {
+  @include clearfix;
+  position: fixed;
+  display: block;
+  padding: 15px 25px 15px 18px;
+  width: 100%;
+  height: 44px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  z-index: 10;  
+  p {
+    position: relative;
+    top: -1px;
+    float: left;
+    font-size: 18px;
+  }
+
+  button {
+    font-size: 14px;
+    float: right;
+    position: relative;
+    opacity: .5;
+    transition: opacity .35s ease;
+    &:hover {
+      opacity: 1;
+    }
+    span {
+      &:nth-of-type(1) {
+        vertical-align: top;
+        display: inline-block;        
+      }
+    }
+    .wtd-dashboard-user-setting__close-button {
+      position: relative;
+      display: inline-block;
+      width: 23px;
+      height: 23px;
+      top: -3px;
+      @include close-button;
+      &:before, &:after {
+        left: 66%;
+        top: 47%;
+        opacity: 1;
+      }   
     }
   }
 }

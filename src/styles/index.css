@@ -452,12 +452,74 @@ li {
   .wtd-dashboard-header__setting-panels td {
     padding: 10px 12px;
     font-size: 12px; }
+    .wtd-dashboard-header__setting-panels td span {
+      color: #999;
+      font-size: 11px; }
+    .wtd-dashboard-header__setting-panels td a {
+      color: #999;
+      display: inline-block;
+      margin-left: 2px; }
+      .wtd-dashboard-header__setting-panels td a:hover {
+        text-decoration: underline; }
     .wtd-dashboard-header__setting-panels td.separator {
       padding: 4px 0; }
       .wtd-dashboard-header__setting-panels td.separator > div {
         padding: 0;
         height: 1px;
         background-color: #ddd; }
+
+.wtd-dashboard-user-setting__header {
+  position: fixed;
+  display: block;
+  padding: 15px 25px 15px 18px;
+  width: 100%;
+  height: 44px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  z-index: 10; }
+  .wtd-dashboard-user-setting__header:after {
+    content: "";
+    display: table;
+    clear: both; }
+  .wtd-dashboard-user-setting__header p {
+    position: relative;
+    top: -1px;
+    float: left;
+    font-size: 18px; }
+  .wtd-dashboard-user-setting__header button {
+    font-size: 14px;
+    float: right;
+    position: relative;
+    opacity: .5;
+    transition: opacity .35s ease; }
+    .wtd-dashboard-user-setting__header button:hover {
+      opacity: 1; }
+    .wtd-dashboard-user-setting__header button span:nth-of-type(1) {
+      vertical-align: top;
+      display: inline-block; }
+    .wtd-dashboard-user-setting__header button .wtd-dashboard-user-setting__close-button {
+      position: relative;
+      display: inline-block;
+      width: 23px;
+      height: 23px;
+      top: -3px; }
+      .wtd-dashboard-user-setting__header button .wtd-dashboard-user-setting__close-button:before, .wtd-dashboard-user-setting__header button .wtd-dashboard-user-setting__close-button:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 2px;
+        height: 100%;
+        background-color: #6f6f6f;
+        opacity: .15; }
+      .wtd-dashboard-user-setting__header button .wtd-dashboard-user-setting__close-button:before {
+        transform: translate(-50%, -50%) rotate(45deg); }
+      .wtd-dashboard-user-setting__header button .wtd-dashboard-user-setting__close-button:after {
+        transform: translate(-50%, -50%) rotate(-45deg); }
+      .wtd-dashboard-user-setting__header button .wtd-dashboard-user-setting__close-button:before, .wtd-dashboard-user-setting__header button .wtd-dashboard-user-setting__close-button:after {
+        left: 66%;
+        top: 47%;
+        opacity: 1; }
 
 .wtd-dashboard-aside-menu {
   float: left;
