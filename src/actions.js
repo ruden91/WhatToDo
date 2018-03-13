@@ -11,3 +11,17 @@ export const resetCurrentUser = () => {
 
   Dispatcher.dispatch(action);
 }
+
+// fetch todoItems
+export const fetchTodoItems = (value) => {
+  const action = { type: 'FETCH_TODOITEMS' };
+
+  Dispatcher.dispatch(action);
+}
+
+// fetch filtered todoItems
+export const fetchFilteredTodoItems = (value) => {
+  const action = { type: 'FETCH_FILTERED_TODOITEMS', value };
+
+  Dispatcher.dispatch(action);
+}

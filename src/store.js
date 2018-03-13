@@ -1,10 +1,17 @@
 import Dispatcher from './Dispatcher';
 import EventEmitter from 'events';
 
+// todo items sample data
+import * as data from './api/data';
+
 const initialState = {
-  currentUser: null
+  currentUser: null,
+  todoItems: [],
+  totalCount: 0,
+  todayCount: 0,
+  weekCount: 0
 }
-let data = {
+let dataSet = {
   ...initialState
 }
 class Store extends EventEmitter {
@@ -15,7 +22,7 @@ class Store extends EventEmitter {
       
       switch(action.type) {
         case 'FETCH_CURRENTUSER':
-          data = {
+          dataSet = {
             currentUser: action.value
           }
 
@@ -23,7 +30,17 @@ class Store extends EventEmitter {
         break;
 
         case 'RESET_CURRENTUSER':
-          data = { ...initialState };        
+          dataSet = { ...initialState };        
+          this.emit('change');
+        break;
+        
+        case 'FETCH_TODOITEMS':
+          dataSet = { ...initialState, todoItems: data.todoItems() };
+          this.emit('change');
+        break;
+
+        case 'FETCH_FILTERED_TODOITEMS':
+          console.log('해당 필터 조건으로 데이터 필터링')
           this.emit('change');
         break;
 
@@ -33,7 +50,7 @@ class Store extends EventEmitter {
   }
 
   getState() {
-    return data;
+    return dataSet;
   }
 }
 
