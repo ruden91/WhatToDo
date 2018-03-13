@@ -3,25 +3,26 @@ import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 
 const Types = {
-  TODOITEM: 'todoitem'
-}
+  TODOITEM: 'todoitem',
+};
 
 const todoItemSource = {
   beginDrag(props, monitor, component) {
     const item = { id: props.id, index: props.index };
-    
+
     return item;
-  }
-}
+  },
+};
 
 const todoItemTarget = {
   hover(props, monitor, component) {
     const dragIndex = monitor.getItem().index;
     const hoverIndex = props.index;
+
     if (dragIndex === hoverIndex) {
       return;
     }
-    
+
     const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
 
     // Get vertical middle
@@ -31,53 +32,71 @@ const todoItemTarget = {
     const clientOffset = monitor.getClientOffset();
 
     // Get pixels to the top
-    const hoverClientY = clientOffset.y - hoverBoundingRect.top;    
+    const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
     // Dragging downwards
     if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-      return
-    }
+      return;
+    } 
 
     // Dragging upwards
     if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-      return
+      return;
     }
-
+    
     props.moveCard(dragIndex, hoverIndex);
 
     monitor.getItem().index = hoverIndex;
-  }
-}
+  },
+};
 
 function targetCollect(connect) {
   return {
-    connectDropTarget: connect.dropTarget()
-  }
+    connectDropTarget: connect.dropTarget(),
+  };
 }
 
 function sourceCollect(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
+    isDragging: monitor.isDragging(),
   };
 }
 
 class TodoItem extends Component {
   render() {
-    const { id, title } = this.props;
+    const { id, title, created_at, activeTodoItem } = this.props;
     const { isDragging, connectDragSource, connectDropTarget } = this.props;
+    
+    const dragging = isDragging ? 'is-dragging' : '';
 
-    const opacity = isDragging ? .2 : 1;
-
-    return connectDragSource(
-      connectDropTarget(
-        <li style={{ opacity }}>
-          <p>{title}</p>
-          <span>{id}</span>
-          {isDragging && '드래그 가즈아~~!!'}
-        </li>
-      )
-    )
+<<<<<<< HEAD:src/containers/dashboard/TodoItem.js
+    return connectDragSource(connectDropTarget(
+      <li><table className={`test-todo ${dragging}`}>
+        <tbody>
+          <tr>
+            <td><div onClick={ () => activeTodoItem(id) }></div></td>
+            <td><p>{title}</p></td>
+            <td><span>{ created_at }</span></td>
+            <td />
+          </tr>
+        </tbody>
+      </table>
+      </li>
+    ));
+=======
+    return connectDragSource(connectDropTarget(<li><table className={`test-todo ${dragging}`}>
+      <tbody>
+        <tr>
+          <td><div /></td>
+          <td><p>{title}</p></td>
+          <td><span>관리함</span></td>
+          <td />
+        </tr>
+      </tbody>
+    </table>
+    </li>));
+>>>>>>> f8c4cee5a5ceba7477a019e0d3af04e4e4b47b30:src/containers/dashboard/TodoItem.js
   }
 }
 

@@ -3,14 +3,14 @@ import React from 'react';
 import TodoItem from 'containers/dashboard/TodoItem';
 
 <<<<<<< HEAD
-const NextWeekPanel = ({ todoItems, moveCard, activeTodoItem }) => (
+const TodayPanel = ({ todoItems, moveCard, activeTodoItem }) => (
 =======
-const NextWeekPanel = ({ todoItems, moveCard }) => (
+const TodayPanel = ({ todoItems, moveCard }) => (
 >>>>>>> f8c4cee5a5ceba7477a019e0d3af04e4e4b47b30
   <div>
-    <h2>NextWeekPanel</h2>
+    <h2>오늘</h2>
     <ul>
-      {todoItems.map((item, index) => (
+      {todoItems.filter((item, index) => index < 5).map((item, index) => (
 <<<<<<< HEAD
         <TodoItem {...item} key={item.id} moveCard={moveCard} index={index} activeTodoItem={activeTodoItem} />
 =======
@@ -21,4 +21,4 @@ const NextWeekPanel = ({ todoItems, moveCard }) => (
   </div>
 );
 
-export default NextWeekPanel;
+export default TodayPanel;

@@ -67,7 +67,9 @@ class SettingButton extends Component {
       toggleSettingComponent: panel
     })
   }
-
+  getParent() {
+    return document.querySelector('.wtd-dashboard-header__inner');
+  }
   renderConditionalComponent() {
     const { toggleSettingComponent } = this.state;
 
@@ -127,6 +129,7 @@ class SettingButton extends Component {
           contentLabel="settingModal"
           style={ customStyles }
           overlayClassName="ReactModal__Overlaysdsd"
+          parentSelector={ this.getParent }
         >
           <table className="wtd-dashboard-header__setting-panels">
             <tbody>
