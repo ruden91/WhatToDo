@@ -11,6 +11,10 @@ export default class UserSetting extends Component {
     }
   }
 
+  updateUserProfile = () => {
+    console.log('hello')
+  }
+
   render() {
     const { photoURL, email, displayName } = this.state.currentUser;
 
@@ -18,7 +22,7 @@ export default class UserSetting extends Component {
       <div className="wtd-dashboard-user-setting">
         <div>
           <p className="wtd-dashboard-user-setting__title">개인 정보</p>
-          <dl>
+          <dl onClick={this.updateUserProfile}>
             <dt>사진</dt>
             <dd>
               <span className="wtd-dashboard-user-setting__image-wrap">

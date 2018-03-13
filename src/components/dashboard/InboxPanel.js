@@ -1,44 +1,33 @@
 import React, { Component } from 'react';
-import TodoItem from 'components/dashboard/TodoItem';
-import * as data from 'api/data';
 
-import update from 'react-addons-update';
+import TodoItem from 'containers/dashboard/TodoItem';
 
 class InboxPanel extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      items: data.todoItems()
-    }
-  }
-
-  moveCard = (dragIndex, hoverIndex) => {
-    const { items } = this.state;
-    const dragCard = items[dragIndex];
-
-    this.setState(
-      update(this.state, {
-        items: {
-          $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]],
-        },
-      }),
-    )
+  constructor(props) {
+    super(props);
   }
 
   render() {
-    const { items } = this.state;
+<<<<<<< HEAD
+    const { todoItems, moveCard, activeTodoItem } = this.props;
+=======
+    const { todoItems, moveCard } = this.props;
+>>>>>>> f8c4cee5a5ceba7477a019e0d3af04e4e4b47b30
     return (
       <div>
         <h2>Inbox</h2>
-
         <ul>
-          {items.map((item, index) => {
-            return <TodoItem { ...item } index={index} key={parseInt(item.id)} moveCard={ this.moveCard } />;
-          })}
+<<<<<<< HEAD
+          {todoItems.map((item, index) => (
+            <TodoItem {...item} key={item.id} moveCard={moveCard} index={index} activeTodoItem={activeTodoItem}/>
+=======
+          {todoItems.filter((item, index) => index < 3).map((item, index) => (
+            <TodoItem {...item} key={item.id} moveCard={moveCard} index={index} />
+>>>>>>> f8c4cee5a5ceba7477a019e0d3af04e4e4b47b30
+          ))}
         </ul>
       </div>
-    )
+    );
   }
 }
 
