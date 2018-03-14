@@ -4,6 +4,7 @@ import EventEmitter from 'events';
 // todo items sample data
 import * as data from './api/data';
 
+// initial State
 const initialState = {
   currentUser: null,
   todoItems: [],
@@ -11,9 +12,12 @@ const initialState = {
   todayCount: 0,
   weekCount: 0
 }
+
+// copied dataSet
 let dataSet = {
   ...initialState
 }
+
 class Store extends EventEmitter {
   constructor() {
     super();
@@ -35,12 +39,13 @@ class Store extends EventEmitter {
         break;
         
         case 'FETCH_TODOITEMS':
-          dataSet = { ...initialState, todoItems: data.todoItems() };
-          this.emit('change');
-        break;
-
-        case 'FETCH_FILTERED_TODOITEMS':
-          console.log('해당 필터 조건으로 데이터 필터링')
+          dataSet = { 
+            ...initialState, 
+            todoItems: data.todoItems(),
+            totalCount: data.todoItems().length,
+            todayCount: data.todoItems().filter((value, index) => index < 5).length,
+            weekCount: data.todoItems().filter((value, index) => index < 8).length
+          };
           this.emit('change');
         break;
 

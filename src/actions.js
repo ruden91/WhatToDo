@@ -18,10 +18,3 @@ export const fetchTodoItems = (value) => {
 
   Dispatcher.dispatch(action);
 }
-
-// fetch filtered todoItems
-export const fetchFilteredTodoItems = (value) => {
-  const action = { type: 'FETCH_FILTERED_TODOITEMS', value };
-
-  Dispatcher.dispatch(action);
-}
