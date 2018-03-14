@@ -70,7 +70,6 @@ class TodoItem extends Component {
     
     const dragging = isDragging ? 'is-dragging' : '';
 
-<<<<<<< HEAD:src/containers/dashboard/TodoItem.js
     return connectDragSource(connectDropTarget(
       <li><table className={`test-todo ${dragging}`}>
         <tbody>
@@ -84,19 +83,6 @@ class TodoItem extends Component {
       </table>
       </li>
     ));
-=======
-    return connectDragSource(connectDropTarget(<li><table className={`test-todo ${dragging}`}>
-      <tbody>
-        <tr>
-          <td><div /></td>
-          <td><p>{title}</p></td>
-          <td><span>관리함</span></td>
-          <td />
-        </tr>
-      </tbody>
-    </table>
-    </li>));
->>>>>>> f8c4cee5a5ceba7477a019e0d3af04e4e4b47b30:src/containers/dashboard/TodoItem.js
   }
 }
 

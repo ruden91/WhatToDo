@@ -5,6 +5,9 @@ import { auth } from 'database/firebase';
 import DashboardHeader from 'components/dashboard/DashboardHeader';
 import DashboardAsideMenu from 'components/dashboard/DashboardAsideMenu';
 import DashboardScheduleManager from 'containers/dashboard/DashboardScheduleManager';
+import InboxContainer from 'containers/dashboard/InboxContainer';
+import TodayContainer from 'containers/dashboard/TodayContainer';
+import WeekContainer from 'containers/dashboard/WeekContainer';
 
 import { uniqueId } from 'lodash';
 
@@ -15,51 +18,31 @@ import update from 'react-addons-update';
 import * as actions from '../actions';
 import Store from '../store';
 
+import { filterByDate } from 'helpers/filterByDate';
 class Dashboard extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      togglePanelComponent: 'today',
-      panels: [
-        {
-          title: '관리함',
-          icon: 'fas fa-inbox',
-          component: 'inbox',
-          key: uniqueId()
-        },
-        {
-          title: '오늘',
-          icon: 'far fa-calendar',
-          component: 'today',
-          key: uniqueId()
-        },
-        {
-          title: '다음 7일',
-          icon: 'fas fa-calendar-alt',
-          component: 'week',
-          key: uniqueId()
-        }               
-      ],
-      dataSet: Store.getState()
+      togglePanelComponent: 'today'
     }
   }
 
+  // side panel toggle event
   handlePanels = (panel) => {
-    console.log(actions.fetchFilteredTodoItems({ filter: panel }));
-
     this.setState({
       togglePanelComponent: panel
     })    
   }
-
+  // flux data update
   updateState = () => {
-    this.setState({ dataSet: Store.getState() });
+    this.setState({ ...Store.getState() });
   }
 
   componentDidMount() {
     Store.on('change', this.updateState);
 
+    // fetch todoItems
     actions.fetchTodoItems();
   }
 
@@ -67,6 +50,7 @@ class Dashboard extends Component {
     Store.off('change', this.updateState);
   }
 
+  // logout event
   handleLogOutButton = () => {
     auth.signOut();
   }
@@ -88,10 +72,13 @@ class Dashboard extends Component {
       todoItems: refinedTodoItems
     })
   }
+
+  // drag and drop event handler
   moveCard = (dragIndex, hoverIndex) => {
     const { todoItems } = this.state;
     const dragCard = todoItems[dragIndex];
 
+    // react-addons-update legacy version -> immutability helper 전환하기
     this.setState(
       update(this.state, {
         todoItems: {
@@ -102,6 +89,7 @@ class Dashboard extends Component {
   }
 
   componentWillMount() {
+    // 사용자 인증 체크 (최적화하기)
     auth.onAuthStateChanged(currentUser => {
       if (currentUser) {
 
@@ -111,14 +99,38 @@ class Dashboard extends Component {
     })
   }
 
+  // 조건부로 컴포넌트를 생성하기 위한 함수
+  // 전체 리스트를 보여줄 컴포넌트
+  // 오늘 리스트를 보여줄 컴포넌트
+  // 일주일 리스트를 보여줄 컴포넌트
+  renderConditionalComponent() {
+    const { togglePanelComponent, todoItems } = this.state;
+    if (togglePanelComponent === 'inbox') {
+      // 전체 todoItems
+      return <InboxContainer todoItems={ todoItems } />
+    } else if (togglePanelComponent === 'today') {
+      // 지난값, 오늘에 해당하는 todoItems
+      
+      return <TodayContainer todoItems={ filterByDate(todoItems, 'today') } />
+    } else if (togglePanelComponent === 'week') {
+      // 지난값, 현재 기준으로 일주일 todoItems
+      return <WeekContainer todoItems={ filterByDate(todoItems, 'week') } />
+    }
+  }
+
   render() {
-    const { togglePanelComponent, panels } = this.state;
+    const { togglePanelComponent, panels, dataSet } = this.state;
     return (
       <div className="wtd-dashboard">
         <DashboardHeader />
         <div className="wtd-container">
-          <DashboardAsideMenu panels={ panels } handlePanels={ this.handlePanels } togglePanelComponent={ togglePanelComponent }/>
-          <DashboardScheduleManager> 
+          <DashboardAsideMenu 
+            handlePanels={ this.handlePanels } 
+            togglePanelComponent={ togglePanelComponent }
+            { ...dataSet }
+          />
+          <DashboardScheduleManager>
+            { this.renderConditionalComponent() }
           </DashboardScheduleManager> 
         </div>
       </div>
