@@ -1,5 +1,7 @@
 import moment from 'moment';
 import { filter } from 'lodash';
+
+// 날짜별 데이터 필터링 함수
 export const filterByDate = (items, standard) => {
   let filteredItems = [];
   let today = moment().add(0, 'days').format('YYYY-MM-DD');

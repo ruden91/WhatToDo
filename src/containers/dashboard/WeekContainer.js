@@ -12,6 +12,7 @@ export default class WeekContainer extends Component {
           {todoItems.map(item => (
             <TodoItem {...item} />
           ))}
+          <li>작업 추가</li>
         </ul>        
       </div>
     )

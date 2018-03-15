@@ -3,7 +3,8 @@ import EventEmitter from 'events';
 
 // todo items sample data
 import * as data from './api/data';
-
+import update from 'immutability-helper';
+import moment from 'moment';
 // initial State
 const initialState = {
   currentUser: null,
@@ -42,13 +43,47 @@ class Store extends EventEmitter {
           dataSet = { 
             ...initialState, 
             todoItems: data.todoItems(),
-            totalCount: data.todoItems().length,
-            todayCount: data.todoItems().filter((value, index) => index < 5).length,
-            weekCount: data.todoItems().filter((value, index) => index < 8).length
+          totalCount: data.todoItems().length,
           };
+
+          dataSet.todayCount = dataSet.todoItems.filter((value, index) => value.created_at <= moment().add(0, 'days').format('YYYY-MM-DD')).length;            
+          dataSet.weekCount = dataSet.todoItems.filter((value, index) => value.created_at <= moment().add(7, 'days').format('YYYY-MM-DD')).length;            
+
+          this.emit('change');
+        break;
+        
+        case 'CREATE_TODOITEMS':
+          // immutability-helper 적용하기
+          dataSet.todoItems.push(action.value)
+
+          dataSet.totalCount =  dataSet.todoItems.length;
+          dataSet.todayCount = dataSet.todoItems.filter((value, index) => value.created_at <= moment().add(0, 'days').format('YYYY-MM-DD')).length;            
+          dataSet.weekCount = dataSet.todoItems.filter((value, index) => value.created_at <= moment().add(7, 'days').format('YYYY-MM-DD')).length;            
+          this.emit('change');
+        break;
+        
+        case 'UPDATE_TODOITEMS':
+          // immutability-helper 적용하기
+          dataSet.todoItems = dataSet.todoItems.map((item) => {
+            if (item.id === action.value.id) {
+              item.active = action.value.active;
+            }
+
+            return item;
+          })
+          
           this.emit('change');
         break;
 
+        case 'DELETE_TODOITEMS':
+          // immutability-helper 적용하기
+          dataSet.todoItems = dataSet.todoItems.filter((item) => action.id !== item.id);
+          
+          dataSet.totalCount =  dataSet.todoItems.length;
+          dataSet.todayCount = dataSet.todoItems.filter((value, index) => value.created_at <= moment().add(0, 'days').format('YYYY-MM-DD')).length;            
+          dataSet.weekCount = dataSet.todoItems.filter((value, index) => value.created_at <= moment().add(7, 'days').format('YYYY-MM-DD')).length;                  
+          this.emit('change');
+        break;                
         default:
       }
     })

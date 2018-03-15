@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 
+import * as actions from '../../actions';
 const Types = {
   TODOITEM: 'todoitem',
 };
@@ -64,8 +65,22 @@ function sourceCollect(connect, monitor) {
 }
 
 class TodoItem extends Component {
+  updateTodoItem = (id) => {
+    let value = {
+      id,
+      active: true
+    }
+    
+    actions.updateTodoItems(value);
+  }
+
+  deleteTodoItem = (id) => {
+    actions.deleteTodoItems(id);
+  }
+
+  // conditional Component 추가하기
   render() {
-    const { id, title, created_at, activeTodoItem } = this.props;
+    const { id, title, created_at, activeTodoItem, active } = this.props;
     const { isDragging, connectDragSource, connectDropTarget } = this.props;
     
     const dragging = isDragging ? 'is-dragging' : '';
@@ -74,10 +89,10 @@ class TodoItem extends Component {
       <li><table className={`test-todo ${dragging}`}>
         <tbody>
           <tr>
-            <td><div onClick={ () => activeTodoItem(id) }></div></td>
+            <td><div onClick={ () => this.updateTodoItem(id) }></div></td>
             <td><p>{title}</p></td>
             <td><span>{ created_at }</span></td>
-            <td />
+            <td><button onClick={ () => this.deleteTodoItem(id) }>delete</button></td>
           </tr>
         </tbody>
       </table>

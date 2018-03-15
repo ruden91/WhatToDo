@@ -119,7 +119,8 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { togglePanelComponent, panels, dataSet } = this.state;
+    const { togglePanelComponent, panels, todayCount, totalCount, weekCount } = this.state;
+    
     return (
       <div className="wtd-dashboard">
         <DashboardHeader />
@@ -127,7 +128,9 @@ class Dashboard extends Component {
           <DashboardAsideMenu 
             handlePanels={ this.handlePanels } 
             togglePanelComponent={ togglePanelComponent }
-            { ...dataSet }
+            todayCount={todayCount}
+            totalCount={totalCount}
+            weekCount={weekCount}
           />
           <DashboardScheduleManager>
             { this.renderConditionalComponent() }
