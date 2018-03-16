@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 
+import { database, auth } from 'database/firebase';
 import * as actions from '../../actions';
+import moment from 'moment';
 const Types = {
   TODOITEM: 'todoitem',
 };
@@ -65,22 +67,29 @@ function sourceCollect(connect, monitor) {
 }
 
 class TodoItem extends Component {
-  updateTodoItem = (id) => {
-    let value = {
-      id,
+  constructor() {
+    super();
+  }
+  updateTodoItem = (id, item) => {
+    const uid = auth.currentUser.uid;
+    let updatedItem = {
+      ...item,
       active: true
     }
-    
-    actions.updateTodoItems(value);
+    console.log(id)
+    // database.ref('todoItems/' + uid).child(id).update(updatedItem);
   }
 
   deleteTodoItem = (id) => {
-    actions.deleteTodoItems(id);
+    const uid = auth.currentUser.uid;
+    // actions.deleteTodoItems(id);
+    database.ref('todoItems/' + uid).child(id).
+    database.ref('todoItems/' + uid).child(id).remove();
   }
 
   // conditional Component 추가하기
   render() {
-    const { id, title, created_at, activeTodoItem, active } = this.props;
+    const { id, title, created_at, activeTodoItem, active, index, item } = this.props;
     const { isDragging, connectDragSource, connectDropTarget } = this.props;
     
     const dragging = isDragging ? 'is-dragging' : '';
@@ -89,10 +98,10 @@ class TodoItem extends Component {
       <li><table className={`test-todo ${dragging}`}>
         <tbody>
           <tr>
-            <td><div onClick={ () => this.updateTodoItem(id) }></div></td>
+            <td><div onClick={ () => this.updateTodoItem(index, item) }></div></td>
             <td><p>{title}</p></td>
-            <td><span>{ created_at }</span></td>
-            <td><button onClick={ () => this.deleteTodoItem(id) }>delete</button></td>
+            <td><span>{ moment(created_at).format('YYYY-MM-DD') }</span></td>
+            <td><button onClick={ () => this.deleteTodoItem(index) }>delete</button></td>
           </tr>
         </tbody>
       </table>

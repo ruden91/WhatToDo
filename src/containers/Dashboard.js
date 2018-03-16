@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { auth } from 'database/firebase';
+import { auth,database } from 'database/firebase';
 
 import DashboardHeader from 'components/dashboard/DashboardHeader';
 import DashboardAsideMenu from 'components/dashboard/DashboardAsideMenu';
@@ -9,7 +9,7 @@ import InboxContainer from 'containers/dashboard/InboxContainer';
 import TodayContainer from 'containers/dashboard/TodayContainer';
 import WeekContainer from 'containers/dashboard/WeekContainer';
 
-import { uniqueId } from 'lodash';
+import { uniqueId, filter } from 'lodash';
 
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
@@ -19,12 +19,18 @@ import * as actions from '../actions';
 import Store from '../store';
 
 import { filterByDate } from 'helpers/filterByDate';
+import moment from 'moment';
+
+import MainLoading from 'components/MainLoading';
 class Dashboard extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      togglePanelComponent: 'today'
+      togglePanelComponent: 'today',
+      todoItems: {},
+      activedTodoItemsCount: 0,
+      loading: true
     }
   }
 
@@ -40,37 +46,13 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    Store.on('change', this.updateState);
-
     // fetch todoItems
-    actions.fetchTodoItems();
-  }
-
-  componentWillUnmount() {
-    Store.off('change', this.updateState);
+    // actions.fetchTodoItems();
   }
 
   // logout event
   handleLogOutButton = () => {
     auth.signOut();
-  }
-
-  activeTodoItem = (id) => {
-    const { todoItems } = this.state;
-    
-    const refinedTodoItems = todoItems.map(item => {
-      if (item.id === id) {
-        return {
-          ...item,
-          active: true
-        }
-      }
-        return item;
-    })
-
-    this.setState({
-      todoItems: refinedTodoItems
-    })
   }
 
   // drag and drop event handler
@@ -92,7 +74,21 @@ class Dashboard extends Component {
     // 사용자 인증 체크 (최적화하기)
     auth.onAuthStateChanged(currentUser => {
       if (currentUser) {
+        // 사용자 todoItems 가져오기
+        database.ref('todoItems/' + currentUser.uid).on('value', (snap) => {
+          let currentTimeStamp = moment().add(0, 'days').toDate().getTime();
+          let weekTimeStamp = moment().add(0, 'days').toDate().getTime();
+          
 
+          this.setState({
+            todoItems: snap.val(),
+            totalCount: snap.numChildren(),
+            todayCount: filter(snap.val(), item => item.created_at <= currentTimeStamp).length,
+            weekCount: filter(snap.val(), item => item.created_at <= weekTimeStamp).length,
+            activedTodoItemsCount: filter(snap.val(), item => item.active).length,
+            loading: false
+          })
+        })
       } else {
         this.props.history.push('/');
       }
@@ -105,25 +101,35 @@ class Dashboard extends Component {
   // 일주일 리스트를 보여줄 컴포넌트
   renderConditionalComponent() {
     const { togglePanelComponent, todoItems } = this.state;
+          let currentTimeStamp = moment().add(0, 'days').toDate().getTime();
+          let weekTimeStamp = moment().add(7, 'days').toDate().getTime();    
     if (togglePanelComponent === 'inbox') {
       // 전체 todoItems
       return <InboxContainer todoItems={ todoItems } />
     } else if (togglePanelComponent === 'today') {
       // 지난값, 오늘에 해당하는 todoItems
       
-      return <TodayContainer todoItems={ filterByDate(todoItems, 'today') } />
+      return <TodayContainer todoItems={ todoItems } />
     } else if (togglePanelComponent === 'week') {
       // 지난값, 현재 기준으로 일주일 todoItems
-      return <WeekContainer todoItems={ filterByDate(todoItems, 'week') } />
+      return <WeekContainer todoItems={ todoItems } />
     }
   }
 
   render() {
-    const { togglePanelComponent, panels, todayCount, totalCount, weekCount } = this.state;
+    const { 
+      togglePanelComponent, 
+      panels, 
+      todayCount, 
+      totalCount, 
+      weekCount, 
+      activedTodoItemsCount, 
+      loading} = this.state;
     
     return (
       <div className="wtd-dashboard">
-        <DashboardHeader />
+        {loading && <div className="wtd-dashboard__loading-container"><MainLoading /></div>}
+        <DashboardHeader activedTodoItemsCount={ activedTodoItemsCount } />
         <div className="wtd-container">
           <DashboardAsideMenu 
             handlePanels={ this.handlePanels } 
