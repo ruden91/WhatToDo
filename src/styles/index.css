@@ -1303,30 +1303,33 @@ li {
     content: "";
     display: table;
     clear: both; }
-  .wtd-dashboard__add-todo-item-form > div input {
+  .wtd-dashboard__add-todo-item-form > div > input {
     float: left;
     width: 80%;
     padding: 10px;
     border-right: 1px solid #ddd;
-    min-height: 21px;
-    margin-right: 10px; }
-  .wtd-dashboard__add-todo-item-form > div a {
-    float: none;
-    width: auto;
-    padding: 10px; }
-.wtd-dashboard__add-todo-item-form button:nth-of-type(1) {
+    min-height: 21px; }
+  .wtd-dashboard__add-todo-item-form > div > div {
+    float: left;
+    width: 20%; }
+    .wtd-dashboard__add-todo-item-form > div > div input {
+      width: 110px;
+      padding: 10px;
+      font-size: 13px;
+      opacity: .5; }
+.wtd-dashboard__add-todo-item-form > button:nth-of-type(1) {
   padding: 10px 14px;
   background-color: #3d3d3d;
   color: #fff;
   border-radius: 5px;
   font-size: 12px;
   margin-right: 5px; }
-.wtd-dashboard__add-todo-item-form button:nth-of-type(2) {
+.wtd-dashboard__add-todo-item-form > button:nth-of-type(2) {
   color: #555;
   cursor: pointer;
   font-size: 13px;
   padding: 2px 5px; }
-  .wtd-dashboard__add-todo-item-form button:nth-of-type(2):hover {
+  .wtd-dashboard__add-todo-item-form > button:nth-of-type(2):hover {
     text-decoration: underline; }
 
 .wtd-dashboard-user-setting > div {

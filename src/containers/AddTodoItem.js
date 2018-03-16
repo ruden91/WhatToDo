@@ -3,6 +3,10 @@ import * as actions from '../actions';
 import { database, auth } from 'database/firebase';
 import { random } from 'lodash';
 import moment from 'moment';
+
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import 'react-day-picker/lib/style.css';
+
 export default class AddTodoItem extends Component {
   constructor() {
     super();
@@ -21,6 +25,13 @@ export default class AddTodoItem extends Component {
   
   createTodoItem = (e) => {
     e.preventDefault();
+    const { content } = this.state;
+    if (content === '') {
+      this.setState({
+        openForm: false
+      })
+      return;
+    }
     const uid = auth.currentUser.uid;
     let newTodoItemRef = database.ref('todoItems/' + uid).push();
 
@@ -57,7 +68,7 @@ export default class AddTodoItem extends Component {
               value={this.state.content}
               ref="addTodoItemInput"
             />
-            <a href="#">123</a>
+            <DayPickerInput onDayChange={day => console.log(day)} />
           </div>
 
           <button type="submit">작업 추가</button>
