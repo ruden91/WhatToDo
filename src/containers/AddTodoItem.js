@@ -6,24 +6,63 @@ import moment from 'moment';
 export default class AddTodoItem extends Component {
   constructor() {
     super();
+
+    this.state = {
+      content: "",
+      openForm: false
+    }
   }
 
-  createTodoItem = () => {
+  changeTodoItemContent = (e) => {
+    this.setState({
+      content: e.target.value
+    })
+  }
+  
+  createTodoItem = (e) => {
+    e.preventDefault();
     const uid = auth.currentUser.uid;
     let newTodoItemRef = database.ref('todoItems/' + uid).push();
 
     newTodoItemRef.set({
-      title: 'hello',
+      title: this.state.content,
       active: false,
-      created_at: moment().add(random(0,30), 'days').toDate().getTime()
-      // created_at: new Date().getTime()
+      // created_at: moment().add(random(0,30), 'days').toDate().getTime()
+      created_at: new Date().getTime()
+    })
+
+    this.setState({
+      content: ""
     })
   }
 
+  componentDidUpdate () {
+    const { openForm } = this.state;
+    if (typeof this.refs.addTodoItemInput !== 'undefined' && openForm) {
+      this.refs.addTodoItemInput.focus();
+    }
+
+  }
+
   render() {
+    const { openForm } = this.state;
     return (
       <div>
-        <button onClick={ this.createTodoItem }>create todoItem</button>
+        {!openForm && <button onClick={() => this.setState({openForm: true})}>작업 추가</button>}
+        {openForm && <form className="wtd-dashboard__add-todo-item-form" onSubmit={ this.createTodoItem }>
+          <div>
+            <input 
+              type="text" 
+              onChange={ this.changeTodoItemContent }
+              value={this.state.content}
+              ref="addTodoItemInput"
+            />
+            <a href="#">123</a>
+          </div>
+
+          <button type="submit">작업 추가</button>
+          <button onClick={() => this.setState({openForm: false})}>취소</button>
+        </form>}
       </div>
     )
   }
