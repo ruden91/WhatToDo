@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 import TodoItem from 'containers/dashboard/TodoItem';
+import AddTodoItem from 'containers/AddTodoItem';
+import { map, filter } from 'lodash';
 export default class WeekContainer extends Component {
   render() {
     const { todoItems } = this.props;
@@ -9,11 +11,9 @@ export default class WeekContainer extends Component {
         <h2>다음 7</h2>
 
         <ul>
-          {todoItems.map(item => (
-            <TodoItem {...item} />
-          ))}
-          <li>작업 추가</li>
-        </ul>        
+          {map(todoItems, (item, key) => <TodoItem { ...item } item={ item } key={key} index={key} />)}
+        </ul>
+        <AddTodoItem />        
       </div>
     )
   }

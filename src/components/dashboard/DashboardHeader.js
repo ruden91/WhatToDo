@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import SettingButton from 'containers/dashboard/SettingButton';
-const DashboardHeader = () => (
+const DashboardHeader = ({ activedTodoItemsCount }) => (
   <header className="wtd-dashboard-header">
     <div className="wtd-container">
       <div className="wtd-dashboard-header__inner">
@@ -17,7 +17,7 @@ const DashboardHeader = () => (
           <li className="wtd-dashboard-header__actions">
             <button className="wtd-dashboard-header__action">
               <i className="far fa-check-circle"></i>
-              <span>300</span>
+              <span>{ activedTodoItemsCount }</span>
             </button>
           </li>      
           <li className="wtd-dashboard-header__actions">

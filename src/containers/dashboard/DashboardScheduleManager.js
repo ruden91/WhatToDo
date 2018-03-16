@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 
+import { Scrollbars } from 'react-custom-scrollbars';
 export default class DashboardScheduleManager extends Component {
+  constructor() {
+    super();
+
+    console.log(Scrollbars);
+  }
+
   render() {
     return (
       <section className="wtd-dashboard-schedule-manager">
-        { this.props.children }
+        <Scrollbars>
+          { this.props.children }
+        </Scrollbars>
       </section>
     )
   }
