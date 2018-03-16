@@ -4,8 +4,6 @@ import { Scrollbars } from 'react-custom-scrollbars';
 export default class DashboardScheduleManager extends Component {
   constructor() {
     super();
-
-    console.log(Scrollbars);
   }
 
   render() {
