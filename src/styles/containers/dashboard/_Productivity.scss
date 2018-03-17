@@ -1,3 +1,22 @@
+.wtd-dashboard-productivity__circle-chart  {
+}
+.wtd-dashboard-productivity__streak-chart-container {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  .wtd-dashboard-productivity__trophy-icon {
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 35px;    
+    &.active {
+      color: #dd4b39;
+    }
+  }
+}
 .wtd-dashboard-productivity {
   @include e('chart') {
     position: relative;
@@ -12,7 +31,7 @@
   }
   @include e('tab') {
     @include clearfix;
-    margin: 15px 0;
+    margin-top: 15px;
     li {
       float: left;
       width: 50%;
