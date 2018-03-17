@@ -69,6 +69,7 @@ function sourceCollect(connect, monitor) {
 class TodoItem extends Component {
   constructor() {
     super();
+    console.log(moment(2558809811).format('YYYY-MM-DD'))
   }
   updateTodoItem = (id, item) => {
     const uid = auth.currentUser.uid;

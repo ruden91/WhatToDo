@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { auth,database } from 'database/firebase';
+import { auth, database, writeUserData } from 'database/firebase';
 
 import DashboardHeader from 'components/dashboard/DashboardHeader';
 import DashboardAsideMenu from 'components/dashboard/DashboardAsideMenu';
@@ -27,6 +27,7 @@ class Dashboard extends Component {
     super(props);
 
     this.state = {
+      user: {},
       togglePanelComponent: 'today',
       todoItems: {},
       activedTodoItemsCount: 0,
@@ -70,12 +71,24 @@ class Dashboard extends Component {
     )
   }
 
-  componentWillMount() {
-    // 사용자 인증 체크 (최적화하기)
-    auth.onAuthStateChanged(currentUser => {
+  componentDidMount() {
+    auth.onAuthStateChanged(currentUser => {      
       if (currentUser) {
-        // 사용자 todoItems 가져오기
-        database.ref('todoItems/' + currentUser.uid).on('value', (snap) => {
+        const uid = currentUser.uid;
+        // 사용자 기록 조회 없으면 저장, 있으면 state에 저장
+        database.ref('users').child(uid).on('value', (snap) => {
+          if (!snap.val()) {
+            writeUserData({ ...currentUser });
+          } else {
+            this.setState({
+              user: snap.val()
+            })
+          }
+        })
+
+        // user의 items를 조회 및 state 저장
+        database.ref('todoItems/' + uid).on('value', (snap) => {
+          console.log(snap.val())
           let currentTimeStamp = moment().add(0, 'days').toDate().getTime();
           let weekTimeStamp = moment().add(0, 'days').toDate().getTime();
           
@@ -163,3 +176,80 @@ class Dashboard extends Component {
 }
 
 export default DragDropContext(HTML5Backend)(Dashboard);
+ /**
+ * 
+ * todoItem data scheme
+ * 
+ * content
+ * due
+ *  date
+ *  timezone
+ *  is_recurring
+ *  string
+ *  lang
+ *  _date
+ *  with_time
+ * priority
+ * indent
+ * item_order
+ * labels
+ * checked
+ * user_id
+ * in_history
+ * collapsed
+ * date_added
+ * assigned_by_uid
+ * responsible_uid
+ * all_notes_fetched
+ * project_id
+ * order
+ * day_order
+ * id
+ * is_archived
+ * sync_id
+ * parent_id
+ * is_deleted
+ */
+
+ /**
+ * 
+ * project data scheme
+ * name
+ * parent_id
+ * color
+ * is_deleted
+ * collapsed
+ * id
+ * has_more_notes
+ * item_order
+ * is_favorite
+ * indent
+ * shared
+ * is_archived
+ */
+
+ /**
+ * 
+ * filters data scheme
+ * name
+ * color
+ * item_order
+ * is_favorite
+ * query
+ * is_deleted
+ * id
+ */
+
+ /**
+ * 
+ * stats data scheme
+ * days_items
+ * 
+ * 
+ * 
+ * goals
+ *  daily_goals
+ * 
+ */
+
+ 
