@@ -148,7 +148,7 @@ class SettingButton extends Component {
                 <td>Donate</td>
               </tr>
               <tr>
-                <td>블로그</td>
+                <td><a href="http://webruden.tistory.com/">블로그</a></td>
               </tr>
               <tr><td className="separator"><div></div></td></tr>
               <tr>
