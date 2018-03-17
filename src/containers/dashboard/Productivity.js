@@ -42,7 +42,6 @@ export default class Productivity extends Component {
     if (percent > 100) {
       percent = 100;
     }
-    console.log(percent);
     return percent;
   }
 

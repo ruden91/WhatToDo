@@ -27,3 +27,24 @@
   color:transparent;
   transition: color .2s ease-in-out;
 }
+.wtd-dashboard__add-todo-item {
+  margin-top: 15px;
+
+  span {
+    position: relative;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+    @include close-button;
+    &:before, &:after {
+      opacity: 1;
+    }
+    &:before {
+      transform: translate(-50%, -50%) rotate(0);
+    }
+    &:after {
+      transform: translate(-50%, -50%) rotate(-90deg);
+    }
+  }
+}
