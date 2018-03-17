@@ -8,7 +8,7 @@ export default class InboxContainer extends Component {
     super(props);
   }
   render() {
-    const { todoItems } = this.props;
+    const { todoItems, settings } = this.props;
 
     return (
       <div>
@@ -17,7 +17,7 @@ export default class InboxContainer extends Component {
         <ul>
           {map(todoItems, (item, key) => <TodoItem { ...item } key={key} index={key} />)}
         </ul>
-        <AddTodoItem />        
+        <AddTodoItem settings={ settings } />        
       </div>
     )
   }

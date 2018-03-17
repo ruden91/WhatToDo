@@ -5,7 +5,7 @@ import AddTodoItem from 'containers/AddTodoItem';
 import { map, filter } from 'lodash';
 export default class WeekContainer extends Component {
   render() {
-    const { todoItems } = this.props;
+    const { todoItems, settings } = this.props;
     return (
       <div>
         <h2>다음 7</h2>
@@ -13,7 +13,7 @@ export default class WeekContainer extends Component {
         <ul>
           {map(todoItems, (item, key) => <TodoItem { ...item } item={ item } key={key} index={key} />)}
         </ul>
-        <AddTodoItem />        
+        <AddTodoItem settings={ settings } />        
       </div>
     )
   }

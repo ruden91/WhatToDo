@@ -62,11 +62,11 @@ li {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.7);
-  z-index: 2; }
+  background-color: white;
+  z-index: 100; }
 
 .todo-app__main-loading {
-  z-index: 3;
+  z-index: 101;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -806,32 +806,19 @@ li {
   transition: color .2s ease-in-out; }
 
 .wtd-dashboard__add-todo-item {
-  margin-top: 15px; }
+  margin-top: 15px;
+  opacity: .6;
+  transition: opacity .3s ease-in-out; }
   .wtd-dashboard__add-todo-item span {
     position: relative;
     display: inline-block;
     width: 12px;
     height: 12px;
-    margin-right: 10px; }
-    .wtd-dashboard__add-todo-item span:before, .wtd-dashboard__add-todo-item span:after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 2px;
-      height: 100%;
-      background-color: #6f6f6f;
-      opacity: .15; }
-    .wtd-dashboard__add-todo-item span:before {
-      transform: translate(-50%, -50%) rotate(45deg); }
-    .wtd-dashboard__add-todo-item span:after {
-      transform: translate(-50%, -50%) rotate(-45deg); }
-    .wtd-dashboard__add-todo-item span:before, .wtd-dashboard__add-todo-item span:after {
-      opacity: 1; }
-    .wtd-dashboard__add-todo-item span:before {
-      transform: translate(-50%, -50%) rotate(0); }
-    .wtd-dashboard__add-todo-item span:after {
-      transform: translate(-50%, -50%) rotate(-90deg); }
+    margin-right: 10px;
+    top: -1px; }
+  .wtd-dashboard__add-todo-item:hover {
+    text-decoration: underline;
+    opacity: 1; }
 
 .todo-app__login-input {
   color: #fff;

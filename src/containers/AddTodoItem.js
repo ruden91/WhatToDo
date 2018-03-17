@@ -58,12 +58,14 @@ export default class AddTodoItem extends Component {
 
   render() {
     const { openForm } = this.state;
+    const { settings } = this.props;
     return (
       <div>
         {!openForm && <button 
           className="wtd-dashboard__add-todo-item"
+          style={{ color: settings.theme.color}}
           onClick={() => this.setState({openForm: true})}>
-          <span></span>작업 추가</button>}
+          <span><i className="fas fa-plus"></i></span>작업 추가</button>}
         {openForm && <form className="wtd-dashboard__add-todo-item-form" onSubmit={ this.createTodoItem }>
           <div>
             <input 
