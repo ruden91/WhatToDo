@@ -45,11 +45,6 @@ class Dashboard extends Component {
     this.setState({ ...Store.getState() });
   }
 
-  componentDidMount() {
-    // fetch todoItems
-    // actions.fetchTodoItems();
-  }
-
   // logout event
   handleLogOutButton = () => {
     auth.signOut();
@@ -79,7 +74,6 @@ class Dashboard extends Component {
           let currentTimeStamp = moment().add(0, 'days').toDate().getTime();
           let weekTimeStamp = moment().add(0, 'days').toDate().getTime();
           
-
           this.setState({
             todoItems: snap.val(),
             totalCount: snap.numChildren(),
@@ -123,13 +117,14 @@ class Dashboard extends Component {
       todayCount, 
       totalCount, 
       weekCount, 
-      activedTodoItemsCount, 
+      activedTodoItemsCount,
+      todoItems,
       loading} = this.state;
     
     return (
       <div className="wtd-dashboard">
         {loading && <div className="wtd-dashboard__loading-container"><MainLoading /></div>}
-        <DashboardHeader activedTodoItemsCount={ activedTodoItemsCount } />
+        <DashboardHeader activedTodoItemsCount={ activedTodoItemsCount } todoItems={ todoItems } />
         <div className="wtd-container">
           <DashboardAsideMenu 
             handlePanels={ this.handlePanels } 

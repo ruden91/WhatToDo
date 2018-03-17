@@ -5,6 +5,8 @@
   padding: 80px 25px 12px 45px;
   background-color: #fff;
   border-right: 1px solid #f1f1f1;
+  position: relative;
+  z-index:1;
 }
 .wtd-dashboard__add-todo-item-form {
   > div {

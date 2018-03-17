@@ -13,7 +13,8 @@ export default class AddTodoItem extends Component {
 
     this.state = {
       content: "",
-      openForm: false
+      openForm: false,
+      selectedDay: null
     }
   }
 
@@ -68,7 +69,7 @@ export default class AddTodoItem extends Component {
               value={this.state.content}
               ref="addTodoItemInput"
             />
-            <DayPickerInput onDayChange={day => console.log(day)} />
+            <DayPickerInput onDayChange={day => this.setState({ selectedDay: day })} />
           </div>
 
           <button type="submit">작업 추가</button>

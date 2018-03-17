@@ -72,12 +72,13 @@ class TodoItem extends Component {
   }
   updateTodoItem = (id, item) => {
     const uid = auth.currentUser.uid;
+    console.log(item);
     let updatedItem = {
       ...item,
       active: true
     }
-    console.log(id)
-    // database.ref('todoItems/' + uid).child(id).update(updatedItem);
+    
+    database.ref('todoItems/' + uid).child(id).update(updatedItem);
   }
 
   deleteTodoItem = (id) => {
