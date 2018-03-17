@@ -17,7 +17,7 @@ export default class ThemeSetting extends Component {
   componentWillMount () {
     let themes = settings.themes();
     const selectedThemeColor = this.props.settings.theme.color;
-
+    console.log(selectedThemeColor)
     let refinedThemes = themes.map(theme => {
       if (theme.color === selectedThemeColor) {
         theme.active = true;

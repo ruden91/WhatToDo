@@ -90,8 +90,12 @@ class Dashboard extends Component {
         })
 
         database.ref('settings/' + currentUser.uid).on('value', (snap) => {
+          if (!snap.val()) {
+            database.ref('settings/' + currentUser.uid).child('theme').set({ color: '#db4c3f' });
+          }
+
           this.setState({
-            settings: snap.val()
+            settings: snap.val() || { theme: { color: '#db4c3f' }}
           })
         })
       } else {
