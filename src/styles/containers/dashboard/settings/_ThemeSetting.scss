@@ -1,4 +1,32 @@
 .wtd-dashboard-theme-setting {
+  h6 {
+    margin-bottom: .5em;
+    font-weight: bold;
+    font-size: 14px;
+    color: #202020;    
+  }
+  > p {
+    margin-bottom: 20px;    
+  }
+  ul {
+    li {
+      &.is-active {
+        font-weight: 500;
+        .wtd-dashboard-theme-setting__check-icon {
+          display: inline-block;
+          position: absolute;
+          right: 5px;
+        }
+      }
+
+      &:hover {
+        background-color: #fafafa;        
+      }
+    }
+  }
+  @include e('check-icon') {
+    display: none;
+  }
   @include e('monitor-container') {
     @include clearfix;
     position: absolute;
@@ -12,6 +40,7 @@
     header {
       height: 18px;
       background-color: $mainColor;
+      transition: background .3s ease-in-out;
     }
 
     aside {
@@ -71,37 +100,19 @@
       }
       
       .cross {
+        font-size: 10px;
         position: relative;
         display: inline-block;
         width: 6px;
         height: 6px;
-        margin-left: 6px;
-        top: -3px;        
-        &:before {
-          content: "";
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 100%;
-          height: 1px;
-          background-color: $mainColor;
-        }
-        &:after {
-          content: "";
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 1px;
-          height: 100%;
-          background-color: $mainColor;
-        }        
+        margin-left: 4px;
+        transition: color .3s ease-in-out;           
       }
     }
   }
   > div {
     position: relative;
+    margin-top: 25px;
     ul {
       width: 300px;
       li {
