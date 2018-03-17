@@ -1,4 +1,5 @@
 # [Realtime Todo Application](https://todoapp-131c9.firebaseapp.com)
+![GitHub license](https://img.shields.io/badge/`-blue.svg)
 
 ### About
 
