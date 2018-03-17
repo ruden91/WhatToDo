@@ -7,7 +7,9 @@ export default class UserSetting extends Component {
     super();
 
     this.state = {
-      currentUser: auth.currentUser
+      updatedDisplayName: auth.currentUser.displayName,
+      currentUser: auth.currentUser,
+      toggleDisplayName: false
     }
   }
 
@@ -15,9 +17,34 @@ export default class UserSetting extends Component {
     console.log('hello')
   }
 
+  handleDisplayName = (e) => {
+    e.preventDefault();
+    this.setState({
+      toggleDisplayName: true
+    })
+  }
+
+  handleDisplayNameForm = (e) => {
+    e.preventDefault();
+    const { updatedDisplayName } = this.state;
+
+    auth.currentUser.updateProfile({
+      displayName: updatedDisplayName
+    }).then(() => {
+      // update successful
+      this.setState({
+        toggleDisplayName: false,
+        currentUser: auth.currentUser
+      })            
+    }).catch(() => {
+      // an error happend
+      console.log('error')
+    })    
+  }
+
   render() {
     const { photoURL, email, displayName } = this.state.currentUser;
-
+    const { updatedDisplayName } = this.state;
     return (
       <div className="wtd-dashboard-user-setting">
         <div>
@@ -35,11 +62,20 @@ export default class UserSetting extends Component {
           </dl>
           <dl>
             <dt>닉네임</dt>
-            <dd>{ displayName }<a href="#">편집</a></dd>
+            {!this.state.toggleDisplayName && <dd>{ displayName }<a href="#" onClick={ this.handleDisplayName }>편집</a></dd>}
+            {this.state.toggleDisplayName && 
+              <dd>
+                <form onSubmit={ this.handleDisplayNameForm } >
+                  <input type="text" value={ updatedDisplayName } onChange={ (e) => this.setState({ updatedDisplayName: e.target.value })} />
+                  <button type="submit">저장</button>
+                  <button onClick={ () => this.setState({ toggleDisplayName: false })}>취소</button>
+                </form>
+              </dd>
+            }
           </dl>
           <dl>
             <dt>이메일</dt>
-            <dd>{ email }<a href="#">편집</a></dd>
+            <dd>{ email }</dd>
           </dl>
           <dl>
             <dt>패스워드</dt>

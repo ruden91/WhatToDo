@@ -68,7 +68,7 @@ class SettingButton extends Component {
     })
   }
   getParent() {
-    return document.querySelector('.wtd-dashboard-header__inner');
+    return document.querySelector('.wtd-dashboard-schedule-manager');
   }
   renderConditionalComponent() {
     const { toggleSettingComponent } = this.state;
@@ -87,18 +87,19 @@ class SettingButton extends Component {
   render() {
     const { toggleSettingComponent } = this.state;
     const customStyles = {
-      overlay: {},
+      overlay: {         zIndex: 10},
       content: {
         width: '250px',
         top: '43px',
-        right: '54px',
+        right: 0,
         left: 'auto',
         bottom: 'auto',
-        padding: 0
+        padding: 0,
+        zIndex: 10        
       }
     }; 
     const userSettingCustomStyles = {
-      overlay: {},
+      overlay: { zIndex: 3},
       content: {
         position: 'fixed',
         top: 0,
