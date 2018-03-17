@@ -30,7 +30,12 @@ class Dashboard extends Component {
       togglePanelComponent: 'today',
       todoItems: {},
       activedTodoItemsCount: 0,
-      loading: true
+      loading: true,
+      settings: {
+        theme: {
+          color: null
+        }
+      }
     }
   }
 
@@ -83,6 +88,12 @@ class Dashboard extends Component {
             loading: false
           })
         })
+
+        database.ref('settings/' + currentUser.uid).on('value', (snap) => {
+          this.setState({
+            settings: snap.val()
+          })
+        })
       } else {
         this.props.history.push('/');
       }
@@ -94,19 +105,19 @@ class Dashboard extends Component {
   // 오늘 리스트를 보여줄 컴포넌트
   // 일주일 리스트를 보여줄 컴포넌트
   renderConditionalComponent() {
-    const { togglePanelComponent, todoItems } = this.state;
+    const { togglePanelComponent, todoItems, settings } = this.state;
           let currentTimeStamp = moment().add(0, 'days').toDate().getTime();
           let weekTimeStamp = moment().add(7, 'days').toDate().getTime();    
     if (togglePanelComponent === 'inbox') {
       // 전체 todoItems
-      return <InboxContainer todoItems={ todoItems } />
+      return <InboxContainer todoItems={ todoItems } settings={ settings } />
     } else if (togglePanelComponent === 'today') {
       // 지난값, 오늘에 해당하는 todoItems
       
-      return <TodayContainer todoItems={ todoItems } />
+      return <TodayContainer todoItems={ todoItems } settings={ settings } />
     } else if (togglePanelComponent === 'week') {
       // 지난값, 현재 기준으로 일주일 todoItems
-      return <WeekContainer todoItems={ todoItems } />
+      return <WeekContainer todoItems={ todoItems } settings={ settings } />
     }
   }
 
@@ -119,12 +130,17 @@ class Dashboard extends Component {
       weekCount, 
       activedTodoItemsCount,
       todoItems,
+      settings,
       loading} = this.state;
     
     return (
       <div className="wtd-dashboard">
         {loading && <div className="wtd-dashboard__loading-container"><MainLoading /></div>}
-        <DashboardHeader activedTodoItemsCount={ activedTodoItemsCount } todoItems={ todoItems } />
+        <DashboardHeader 
+          activedTodoItemsCount={ activedTodoItemsCount } 
+          todoItems={ todoItems }
+          settings={ settings } 
+        />
         <div className="wtd-container">
           <DashboardAsideMenu 
             handlePanels={ this.handlePanels } 

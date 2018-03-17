@@ -29,22 +29,18 @@
 }
 .wtd-dashboard__add-todo-item {
   margin-top: 15px;
-
+  opacity: .6;
+  transition: opacity .3s ease-in-out;
   span {
     position: relative;
     display: inline-block;
     width: 12px;
     height: 12px;
     margin-right: 10px;
-    @include close-button;
-    &:before, &:after {
-      opacity: 1;
-    }
-    &:before {
-      transform: translate(-50%, -50%) rotate(0);
-    }
-    &:after {
-      transform: translate(-50%, -50%) rotate(-90deg);
-    }
+    top: -1px;
+  }
+  &:hover {
+    text-decoration: underline;
+    opacity: 1;
   }
 }

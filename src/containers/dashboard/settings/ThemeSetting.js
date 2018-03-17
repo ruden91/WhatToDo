@@ -3,9 +3,11 @@ import React, { Component } from 'react';
 import * as settings from 'api/settings';
 import { auth, database } from 'database/firebase';
 
+import { Scrollbars } from 'react-custom-scrollbars';
+
 export default class ThemeSetting extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     
     this.state = {
       themes: []
@@ -14,10 +16,10 @@ export default class ThemeSetting extends Component {
 
   componentWillMount () {
     let themes = settings.themes();
-    const testColor = '#db4c3f';
+    const selectedThemeColor = this.props.settings.theme.color;
 
     let refinedThemes = themes.map(theme => {
-      if (theme.color === testColor) {
+      if (theme.color === selectedThemeColor) {
         theme.active = true;
       }
       return theme;
@@ -30,6 +32,9 @@ export default class ThemeSetting extends Component {
 
   handleThemeButton = (index) => {
     const { themes } = this.state;
+    const uid = auth.currentUser.uid;
+    const themeRef = database.ref('settings/' + uid).child('theme');
+
     let copiedThemes = themes.map((theme, themeIndex) => {
       if (themeIndex === index) {
         theme.active = true;
@@ -38,10 +43,13 @@ export default class ThemeSetting extends Component {
       }
       return theme;
     })
-    
-    console.log('firebase theme setting 변경')
-    this.setState({
-      theme: copiedThemes
+     
+    themeRef.set({
+      color: copiedThemes.filter(theme => theme.active)[0].color
+    }).then(() => {
+      this.setState({
+        theme: copiedThemes
+      })
     })
   }
 
@@ -55,19 +63,20 @@ export default class ThemeSetting extends Component {
         <p>WhatToDo 개인화하기...</p>
         <div>
           <h6>색상 선택</h6>
-          <ul>
-            {themes.map((theme,index) => (
-              <li key={index} className={theme.active ? 'is-active' : ''} onClick={ () => this.handleThemeButton(index) }>
-              <span style={{ backgroundColor: theme.color }}></span>
-              <span>{theme.name}</span>
-              <i 
-                className="fas fa-check wtd-dashboard-theme-setting__check-icon"
-                style={{ color: theme.color }}
-              ></i>
-             </li>              
-            ))}            
-          </ul>
-
+          <Scrollbars style={{ width: 310, height: 500 }}>
+            <ul>
+              {themes.map((theme,index) => (
+                <li key={index} className={theme.active ? 'is-active' : ''} onClick={ () => this.handleThemeButton(index) }>
+                <span style={{ backgroundColor: theme.color }}></span>
+                <span>{theme.name}</span>
+                <i 
+                  className="fas fa-check wtd-dashboard-theme-setting__check-icon"
+                  style={{ color: theme.color }}
+                ></i>
+              </li>              
+              ))}            
+            </ul>
+          </Scrollbars>
           <div className="wtd-dashboard-theme-setting__monitor-container">
             <header style={{ backgroundColor: selectedThemeColor }}>
 

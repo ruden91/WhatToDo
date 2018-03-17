@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import ReactModal from 'react-modal';
-import { auth } from 'database/firebase';
+import { auth, database } from 'database/firebase';
 
 import UserSetting from 'containers/dashboard/settings/UserSetting';
 import DefaultSetting from 'containers/dashboard/settings/DefaultSetting';
@@ -11,8 +11,8 @@ import { uniqueId } from 'lodash';
 
 import { version } from '../../../package.json';
 class SettingButton extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       toggleSettingModal: false,
@@ -78,7 +78,7 @@ class SettingButton extends Component {
     } else if (toggleSettingComponent === 'basic') {
       return <DefaultSetting />
     } else if (toggleSettingComponent === 'theme') {
-      return <ThemeSetting />
+      return <ThemeSetting settings={ this.props.settings } />
     } else if (toggleSettingComponent === 'karma') {
       return <KarmaSetting />
     }

@@ -49,6 +49,76 @@ export const themes = () => {
     name: '그라파이트',
     color: '#506578',
     active: false
-  },      
+  },
+  {
+    name: '로즈핑크',
+    color: '#FF66CC',
+    active: false
+  },        
+  {
+    name: '라벤더',
+    color: '#e6e6fa',
+    active: false
+  },        
+  {
+    name: '머스터드',
+    color: '#ffdb58',
+    active: false
+  },        
+  {
+    name: '마젠타',
+    color: '#FF00FF',
+    active: false
+  },        
+  {
+    name: '말라카이트 그린',
+    color: '#97976F',
+    active: false
+  },        
+  {
+    name: '메로우 옐로우',
+    color: '#f8de7e',
+    active: false
+  },        
+  {
+    name: '모스 그린',
+    color: '#066658',
+    active: false
+  },        
+  {
+    name: '마린 블루',
+    color: '#1e3f5a',
+    active: false
+  },        
+  {
+    name: '미드나잇 블루',
+    color: '#191970',
+    active: false
+  },        
+  {
+    name: '바이올렛',
+    color: '#EE82EE',
+    active: false
+  },        
+  {
+    name: '베이비 핑크',
+    color: '#F4C2C2',
+    active: false
+  },        
+  {
+    name: '라이트 코랄',
+    color: '#f08080',
+    active: false
+  },        
+  {
+    name: '로지 브라운',
+    color: '#bc8f8f',
+    active: false
+  },        
+  {
+    name: '다즐링 블루',
+    color: '#2E4DA7',
+    active: false
+  }              
   ]
 }
