@@ -5,11 +5,11 @@ import ReactModal from 'react-modal';
 import { database, auth } from 'database/firebase';
 import { filter } from 'lodash';
 
+import { Circle } from 'rc-progress';
 import ProductivityCanvas from 'containers/dashboard/ProductivityCanvas';
 export default class Productivity extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       toggleProductivityModal: false,
     }
@@ -34,6 +34,18 @@ export default class Productivity extends Component {
     return document.querySelector('.wtd-dashboard-schedule-manager');
   }
 
+  changeNumberToPercentage (number) {
+    const { activedTodoItemsCount } = this.props;
+
+    let percent = activedTodoItemsCount / 10 * 100;
+    
+    if (percent > 100) {
+      percent = 100;
+    }
+    console.log(percent);
+    return percent;
+  }
+
   render() {
     const { activedTodoItemsCount } = this.props;
     const customStyles = {
@@ -48,7 +60,7 @@ export default class Productivity extends Component {
         zIndex: 10        
       }
     };
-
+    const iconClass = this.changeNumberToPercentage() >= 100 ? 'active' : "";
     return (
       <div>
         <button className="wtd-dashboard-header__action" onClick={ this.handleProductivityModal }>
@@ -79,6 +91,16 @@ export default class Productivity extends Component {
                 </ul>
                 
                 <div className="wtd-dashboard-productivity__streak">
+                  <div className="wtd-dashboard-productivity__streak-chart-container">
+                    <Circle 
+                      percent={ this.changeNumberToPercentage() } 
+                      strokeWidth="4" 
+                      strokeColor="#dd4b39" 
+                      strokeLinecap="round"
+                      className="wtd-dashboard-productivity__circle-chart"
+                    />
+                    <i className={`fas fa-trophy wtd-dashboard-productivity__trophy-icon ${iconClass}`}></i>
+                  </div>
                   <p>1일 동안 연이어 목표를 완료했습니다.</p>
                   <p className="sm">
                     당신의 가장 긴 스트리크: 1일
@@ -89,13 +111,13 @@ export default class Productivity extends Component {
                 <h6>지난 7일 완료</h6>
                 <div className="wtd-dashboard-productivity__chart">
                   <ul>
-                    <li><div style={{ width: 5 * 3.571}}></div><span>토 <b>5</b></span></li>
-                    <li><div style={{ width: 30 * 3.571}}></div><span>금 <b>30</b></span></li>
-                    <li><div style={{ width: 100 * 3.571 > 230 ? 230 : 100 * 3.571}}></div><span>목 <b>100</b></span></li>
-                    <li><div style={{ width: 8 * 3.571}}></div><span>수 <b>8</b></span></li>
-                    <li><div style={{ width: 0 * 3.571}}></div><span>화 <b>0</b></span></li>
-                    <li><div style={{ width: 1 * 3.571}}></div><span>월 <b>1</b></span></li>
-                    <li><div style={{ width: 3 * 3.571}}></div><span>일 <b>3</b></span></li>
+                    <li><div style={{ width: 5/10 * 100}}></div><span>토 <b>5</b></span></li>
+                    <li><div style={{ width: 2/10 * 100}}></div><span>금 <b>30</b></span></li>
+                    <li><div style={{ width: 8/10 * 100}}></div><span>목 <b>100</b></span></li>
+                    <li><div style={{ width: 8/10 * 100}}></div><span>수 <b>8</b></span></li>
+                    <li><div style={{ width: 0/10 * 100}}></div><span>화 <b>0</b></span></li>
+                    <li><div style={{ width: 1/10 * 100}}></div><span>월 <b>1</b></span></li>
+                    <li><div style={{ width: 3/10 * 100}}></div><span>일 <b>3</b></span></li>
                   </ul>
                   <ProductivityCanvas />
                 </div>
