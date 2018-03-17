@@ -6,7 +6,7 @@ import { random } from 'lodash';
 export const fetchCurrentUser = (value) => {
   const action = { type: 'FETCH_CURRENTUSER', value };
 
-  Dispatcher.dispatch(action);
+  Dispatcher.dispatch(action); 
 }
 
 export const resetCurrentUser = () => {
