@@ -7,6 +7,10 @@ import moment from 'moment';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 
+import 'moment/locale/ko';
+
+// Include the locale utils designed for moment
+import MomentLocaleUtils from 'react-day-picker/moment';
 export default class AddTodoItem extends Component {
   constructor() {
     super();
@@ -28,6 +32,10 @@ export default class AddTodoItem extends Component {
     e.preventDefault();
     const { content } = this.state;
     const uid = auth.currentUser.uid;
+    const receiveItem = {
+      uid,
+      content
+    }
 
     if (content === '') {
       this.setState({
@@ -57,10 +65,50 @@ export default class AddTodoItem extends Component {
     }
 
   }
+  CustomOverlay = ({ classNames, selectedDay, children }) => {
+    return <div className={classNames.overlayWrapper}>
+        <div className={classNames.overlay}>
+          <header>
+            <ul>
+              <li>
+                <span className="fa-layers fa-fw">
+                  <i className="fas fa-circle-notch" />
+                  <span className="fa-layers-text fa-inverse" data-fa-transform="shrink-8 down-3">
+                    19
+                  </span>
+                </span>
+              </li>
+              <li>
+                <span className="fa-layers fa-fw">
+                  <i className="fas fa-calendar" />
+                  <span className="fa-layers-text fa-inverse" data-fa-transform="shrink-8 down-3">
+                    27
+                  </span>
+                </span>
+              </li>
+              <li>
+                <i className="fas fa-long-arrow-alt-right" data-fa-transform="shrink-5 down-3" data-fa-mask="fas fa-calendar" />
+              </li>
+              <li>
+                <i className="fas fa-sun" />
+              </li>
+              <li>
+                <i className="fas fa-moon" />
+              </li>
+              <li>
+                <i className="far fa-calendar-times" />
+              </li>
+            </ul>
+          </header>
+          {children}
+        </div>
+      </div>;
+  }
 
   render() {
     const { openForm } = this.state;
     const { settings } = this.props;
+        
     return (
       <div>
         {!openForm && <button 
@@ -76,7 +124,14 @@ export default class AddTodoItem extends Component {
               value={this.state.content}
               ref="addTodoItemInput"
             />
-            <DayPickerInput onDayChange={day => this.setState({ selectedDay: day })} />
+            <DayPickerInput
+              overlayComponent={this.CustomOverlay} 
+              dayPickerProps={{
+                localeUtils: MomentLocaleUtils,
+                locale: 'ko'
+              }}            
+              onDayChange={day => this.setState({ selectedDay: day })}
+            />
           </div>
 
           <button type="submit">작업 추가</button>

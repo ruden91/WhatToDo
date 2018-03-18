@@ -32,7 +32,7 @@ export const FacebookAuthProvider = new firebase.auth.FacebookAuthProvider();
  *  dateist_inline_disabled,
  * 
  */
-export const writeUserData = ({ uid, email, displayName, photoURL}) => {
+export const writeUserData = ({ uid, email, displayName, photoURL, metadata}) => {
   let userRef = database.ref('users').child(uid);
 
   userRef.set({
@@ -45,7 +45,8 @@ export const writeUserData = ({ uid, email, displayName, photoURL}) => {
     email,
     display_name: displayName,
     avatar: photoURL,
-    join_date: null,
+    join_date: metadata.creationTime,
+    last_signIn_time: null,
     theme: 0,
     weekly_goal: 0,
     mobile_number: null,
@@ -65,6 +66,21 @@ export const addTodoItem = (uid, item) => {
   let itemRef = database.ref('items').child(uid).push();
   
   itemRef.set({
-    uid
+    uid,
+    due: null,
+    content: "",
+    priority: 1,
+    indent: 1,
+    item_order: 0,
+    labels: null,
+    checked: 0,
+    in_history: 0,
+    date_added: null,
+    assigned_by_uid: null,
+    responsible_by_uid: null,
+    all_notes_fetched: true,
+    project_id: null,
+    day_order: -1,
+    is_deleted: 0
   })
 }

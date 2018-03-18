@@ -1328,14 +1328,11 @@ li {
     padding: 10px;
     border-right: 1px solid #ddd;
     min-height: 21px; }
-  .wtd-dashboard__add-todo-item-form > div > div {
-    float: left;
-    width: 20%; }
-    .wtd-dashboard__add-todo-item-form > div > div input {
-      width: 110px;
-      padding: 10px;
-      font-size: 13px;
-      opacity: .5; }
+  .wtd-dashboard__add-todo-item-form > div > div input {
+    width: 110px;
+    padding: 10px;
+    font-size: 13px;
+    opacity: .5; }
 .wtd-dashboard__add-todo-item-form > button:nth-of-type(1) {
   padding: 10px 14px;
   background-color: #3d3d3d;
@@ -1650,6 +1647,54 @@ li {
         margin-right: 10px; }
       .wtd-dashboard-theme-setting > div ul li span:nth-of-type(2) {
         display: inline-block; }
+
+.DayPickerInput-OverlayWrapper {
+  position: absolute;
+  top: 64px;
+  right: 2px;
+  border: 1px solid #ddd;
+  width: 260px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
+  font-size: 11px;
+  background-color: #fff; }
+  .DayPickerInput-OverlayWrapper header {
+    border-bottom: 1px solid #eee;
+    padding: 10px 0 8px 0;
+    margin-left: 5px;
+    margin-right: 5px; }
+    .DayPickerInput-OverlayWrapper header ul:after {
+      content: "";
+      display: table;
+      clear: both; }
+    .DayPickerInput-OverlayWrapper header ul li {
+      float: left;
+      font-size: 24px;
+      width: 16.66%;
+      text-align: center; }
+      .DayPickerInput-OverlayWrapper header ul li:nth-of-type(1) {
+        font-size: 26px; }
+        .DayPickerInput-OverlayWrapper header ul li:nth-of-type(1) .fa-layers-text {
+          color: #222;
+          top: 9px;
+          font-size: 24px;
+          opacity: .7; }
+      .DayPickerInput-OverlayWrapper header ul li:nth-of-type(4) {
+        font-size: 26px; }
+
+.DayPickerInput-Overlay {
+  box-shadow: none;
+  position: initial; }
+
+.DayPicker {
+  width: 235px;
+  margin-left: 10px; }
+
+.DayPicker-Caption > div {
+  text-align: center; }
+
+.DayPicker-NavBar span:nth-of-type(1) {
+  right: 0;
+  left: 25px; }
 
 .test-todo {
   position: relative;

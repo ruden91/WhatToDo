@@ -6,7 +6,68 @@ $defaultFontColor: #6f6f6f;
 
 @import 'components/index';
 @import 'containers/index';
+.DayPickerInput-OverlayWrapper {
+  position: absolute;
+  top: 64px;
+  right: 2px;
+  border: 1px solid #ddd;
+  width: 260px;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.4);
+  font-size: 11px;
+  background-color: #fff;  
 
+  header {
+    border-bottom: 1px solid #eee;
+    padding: 10px 0 8px 0;
+    margin-left: 5px;
+    margin-right: 5px;   
+    
+    ul {
+      @include clearfix;
+      li {
+        float: left;
+        font-size: 24px;
+        width: 16.66%;
+        text-align: center;
+
+        &:nth-of-type(1) {
+          font-size: 26px;
+          .fa-layers-text {
+            color: #222;
+            top: 9px;
+            font-size: 24px;
+            opacity: .7;            
+          }
+        }
+
+        &:nth-of-type(4) {
+          font-size: 26px;
+        }
+      }
+    }
+  }
+}
+.DayPickerInput-Overlay {
+  box-shadow: none;
+  position: initial;
+}
+.DayPicker {
+  width: 235px;
+  margin-left: 10px;  
+}
+.DayPicker-Caption {
+  > div {
+    text-align: center;
+  }
+}
+.DayPicker-NavBar {
+  span {
+    &:nth-of-type(1) {
+      right: 0;
+      left: 25px;      
+    }
+  }
+}
 .test-todo {
   position: relative;
   width: 100%;

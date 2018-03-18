@@ -74,12 +74,18 @@ class Dashboard extends Component {
   componentDidMount() {
     auth.onAuthStateChanged(currentUser => {      
       if (currentUser) {
+        console.log(currentUser)
         const uid = currentUser.uid;
         // 사용자 기록 조회 없으면 저장, 있으면 state에 저장
         database.ref('users').child(uid).on('value', (snap) => {
           if (!snap.val()) {
             writeUserData({ ...currentUser });
           } else {
+            // 갱신이 필요한 정보 업데이트
+            database.ref('users').child(uid).update({
+              last_signIn_time: currentUser.metadata.lastSignInTime
+            });
+            
             this.setState({
               user: snap.val()
             })
