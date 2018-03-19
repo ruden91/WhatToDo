@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { auth } from 'database/firebase';
+import { auth, storage, database } from 'database/firebase';
 
 export default class UserSetting extends Component {
   constructor() {
@@ -22,6 +22,42 @@ export default class UserSetting extends Component {
     this.setState({
       toggleDisplayName: true
     })
+  }
+  handleDeleteUserId = () => {
+    let user = auth.currentUser;
+
+    user.delete().then(function() {
+      // User deleted.
+    }).catch(function(error) {
+      // An error happened.
+    });    
+  }
+  handleUploadImage = (e) => {
+    const file = e.target.files[0];
+    let uploadTask = storage.ref('user-images').child(auth.currentUser.uid).child('profile').put(file, { contentType: file.type });
+
+    uploadTask.on('state_changed', function(snapshot){
+      // Observe state change events such as progress, pause, and resume
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+
+    }, function(error) {
+      // Handle unsuccessful uploads
+    }, function() {
+      console.log(uploadTask.snapshot.downloadURL)
+      // Handle successful uploads on complete
+      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+      var downloadURL = uploadTask.snapshot.downloadURL;
+
+      auth.currentUser.updateProfile({
+        photoURL: downloadURL
+      })
+
+      database.ref('users').child(auth.currentUser.uid).update({
+        avatar: downloadURL
+      })
+    });    
   }
 
   handleDisplayNameForm = (e) => {
@@ -52,12 +88,21 @@ export default class UserSetting extends Component {
           <dl onClick={this.updateUserProfile}>
             <dt>사진</dt>
             <dd>
-              <span className="wtd-dashboard-user-setting__image-wrap">
-                <span>
-                  <i className="fas fa-camera-retro"></i>
-                </span>
-                <img src={ photoURL } alt={displayName} />
-              </span>
+              <input 
+                type="file" 
+                id="files"
+                accept="image/*"
+                onChange={ this.handleUploadImage } 
+                className="wtd-dashboard-user-setting__file-input"
+              />
+              <label htmlFor="files">
+                <span className="wtd-dashboard-user-setting__image-wrap">
+                  <span>
+                    <i className="fas fa-camera-retro"></i>
+                  </span>
+                  <img src={ photoURL } alt={displayName} />
+                </span>              
+              </label>              
             </dd>
           </dl>
           <dl>
@@ -83,7 +128,12 @@ export default class UserSetting extends Component {
           </dl>        
         </div>
         <div className="wtd-dashboard-user-setting__user-delete-info">
-          <a href="#" className="wtd-dashboard-user-setting__user-delete-button">내 WhatToDo 계정 삭제</a>
+          <a 
+            href="#" 
+            className="wtd-dashboard-user-setting__user-delete-button"
+            onClick={ this.handleDeleteUserId }
+          >
+          내 WhatToDo 계정 삭제</a>
           <p className="wtd-dashboard-user-setting__user-delete-comment">패스워드가 필요합니다</p> 
         </div>                        
       </div>

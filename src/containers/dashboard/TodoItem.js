@@ -97,7 +97,8 @@ class TodoItem extends Component {
     // const dragging = isDragging ? 'is-dragging' : '';
 
     return (
-      <li onClick={this.props.onModifyClick.bind(this)}>
+      // onClick={this.props.onModifyClick.bind(this)}
+      <li>
         <table className="test-todo">
         <tbody>
           <tr>

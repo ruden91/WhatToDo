@@ -1543,6 +1543,8 @@ li {
     width: 100%; }
 .wtd-dashboard-user-setting__user-delete-info {
   border-bottom: none !important; }
+.wtd-dashboard-user-setting__file-input {
+  display: none; }
 .wtd-dashboard-user-setting__user-delete-button {
   font-size: 12px;
   display: inline-block;
