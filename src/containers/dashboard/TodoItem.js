@@ -5,111 +5,127 @@ import { DragSource, DropTarget } from 'react-dnd';
 import { database, auth } from 'database/firebase';
 import * as actions from '../../actions';
 import moment from 'moment';
-const Types = {
-  TODOITEM: 'todoitem',
-};
+// const Types = {
+//   TODOITEM: 'todoitem',
+// };
 
-const todoItemSource = {
-  beginDrag(props, monitor, component) {
-    const item = { id: props.id, index: props.index };
+// const todoItemSource = {
+//   beginDrag(props, monitor, component) {
+//     const item = { id: props.id, index: props.index };
 
-    return item;
-  },
-};
+//     return item;
+//   },
+// };
 
-const todoItemTarget = {
-  hover(props, monitor, component) {
-    const dragIndex = monitor.getItem().index;
-    const hoverIndex = props.index;
+// const todoItemTarget = {
+//   hover(props, monitor, component) {
+//     const dragIndex = monitor.getItem().index;
+//     const hoverIndex = props.index;
 
-    if (dragIndex === hoverIndex) {
-      return;
-    }
+//     if (dragIndex === hoverIndex) {
+//       return;
+//     }
 
-    const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
+//     const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
 
-    // Get vertical middle
-    const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+//     // Get vertical middle
+//     const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
-    // Determine mouse position
-    const clientOffset = monitor.getClientOffset();
+//     // Determine mouse position
+//     const clientOffset = monitor.getClientOffset();
 
-    // Get pixels to the top
-    const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+//     // Get pixels to the top
+//     const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
-    // Dragging downwards
-    if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-      return;
-    } 
+//     // Dragging downwards
+//     if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+//       return;
+//     } 
 
-    // Dragging upwards
-    if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-      return;
-    }
+//     // Dragging upwards
+//     if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+//       return;
+//     }
     
-    props.moveCard(dragIndex, hoverIndex);
+//     props.moveCard(dragIndex, hoverIndex);
 
-    monitor.getItem().index = hoverIndex;
-  },
-};
+//     monitor.getItem().index = hoverIndex;
+//   },
+// };
 
-function targetCollect(connect) {
-  return {
-    connectDropTarget: connect.dropTarget(),
-  };
-}
+// function targetCollect(connect) {
+//   return {
+//     connectDropTarget: connect.dropTarget(),
+//   };
+// }
 
-function sourceCollect(connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging(),
-  };
-}
+// function sourceCollect(connect, monitor) {
+//   return {
+//     connectDragSource: connect.dragSource(),
+//     isDragging: monitor.isDragging(),
+//   };
+// }
 
 class TodoItem extends Component {
   constructor() {
     super();
-    console.log(moment(2558809811).format('YYYY-MM-DD'))
   }
-  updateTodoItem = (id, item) => {
-    const uid = auth.currentUser.uid;
-    console.log(item);
-    let updatedItem = {
-      ...item,
-      active: true
-    }
+  
+  // updateTodoItem = (id, item) => {
+  //   const uid = auth.currentUser.uid;
+  //   let updatedItem = {
+  //     ...item,
+  //     active: true
+  //   }
     
-    database.ref('todoItems/' + uid).child(id).update(updatedItem);
-  }
+  //   database.ref('todoItems/' + uid).child(id).update(updatedItem);
+  // }
 
-  deleteTodoItem = (id) => {
-    const uid = auth.currentUser.uid;
-    // actions.deleteTodoItems(id);
-    database.ref('todoItems/' + uid).child(id).
-    database.ref('todoItems/' + uid).child(id).remove();
-  }
+  // deleteTodoItem = (id) => {
+  //   const uid = auth.currentUser.uid;
+  //   // actions.deleteTodoItems(id);
+  //   database.ref('todoItems/' + uid).child(id).
+  //   database.ref('todoItems/' + uid).child(id).remove();
+  // }
 
   // conditional Component 추가하기
   render() {
-    const { id, title, created_at, activeTodoItem, active, index, item } = this.props;
-    const { isDragging, connectDragSource, connectDropTarget } = this.props;
+    // const { content, due } = this.props.item;
+    // const { index } = this.props;
+    // const { isDragging, connectDragSource, connectDropTarget } = this.props;
     
-    const dragging = isDragging ? 'is-dragging' : '';
+    // const dragging = isDragging ? 'is-dragging' : '';
 
-    return connectDragSource(connectDropTarget(
-      <li><table className={`test-todo ${dragging}`}>
+    return (
+      <li onClick={this.props.onModifyClick.bind(this)}>
+        <table className="test-todo">
         <tbody>
           <tr>
-            <td><div onClick={ () => this.updateTodoItem(index, item) }></div></td>
-            <td><p>{title}</p></td>
-            <td><span>{ moment(created_at).format('YYYY-MM-DD') }</span></td>
-            <td><button onClick={ () => this.deleteTodoItem(index) }>delete</button></td>
+            <td><div></div></td>
+            <td><p>test</p></td>
+            <td><span>date</span></td>
+            <td><button>D</button></td>
           </tr>
         </tbody>
-      </table>
-      </li>
-    ));
+        </table>
+      </li>      
+    )
+    // return connectDragSource(connectDropTarget(
+    //   <li>
+    //     <table className={`test-todo ${dragging}`}>
+    //     <tbody>
+    //       <tr>
+    //         <td><div></div></td>
+    //         <td><p>test</p></td>
+    //         <td><span>date</span></td>
+    //         <td><button>D</button></td>
+    //       </tr>
+    //     </tbody>
+    //     </table>
+    //   </li>
+    // ));
   }
 }
 
-export default DragSource(Types.TODOITEM, todoItemSource, sourceCollect)(DropTarget(Types.TODOITEM, todoItemTarget, targetCollect)(TodoItem));
+export default TodoItem;
+// export default DragSource(Types.TODOITEM, todoItemSource, sourceCollect)(DropTarget(Types.TODOITEM, todoItemTarget, targetCollect)(TodoItem));

@@ -9,7 +9,7 @@ import InboxContainer from 'containers/dashboard/InboxContainer';
 import TodayContainer from 'containers/dashboard/TodayContainer';
 import WeekContainer from 'containers/dashboard/WeekContainer';
 
-import { uniqueId, filter } from 'lodash';
+import { uniqueId, filter, map } from 'lodash';
 
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
@@ -29,6 +29,7 @@ class Dashboard extends Component {
     this.state = {
       user: {},
       togglePanelComponent: 'today',
+      items: {},
       todoItems: {},
       activedTodoItemsCount: 0,
       loading: true,
@@ -92,6 +93,12 @@ class Dashboard extends Component {
           }
         })
 
+        database.ref('items/' + uid).on('value', (snap) => {
+          this.setState({
+            items: snap.val()
+          })
+        })
+
         // user의 items를 조회 및 state 저장
         database.ref('todoItems/' + uid).on('value', (snap) => {
           console.log(snap.val())
@@ -122,13 +129,63 @@ class Dashboard extends Component {
       }
     })
   }
+  
+  setSortByDate (items, count = 0) {
+    let today = moment().add(0, 'days').format('YYYY-MM-DD');
+    let results = [];
+    
+    // 지난값 세팅
+    results.push({
+      title: '기한이 지난',
+      date: null,
+      items: {}
+    });
+
+    // 지난값은 디폴트로 넣어준다.
+    map(items, (item, key) => {
+      // 지난 값 체크
+      if (moment(item.due).format("YYYY-MM-DD") < today) {
+        results[0].items[key] = item;
+      }
+    })
+
+    
+    for (let i = 0; i < count; i++) {
+      let date;
+      let title;
+      if (i === 0) {
+        title = '오늘';
+        date = moment().add(i, 'days').format('dddd MM월 DD일');
+      } else if (i === 1) {
+        title = "내일";
+        date = moment().add(i, 'days').format('dddd MM월 DD일');
+      } else {
+        title = moment().add(i, 'days').format('dddd');
+        date = moment().add(i, 'days').format('MM월 DD일');
+      }
+
+      results.push({
+        title,
+        date,
+        items: {}
+      })
+
+      map(items, (item, key) => {
+        if (moment(item.due).format("YYYY-MM-DD") === moment().add(i, 'days').format('YYYY-MM-DD')) {
+          results[i+1].items[key] = item;
+        }
+      })
+    }
+    
+    return results;
+  }
 
   // 조건부로 컴포넌트를 생성하기 위한 함수
   // 전체 리스트를 보여줄 컴포넌트
   // 오늘 리스트를 보여줄 컴포넌트
   // 일주일 리스트를 보여줄 컴포넌트
   renderConditionalComponent() {
-    const { togglePanelComponent, todoItems, settings } = this.state;
+    const { togglePanelComponent, todoItems, settings, items } = this.state;
           let currentTimeStamp = moment().add(0, 'days').toDate().getTime();
           let weekTimeStamp = moment().add(7, 'days').toDate().getTime();    
     if (togglePanelComponent === 'inbox') {
@@ -140,7 +197,7 @@ class Dashboard extends Component {
       return <TodayContainer todoItems={ todoItems } settings={ settings } />
     } else if (togglePanelComponent === 'week') {
       // 지난값, 현재 기준으로 일주일 todoItems
-      return <WeekContainer todoItems={ todoItems } settings={ settings } />
+      return <WeekContainer items={this.setSortByDate(items, 7)} settings={settings} />;
     }
   }
 

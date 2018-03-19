@@ -1,19 +1,52 @@
 import React, { Component } from 'react';
 
-import TodoItem from 'containers/dashboard/TodoItem';
-import AddTodoItem from 'containers/AddTodoItem';
+import TodoList from 'containers/dashboard/TodoList';
 import { map, filter } from 'lodash';
 export default class WeekContainer extends Component {
-  render() {
-    const { todoItems, settings } = this.props;
-    return (
-      <div>
-        <h2>다음 7</h2>
+  constructor(props) {
+    super(props);
 
-        <ul>
-          {map(todoItems, (item, key) => <TodoItem { ...item } item={ item } key={key} index={key} />)}
-        </ul>
-        <AddTodoItem settings={ settings } />        
+    this.state = {
+      willModifyTodoListIndex: -1
+    }
+  }
+  handleTodoListAddClick = (willModifyTodoListIndex) => {
+    this.setState({
+      willModifyTodoListIndex
+    })
+  }
+
+  mapToComponent() {
+    const { items } = this.props;
+    return map(items, (value ,key) => (
+      <TodoList 
+        items={ value } 
+        isModify={this.state.willModifyTodoListIndex === key}
+        onAddClick={this.handleTodoListAddClick}        
+        key={key}
+        index={key}        
+      />
+    ))
+  }
+
+  mapToTodoItemComponent(items) {
+    console.log(items)
+    return map(items, (item, key) => (
+      <div>
+        {/* <TodoItem { ...item } item={ item } key={key} index={key} /> */}
+        {/* <AddTodoItem /> */}
+      </div>
+    ))
+  }
+
+  render() {
+    const { toggleAddItem } = this.state;
+    const { items, settings } = this.props;
+  
+    return (
+      <div className="wtd-dashboard__todo-items-container">
+        <h2 className="wtd-dashboard__todo-items-header">다음 7일</h2>
+        {this.mapToComponent()}
       </div>
     )
   }

@@ -62,25 +62,25 @@ export const writeUserData = ({ uid, email, displayName, photoURL, metadata}) =>
   })
 }
 
-export const addTodoItem = (uid, item) => {
+export const addTodoItem = ({ uid, content, created_at, selectedDay }) => {
   let itemRef = database.ref('items').child(uid).push();
-  
+
   itemRef.set({
     uid,
-    due: null,
-    content: "",
+    content,
+    created_at,
+    due: selectedDay,
     priority: 1,
     indent: 1,
     item_order: 0,
     labels: null,
-    checked: 0,
+    checked: false,
     in_history: 0,
-    date_added: null,
     assigned_by_uid: null,
     responsible_by_uid: null,
     all_notes_fetched: true,
     project_id: null,
     day_order: -1,
     is_deleted: 0
-  })
+  });
 }

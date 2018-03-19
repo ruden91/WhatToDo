@@ -172,3 +172,40 @@
 .todo-app__revise-todo-item {
   background-color:rgb(0, 150, 136);
 }
+
+
+////////////// WeekContainer test
+.wtd-dashboard__todo-items-container {
+  > div {
+    margin-bottom: 40px;      
+  }
+  .wtd-dashboard__todo-items-header {
+    font-size: 20px;
+    font-weight: normal;
+    margin: 0 20px 30px 0;    
+  }
+
+  > div {
+    &:nth-of-type(1) {
+      >h2 {
+        color: $mainColor;
+      }
+    }
+  }
+  .wtd-dashboard__todo-items-subsection-header {
+    font-size: 14px;
+    font-weight: 500;
+    color: #202020;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: .5em;
+    margin-right: 28px;
+    margin-bottom: 0;    
+
+    span {
+      color: #999;
+      margin-left: 6px;
+      font-size: 11px;
+      font-weight: normal;      
+    }
+  }
+}
