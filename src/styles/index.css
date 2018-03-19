@@ -785,6 +785,9 @@ li {
   padding: 12px 45px 12px 12px;
   color: rgba(0, 0, 0, 0.6); }
 
+.wtd-dashboard__add-todo-wrap {
+  position: relative; }
+
 .todo-app__add-todo-item-container {
   position: relative; }
 
@@ -1670,8 +1673,9 @@ li {
 
 .DayPickerInput-OverlayWrapper {
   position: absolute;
-  top: 64px;
-  right: 2px;
+  top: 37px;
+  right: 1px;
+  z-index: 1;
   border: 1px solid #ddd;
   width: 260px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);

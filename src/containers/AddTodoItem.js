@@ -118,7 +118,7 @@ export default class AddTodoItem extends Component {
 
     return (
       <form className="wtd-dashboard__add-todo-item-form" onSubmit={this.createTodoItem}>
-      <div>
+      <div className="wtd-dashboard__add-todo-wrap">
         <input type="text" onChange={this.changeTodoItemContent} value={this.state.content} ref="addTodoItemInput" />
         <DayPickerInput 
           overlayComponent={this.CustomOverlay} 

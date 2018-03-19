@@ -18,8 +18,6 @@ class TodoList extends Component {
     const { writeIndex } = this.state;
     console.log(writeIndex)
     return map(items.items, (item, key) => {
-      console.log(item)
-      console.log(key)
       if(isModify && writeIndex === key){
         return <AddTodoItem />
       }
