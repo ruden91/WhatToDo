@@ -11,12 +11,8 @@ export default class Productivity extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toggleProductivityModal: false,
-      goalCount: 10
+      toggleProductivityModal: false
     }
-
-    this.filteredTodoItems = filter(this.props.todoItems, (item) => item.active);
-    console.log(this.filteredTodoItems);
   }
 
   handleProductivityModal = () => {
@@ -36,9 +32,9 @@ export default class Productivity extends Component {
   }
 
   changeNumberToPercentage (number) {
-    const { todayCompletedCount } = this.props;
+    const { todayCompletedCount, goalCount } = this.props;
 
-    let percent = todayCompletedCount / 10 * 100;
+    let percent = todayCompletedCount / goalCount * 100;
     
     if (percent > 100) {
       percent = 100;
@@ -47,21 +43,40 @@ export default class Productivity extends Component {
   }
 
   mapToComponent = () => {
-    const { weeklyStats } = this.props;
-
+    const { weeklyStats, maxValue, goalCount } = this.props;
+    
     return map(weeklyStats, (stats, key) => {
       return (
         <li key={key}>
-          <div></div>
-          <span >{ stats.day } <b>{ stats.count }</b></span>
+          <div>
+            <div style={{ width: `${stats.count / maxValue * 100}%`}}>
+              <span >{ stats.day } <b>{ stats.count }</b></span>
+            </div>
+          </div>
         </li>
       )
     });
   }
+  renderConditionalGoalCompletionComments() {
+    const { todayCompletedCount, goalCount } = this.props;
+    const percent = (todayCompletedCount / goalCount) * 100;
+
+    // 목표치 달성 완료
+    if (percent >= 100) {
+      return <h4> 목표달성 했드아아아~!</h4>;
+    } else if (percent >= 75) {
+      return <h4>이제 막바지입니다. 해낼 수 있습니다!</h4>;
+    } else if (percent >= 35) {
+      return <h4>멋지게 잘 진행하고 있습니다. 계속 열중하세요!</h4>
+    } else if (percent >= 5) {
+      return <h4>시작이 가장 어렵습니다. 계속 진행하세요!</h4>
+    } else {
+      return <h4>일일 목표: <b>{ todayCompletedCount }/{ goalCount }작업</b></h4>;
+    }            
+  }
 
   render() {
-    const { todayCompletedCount, completedCount } = this.props;
-    const { goalCount } = this.state;
+    const { todayCompletedCount, completedCount, goalCount, maxValue } = this.props;
     const customStyles = {
       overlay: { zIndex: 10, backgroundColor: 'transparent'},
       content: {
@@ -114,15 +129,14 @@ export default class Productivity extends Component {
                     />
                     <i className={`fas fa-trophy wtd-dashboard-productivity__trophy-icon ${iconClass}`}></i>
                   </div>
-                  {goalCount > todayCompletedCount && <h4>일일 목표: <b>{ todayCompletedCount }/{ goalCount }작업</b></h4>}                  
-                  {goalCount <= todayCompletedCount && <h4> 목표달성 했드아아아~!</h4>}                  
+                  { this.renderConditionalGoalCompletionComments() }
                 </div>
                 <h6>지난 7일 완료</h6>
                 <div className="wtd-dashboard-productivity__chart">
                   <ul>
                     { this.mapToComponent() }
                   </ul>
-                  <ProductivityCanvas />
+                  <ProductivityCanvas goalCount={ goalCount } maxValue={ maxValue } />
                 </div>
                 <a href="javascript:;" className="wtd-dashboard-productivity__move-karma">Karma 목표 및 설정</a>
               </div>

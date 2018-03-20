@@ -1483,12 +1483,20 @@ li {
     padding: 2px;
     margin-bottom: 5px; }
     .wtd-dashboard-productivity__modal ul li div {
+      width: 220px;
       display: inline-block;
-      background-color: #cccccc;
-      min-width: 1px;
-      margin-top: 1px;
       height: 9px;
+      margin-top: 1px;
       margin-right: 8px; }
+      .wtd-dashboard-productivity__modal ul li div > div {
+        position: relative;
+        min-width: 1px;
+        background-color: #cccccc; }
+        .wtd-dashboard-productivity__modal ul li div > div > span {
+          display: inline-block;
+          position: absolute;
+          right: -35px;
+          top: -1px; }
     .wtd-dashboard-productivity__modal ul li b {
       margin-left: 5px; }
 

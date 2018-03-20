@@ -1,31 +1,34 @@
 import React, { Component } from 'react';
 
 export default class ProductivityCanvas extends Component {
+  constructor(props) {
+    super(props);
+  }
 
   drawCanvas = () => {
+    const { goalCount, maxValue } = this.props;
     const canvas = document.querySelector('.wtd-dashboard__productivity-canvas');
-
+    let value = 220 * ((goalCount / maxValue) * 100) / 100;
+    
     if (canvas.getContext) {
       let context = canvas.getContext("2d");
-      context.translate(0.5, 0.5);
       // circle
       context.beginPath();
-      context.arc(15, 5, 1.5, 0,(Math.PI/180) *360,false);
+      context.arc(value, 5, 1.5, 0,(Math.PI/180) *360,false);
       context.fillStyle = '#737373';
       context.fill();
 
       // circle
       context.beginPath();
-      context.arc(15, 162, 1.5, 0,(Math.PI/180) *360,false);
+      context.arc(value, 162, 1.5, 0,(Math.PI/180) *360,false);
       context.fillStyle = '#737373';
       context.fill();
 
       // line
-      
       context.strokeStyle = '#737373';
       context.beginPath();
-      context.moveTo(15, 5);
-      context.lineTo(15, 163);
+      context.moveTo(value, 5);
+      context.lineTo(value, 163);
       context.stroke();
     }
   }

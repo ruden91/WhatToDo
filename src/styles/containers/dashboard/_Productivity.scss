@@ -126,12 +126,23 @@
         margin-bottom: 5px;  
         
         div {
+          width: 220px;
           display: inline-block;
-          background-color: rgb(204, 204, 204);
-          min-width: 1px;
-          margin-top: 1px;
           height: 9px;   
-          margin-right: 8px;
+          margin-top: 1px;
+          margin-right: 8px;                      
+          > div {
+            position: relative;
+            min-width: 1px;
+            background-color: rgb(204, 204, 204);
+
+            > span {
+              display: inline-block;
+              position: absolute;
+              right:-35px;
+              top: -1px;
+            }
+          }
         }
         b {
           margin-left: 5px;

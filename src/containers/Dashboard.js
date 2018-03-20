@@ -9,7 +9,7 @@ import InboxContainer from 'containers/dashboard/InboxContainer';
 import TodayContainer from 'containers/dashboard/TodayContainer';
 import WeekContainer from 'containers/dashboard/WeekContainer';
 
-import { uniqueId, filter, map } from 'lodash';
+import { uniqueId, filter, map, max } from 'lodash';
 
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
@@ -87,7 +87,8 @@ class Dashboard extends Component {
             });
             
             this.setState({
-              user: snap.val()
+              user: snap.val(),
+              goalCount: 10
             })
           }
         })
@@ -101,7 +102,8 @@ class Dashboard extends Component {
             weekCount: module.filterByDate(snap.val(), 7),
             completedCount: this.getCompletedCount(snap.val()),
             todayCompletedCount: this.getCompletedCount(snap.val(), 0),
-            weeklyStats: this.getWeeklyStats(snap.val())
+            weeklyStats: this.getWeeklyStats(snap.val()),
+            maxValue: this.calculateMaxValue(snap.val())
           })
         })
 
@@ -131,7 +133,16 @@ class Dashboard extends Component {
       }
     })
   }
-  
+
+  calculateMaxValue = (items) => {
+    let results = this.getWeeklyStats(items);
+    const { goalCount } = this.state;
+
+    return max(map(results, (stats) => {
+      return stats.count;
+    }).concat([goalCount]))
+  }  
+
   getCompletedCount(items, when) {
     if (!(typeof when === 'undefined')) {
       // n 일에 완료된 데이터의 갯수 필터링
@@ -284,12 +295,16 @@ class Dashboard extends Component {
       todayCompletedCount,
       completedCount,
       weeklyStats,
+      goalCount,
+      maxValue,
       loading} = this.state;
     
     return (
       <div className="wtd-dashboard">
         {loading && <div className="wtd-dashboard__loading-container"><MainLoading /></div>}
         <DashboardHeader
+          maxValue={ maxValue }
+          goalCount={ goalCount } 
           weeklyStats={ weeklyStats } 
           todayCompletedCount={ todayCompletedCount } 
           completedCount={ completedCount }
