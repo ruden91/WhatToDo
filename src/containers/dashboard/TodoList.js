@@ -62,7 +62,7 @@ class TodoList extends Component {
           {
           (this.props.isModify && this.state.writeIndex === -1) 
             ? <AddTodoItem/> 
-            : <button onClick={this.handleAddClick.bind(this, this.props.index)}>추가</button>
+            : <li className="wtd-dashboard__add-todo-item"><span><i className="fas fa-plus"></i></span><button onClick={this.handleAddClick.bind(this, this.props.index)}>추가</button></li>
           }          
         </ul>
       </div>      

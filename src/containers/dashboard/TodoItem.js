@@ -110,7 +110,11 @@ class TodoItem extends Component {
         <table className="test-todo">
         <tbody>
           <tr>
-            <td><div onClick={ () => this.completeTodoItem(index) }></div></td>
+            <td>
+              <div onClick={ () => this.completeTodoItem(index) }>
+                <i className="fas fa-check"></i>
+              </div>
+            </td>
             <td onClick={ () => onModifyClick(index) }><p>{ content }</p></td>
             <td><span></span></td>
             <td><button>delete</button></td>
