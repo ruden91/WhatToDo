@@ -1,8 +1,8 @@
-# [Realtime Todo Application](https://todoapp-131c9.firebaseapp.com)
+# [WhatToDo](https://todoapp-131c9.firebaseapp.com)
 
 ### About
 
-Realtime Todo Application은 실시간 일정관리 웹 애플리케이션입니다.
+WhatToDo는 실시간 일정관리 웹 애플리케이션입니다.
 
 ### Stack
   - [Firebase](https://firebase.google.com/) - Serverless realtime database for Realtime Web Application
@@ -11,8 +11,11 @@ Realtime Todo Application은 실시간 일정관리 웹 애플리케이션입니
   - [Webpack](https://webpack.js.org/) - A module bundler for Javascript
 
 ### Future Ideas
-  - [] - 익명 사용자 로그인
-  - [] - 해시태그
+  - [o] - 작업완료 차트
+  - [o] - 커스텀 테마
+  - [o] - 날짜별 리스트 관리
+  - [ ] - 익명 사용자 로그인
+  - [ ] - 해시태그
 
 ### Running Locally
 

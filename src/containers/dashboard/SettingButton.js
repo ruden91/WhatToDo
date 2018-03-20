@@ -102,7 +102,7 @@ class SettingButton extends Component {
       }
     };
     const userSettingCustomStyles = {
-      overlay: { zIndex: 3},
+      overlay: { zIndex: 11},
       content: {
         position: 'fixed',
         top: 0,
