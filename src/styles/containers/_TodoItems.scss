@@ -175,14 +175,19 @@
 
 
 ////////////// WeekContainer test
-.wtd-dashboard__todo-items-container {
-  > div {
-    margin-bottom: 40px;      
-  }
-  .wtd-dashboard__todo-items-header {
+.wtd-dashboard {
+  @include e('todo-items-header') {
     font-size: 20px;
     font-weight: normal;
     margin: 0 20px 30px 0;    
+    @include m('inbox') {
+      margin: 0;
+    }
+  }
+}
+.wtd-dashboard__todo-items-container {
+  > div {
+    margin-bottom: 40px;      
   }
 
   > div {

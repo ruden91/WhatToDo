@@ -10,12 +10,15 @@ import 'react-day-picker/lib/style.css';
 import 'moment/locale/ko';
 
 // Include the locale utils designed for moment
-import MomentLocaleUtils from 'react-day-picker/moment';
+import MomentLocaleUtils, {
+  formatDate,
+  parseDate
+} from 'react-day-picker/moment';
 export default class AddTodoItem extends Component {
   constructor() {
     super();
 
-    this.state = { content: "", openForm: false, selectedDay: null };
+    this.state = { content: "", openForm: false, due: null };
   }
 
   changeTodoItemContent = e => {
@@ -25,32 +28,18 @@ export default class AddTodoItem extends Component {
   createTodoItem = e => {
     e.preventDefault();
     const { content } = this.state;
-    let selectedDay = this.state.selectedDay;
-
-    if (typeof selectedDay === "object") {
-      selectedDay = String(selectedDay);
-    } else {
-      selectedDay = null;
-    }
     
-    const uid = auth.currentUser.uid;
-    const created_at = new Date().getTime();
-    const receiveItem = { uid, content };
-
     if (content === "") {
-      this.setState({ openForm: false });
       return;
     }
 
-    addTodoItem({ uid, content, created_at, selectedDay });
-    // newTodoItemRef.set({
-    //   title: this.state.content,
-    //   active: false,
-    //   // created_at: moment().add(random(0,30), 'days').toDate().getTime()
-    //   created_at: new Date().getTime()
-    // })
+    const uid = auth.currentUser.uid;
+    const created_at = new Date().getTime();
+    const due = this.state.due && moment(this.state.due).format('YYYY-MM-DD');
+    console.log(due);
+    addTodoItem({ uid, content, created_at, due });
 
-    this.setState({ content: "", selectedDay: null });
+    this.setState({ content: "", due: null });
   };
 
   componentDidUpdate() {
@@ -120,10 +109,17 @@ export default class AddTodoItem extends Component {
       <form className="wtd-dashboard__add-todo-item-form" onSubmit={this.createTodoItem}>
       <div className="wtd-dashboard__add-todo-wrap">
         <input type="text" onChange={this.changeTodoItemContent} value={this.state.content} ref="addTodoItemInput" />
-        <DayPickerInput 
+        <DayPickerInput
           overlayComponent={this.CustomOverlay} 
-          dayPickerProps={{ localeUtils: MomentLocaleUtils, locale: "ko" }} 
-          onDayChange={day => this.setState({ selectedDay: day })} 
+          formatDate={formatDate}
+          parseDate={parseDate}          
+          dayPickerProps={
+            { 
+              localeUtils: MomentLocaleUtils, 
+              locale: "ko"
+            }
+          } 
+          onDayChange={day => this.setState({ due: day })} 
           // placeholder={this.state.selectedDay}
         />
       </div>

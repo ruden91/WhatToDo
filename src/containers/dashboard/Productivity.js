@@ -35,9 +35,9 @@ export default class Productivity extends Component {
   }
 
   changeNumberToPercentage (number) {
-    const { activedTodoItemsCount } = this.props;
+    const { completedCount } = this.props;
 
-    let percent = activedTodoItemsCount / 10 * 100;
+    let percent = completedCount / 10 * 100;
     
     if (percent > 100) {
       percent = 100;
@@ -46,7 +46,8 @@ export default class Productivity extends Component {
   }
 
   render() {
-    const { activedTodoItemsCount } = this.props;
+    const { completedCount } = this.props;
+    console.log(completedCount)
     const customStyles = {
       overlay: { zIndex: 10},
       content: {
@@ -64,7 +65,7 @@ export default class Productivity extends Component {
       <div>
         <button className="wtd-dashboard-header__action" onClick={ this.handleProductivityModal }>
           <i className="far fa-check-circle"></i>
-          <span>{ activedTodoItemsCount }</span>
+          <span>{ completedCount }</span>
         </button>
 
         <ReactModal
@@ -82,7 +83,7 @@ export default class Productivity extends Component {
                 <button onClick={ this.handleProductivityModalClose }></button>
               </header>
               <div>
-                <p>{ activedTodoItemsCount }작업을 완료했습니다. <a href="javascript:;">완료한 모든 작업 보기</a></p>
+                <p>{ completedCount }작업을 완료했습니다. <a href="javascript:;">완료한 모든 작업 보기</a></p>
 
                 <ul className="wtd-dashboard-productivity__tab">
                   <li><a href="javascript:;">일일</a></li>

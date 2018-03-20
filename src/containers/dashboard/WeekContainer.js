@@ -29,16 +29,6 @@ export default class WeekContainer extends Component {
     ))
   }
 
-  mapToTodoItemComponent(items) {
-    console.log(items)
-    return map(items, (item, key) => (
-      <div>
-        {/* <TodoItem { ...item } item={ item } key={key} index={key} /> */}
-        {/* <AddTodoItem /> */}
-      </div>
-    ))
-  }
-
   render() {
     const { toggleAddItem } = this.state;
     const { items, settings } = this.props;

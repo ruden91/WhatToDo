@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import SettingButton from 'containers/dashboard/SettingButton';
 import Productivity from 'containers/dashboard/Productivity';
-const DashboardHeader = ({ activedTodoItemsCount, todoItems, settings }) => (
+const DashboardHeader = ({ completedCount, todoItems, settings }) => (
   <header className="wtd-dashboard-header" style={{ backgroundColor: settings.theme.color }}>
     <div className="wtd-container">
       <div className="wtd-dashboard-header__inner">
@@ -16,7 +16,7 @@ const DashboardHeader = ({ activedTodoItemsCount, todoItems, settings }) => (
             </button>
           </li>      
           <li className="wtd-dashboard-header__actions">
-            <Productivity activedTodoItemsCount={ activedTodoItemsCount } todoItems={ todoItems } />
+            <Productivity completedCount={ completedCount } todoItems={ todoItems } />
           </li>      
           <li className="wtd-dashboard-header__actions">
             <button className="wtd-dashboard-header__action"><i className="fas fa-bell"></i></button>

@@ -1010,12 +1010,15 @@ li {
 .todo-app__revise-todo-item {
   background-color: #009688; }
 
-.wtd-dashboard__todo-items-container > div {
-  margin-bottom: 40px; }
-.wtd-dashboard__todo-items-container .wtd-dashboard__todo-items-header {
+.wtd-dashboard__todo-items-header {
   font-size: 20px;
   font-weight: normal;
   margin: 0 20px 30px 0; }
+  .wtd-dashboard__todo-items-header--inbox {
+    margin: 0; }
+
+.wtd-dashboard__todo-items-container > div {
+  margin-bottom: 40px; }
 .wtd-dashboard__todo-items-container > div:nth-of-type(1) > h2 {
   color: #e44232; }
 .wtd-dashboard__todo-items-container .wtd-dashboard__todo-items-subsection-header {
@@ -1729,7 +1732,8 @@ li {
 .test-todo {
   position: relative;
   width: 100%;
-  border-collapse: collapse; }
+  border-collapse: collapse;
+  min-height: 45px; }
   .test-todo.is-dragging:after {
     content: "";
     position: absolute;

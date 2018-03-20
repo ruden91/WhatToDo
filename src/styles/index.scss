@@ -78,6 +78,7 @@ $defaultFontColor: #6f6f6f;
   position: relative;
   width: 100%;
   border-collapse: collapse;  
+  min-height: 45px;
   &.is-dragging {
     &:after {
       content: "";

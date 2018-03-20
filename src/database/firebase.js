@@ -62,14 +62,15 @@ export const writeUserData = ({ uid, email, displayName, photoURL, metadata}) =>
   })
 }
 
-export const addTodoItem = ({ uid, content, created_at, selectedDay }) => {
+export const addTodoItem = ({ uid, content, created_at, due }) => {
   let itemRef = database.ref('items').child(uid).push();
-
+  
   itemRef.set({
     uid,
     content,
     created_at,
-    due: selectedDay,
+    is_completed: false,
+    due,
     priority: 1,
     indent: 1,
     item_order: 0,

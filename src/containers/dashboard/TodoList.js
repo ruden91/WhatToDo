@@ -16,7 +16,7 @@ class TodoList extends Component {
   mapToComponent() {
     const { items, isModify } = this.props;
     const { writeIndex } = this.state;
-    console.log(writeIndex)
+    
     return map(items.items, (item, key) => {
       if(isModify && writeIndex === key){
         return <AddTodoItem />
@@ -28,17 +28,17 @@ class TodoList extends Component {
         item={ item } 
         key={key} 
         index={key} 
-        onModifyClick={this.handleModifyClick.bind(this, key)}
+        onModifyClick={ this.handleModifyClick }
       />)
     })
   }
-  
-  handleModifyClick(writeIndex){
+  handleModifyClick = (writeIndex) => {
+    const { onAddClick, index } = this.props;
     this.setState({
       writeIndex
     });
 
-    this.props.onAddClick(this.props.index);
+    onAddClick(index);
   }
 
   handleAddClick(willModifyTodoListIndex){

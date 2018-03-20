@@ -18,7 +18,7 @@ import update from 'react-addons-update';
 import * as actions from '../actions';
 import Store from '../store';
 
-import { filterByDate } from 'helpers/filterByDate';
+import * as module from 'helpers/module';
 import moment from 'moment';
 
 import MainLoading from 'components/MainLoading';
@@ -75,7 +75,6 @@ class Dashboard extends Component {
   componentDidMount() {
     auth.onAuthStateChanged(currentUser => {      
       if (currentUser) {
-        console.log(currentUser)
         const uid = currentUser.uid;
         // 사용자 기록 조회 없으면 저장, 있으면 state에 저장
         database.ref('users').child(uid).on('value', (snap) => {
@@ -95,25 +94,26 @@ class Dashboard extends Component {
 
         database.ref('items/' + uid).on('value', (snap) => {
           this.setState({
-            items: snap.val()
+            loading: false,
+            items: snap.val(),
+            totalCount: snap.numChildren(),
+            todayCount: module.filterByDate(snap.val(), 0),
+            weekCount: module.filterByDate(snap.val(), 7),
+            completedCount: this.getCompletedCount(snap.val())
           })
         })
 
         // user의 items를 조회 및 state 저장
-        database.ref('todoItems/' + uid).on('value', (snap) => {
-          console.log(snap.val())
-          let currentTimeStamp = moment().add(0, 'days').toDate().getTime();
-          let weekTimeStamp = moment().add(0, 'days').toDate().getTime();
+        // database.ref('todoItems/' + uid).on('value', (snap) => {
+        //   console.log(snap.val())
+        //   let currentTimeStamp = moment().add(0, 'days').toDate().getTime();
+        //   let weekTimeStamp = moment().add(0, 'days').toDate().getTime();
           
-          this.setState({
-            todoItems: snap.val(),
-            totalCount: snap.numChildren(),
-            todayCount: filter(snap.val(), item => item.created_at <= currentTimeStamp).length,
-            weekCount: filter(snap.val(), item => item.created_at <= weekTimeStamp).length,
-            activedTodoItemsCount: filter(snap.val(), item => item.active).length,
-            loading: false
-          })
-        })
+        //   this.setState({
+        //     todoItems: snap.val(),
+        //     loading: false
+        //   })
+        // })
 
         database.ref('settings/' + currentUser.uid).on('value', (snap) => {
           if (!snap.val()) {
@@ -130,6 +130,22 @@ class Dashboard extends Component {
     })
   }
   
+  getCompletedCount(items) {
+    return filter(items, item => item.is_completed).length;
+  }
+
+  // 완료목록 필터링 로직
+  filterCompleteItem(items) {
+    let results = {};
+    map(items, (item, key) => {
+      if (!item.is_completed) {
+        results[key] = item;
+      } 
+    })
+
+    return results;
+  }
+
   setSortByDate (items, count = 0) {
     let today = moment().add(0, 'days').format('YYYY-MM-DD');
     let results = [];
@@ -190,14 +206,22 @@ class Dashboard extends Component {
           let weekTimeStamp = moment().add(7, 'days').toDate().getTime();    
     if (togglePanelComponent === 'inbox') {
       // 전체 todoItems
-      return <InboxContainer todoItems={ todoItems } settings={ settings } />
+      return <InboxContainer items={ this.filterCompleteItem(items) } settings={ settings } />
     } else if (togglePanelComponent === 'today') {
       // 지난값, 오늘에 해당하는 todoItems
       
-      return <TodayContainer todoItems={ todoItems } settings={ settings } />
+      return <TodayContainer 
+        items={this.setSortByDate(this.filterCompleteItem(items), 1)} 
+        settings={ settings } 
+        />
     } else if (togglePanelComponent === 'week') {
       // 지난값, 현재 기준으로 일주일 todoItems
-      return <WeekContainer items={this.setSortByDate(items, 7)} settings={settings} />;
+      return (
+        <WeekContainer 
+          items={this.setSortByDate(this.filterCompleteItem(items), 7)} 
+          settings={settings} 
+        />
+      );
     }
   }
 
@@ -208,16 +232,16 @@ class Dashboard extends Component {
       todayCount, 
       totalCount, 
       weekCount, 
-      activedTodoItemsCount,
       todoItems,
       settings,
+      completedCount,
       loading} = this.state;
     
     return (
       <div className="wtd-dashboard">
         {loading && <div className="wtd-dashboard__loading-container"><MainLoading /></div>}
         <DashboardHeader 
-          activedTodoItemsCount={ activedTodoItemsCount } 
+          completedCount={ completedCount } 
           todoItems={ todoItems }
           settings={ settings } 
         />

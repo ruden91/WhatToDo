@@ -70,7 +70,14 @@ class TodoItem extends Component {
   constructor() {
     super();
   }
-  
+  completeTodoItem = (id) => {
+    const { uid } = auth.currentUser;
+    
+    // 완료 필드 업데이트
+    database.ref('items').child(uid).child(id).update({
+      is_completed: true
+    })
+  }
   // updateTodoItem = (id, item) => {
   //   const uid = auth.currentUser.uid;
   //   let updatedItem = {
@@ -90,22 +97,23 @@ class TodoItem extends Component {
 
   // conditional Component 추가하기
   render() {
+    const { content, onModifyClick, index } = this.props;
+
     // const { content, due } = this.props.item;
     // const { index } = this.props;
     // const { isDragging, connectDragSource, connectDropTarget } = this.props;
     
     // const dragging = isDragging ? 'is-dragging' : '';
-
     return (
       // onClick={this.props.onModifyClick.bind(this)}
       <li>
         <table className="test-todo">
         <tbody>
           <tr>
-            <td><div></div></td>
-            <td><p>test</p></td>
-            <td><span>date</span></td>
-            <td><button>D</button></td>
+            <td><div onClick={ () => this.completeTodoItem(index) }></div></td>
+            <td onClick={ () => onModifyClick(index) }><p>{ content }</p></td>
+            <td><span></span></td>
+            <td><button>delete</button></td>
           </tr>
         </tbody>
         </table>
