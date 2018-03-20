@@ -13,6 +13,5 @@ export const filterByDate = (items, standard = 0) => {
 
 // 완료목록 제외 함수
 export const filterByComplete = (items) => {
-  console.log(items);
   return filter(items, item => !item.is_completed);
 }

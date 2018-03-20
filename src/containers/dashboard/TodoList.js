@@ -19,7 +19,7 @@ class TodoList extends Component {
     
     return map(items.items, (item, key) => {
       if(isModify && writeIndex === key){
-        return <AddTodoItem />
+        return <AddTodoItem onAddClick={ this.handleAddClick } />
       }
       
       return (
@@ -32,6 +32,7 @@ class TodoList extends Component {
       />)
     })
   }
+
   handleModifyClick = (writeIndex) => {
     const { onAddClick, index } = this.props;
     this.setState({
@@ -41,7 +42,7 @@ class TodoList extends Component {
     onAddClick(index);
   }
 
-  handleAddClick(willModifyTodoListIndex){
+  handleAddClick = (willModifyTodoListIndex) => {
     this.setState({
       writeIndex: -1
     });
@@ -61,7 +62,7 @@ class TodoList extends Component {
           { this.mapToComponent() }
           {
           (this.props.isModify && this.state.writeIndex === -1) 
-            ? <AddTodoItem/> 
+            ? <AddTodoItem onAddClick={ this.handleAddClick }/> 
             : <li className="wtd-dashboard__add-todo-item"><span><i className="fas fa-plus"></i></span><button onClick={this.handleAddClick.bind(this, this.props.index)}>추가</button></li>
           }          
         </ul>

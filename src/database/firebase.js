@@ -70,6 +70,7 @@ export const addTodoItem = ({ uid, content, created_at, due }) => {
     content,
     created_at,
     is_completed: false,
+    completed_at: null,
     due,
     priority: 1,
     indent: 1,

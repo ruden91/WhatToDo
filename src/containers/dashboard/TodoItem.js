@@ -75,7 +75,8 @@ class TodoItem extends Component {
     
     // 완료 필드 업데이트
     database.ref('items').child(uid).child(id).update({
-      is_completed: true
+      is_completed: true,
+      completed_at: new Date().getTime()
     })
   }
   // updateTodoItem = (id, item) => {

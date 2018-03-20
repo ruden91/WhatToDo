@@ -87,17 +87,18 @@ class SettingButton extends Component {
   render() {
     const { toggleSettingComponent } = this.state;
     const customStyles = {
-      overlay: {         zIndex: 10},
+      overlay: { zIndex: 10, backgroundColor: 'transparent'},
       content: {
-        width: '250px',
-        top: '43px',
-        right: 0,
-        left: 'auto',
-        bottom: 'auto',
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(58%, -117%)',
+        width: '210px',
+        height: '285px',
         padding: 0,
         zIndex: 10        
       }
-    }; 
+    };
     const userSettingCustomStyles = {
       overlay: { zIndex: 3},
       content: {

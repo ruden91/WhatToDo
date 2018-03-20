@@ -36,7 +36,7 @@ export default class AddTodoItem extends Component {
     const uid = auth.currentUser.uid;
     const created_at = new Date().getTime();
     const due = this.state.due && moment(this.state.due).format('YYYY-MM-DD');
-    console.log(due);
+    
     addTodoItem({ uid, content, created_at, due });
 
     this.setState({ content: "", due: null });
@@ -103,8 +103,8 @@ export default class AddTodoItem extends Component {
 
   render() {
     const { openForm } = this.state;
-    const { settings } = this.props;
-
+    const { settings, onAddClick } = this.props;
+    
     return (
       <form className="wtd-dashboard__add-todo-item-form" onSubmit={this.createTodoItem}>
       <div className="wtd-dashboard__add-todo-wrap">
@@ -127,7 +127,7 @@ export default class AddTodoItem extends Component {
       <button type="submit">
         작업 추가
       </button>
-      <button>
+      <button onClick={ () => onAddClick() }>
         취소
       </button>
     </form>      

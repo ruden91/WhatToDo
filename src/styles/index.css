@@ -1409,11 +1409,15 @@ li {
     width: 50%;
     padding: 0 !important;
     margin: 0; }
+    .wtd-dashboard-productivity__tab li:nth-of-type(1) a {
+      color: #555;
+      border-bottom: solid 1px #737373; }
+    .wtd-dashboard-productivity__tab li:nth-of-type(2) a {
+      color: #999;
+      border-bottom: 1px solid #e0e0e0; }
     .wtd-dashboard-productivity__tab li a {
       line-height: 2em;
       font-size: 13px;
-      color: #555;
-      border-bottom: solid 1px #737373;
       text-align: center; }
 .wtd-dashboard-productivity__move-karma {
   border-top: 1px solid #e0e0e0;
@@ -1445,7 +1449,7 @@ li {
 .wtd-dashboard-productivity__modal > div {
   padding: 0 20px; }
   .wtd-dashboard-productivity__modal > div > p {
-    font-size: 11px; }
+    font-size: 12px; }
 .wtd-dashboard-productivity__modal header {
   position: relative;
   margin: 15px 20px; }

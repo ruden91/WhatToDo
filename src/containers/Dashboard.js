@@ -99,7 +99,9 @@ class Dashboard extends Component {
             totalCount: snap.numChildren(),
             todayCount: module.filterByDate(snap.val(), 0),
             weekCount: module.filterByDate(snap.val(), 7),
-            completedCount: this.getCompletedCount(snap.val())
+            completedCount: this.getCompletedCount(snap.val()),
+            todayCompletedCount: this.getCompletedCount(snap.val(), 0),
+            weeklyStats: this.getWeeklyStats(snap.val())
           })
         })
 
@@ -130,8 +132,53 @@ class Dashboard extends Component {
     })
   }
   
-  getCompletedCount(items) {
-    return filter(items, item => item.is_completed).length;
+  getCompletedCount(items, when) {
+    if (!(typeof when === 'undefined')) {
+      // n 일에 완료된 데이터의 갯수 필터링
+      let oneDay = moment().add(when, 'days').format('dd'); // 해당 요일의 타임스탬프
+
+      // 오늘 완료한 목록 필터링
+      return filter(items, item => {
+        let completedDay;
+        if (!(typeof item.completed_at === 'undefined')) {
+          completedDay = moment(item.completed_at).format('dd');
+        }
+        return oneDay === completedDay;
+      }).length;
+    } else {
+      return filter(items, item => item.is_completed).length;
+    }
+    
+  }
+
+  // 일주일 통계 데이터를 object 형태로 정제
+  getWeeklyStats(items) {
+    // 순서는 내림차순
+    // day: 요일 , count: 값 object형식의 배열
+    let results = [];
+    // 지난 7일 dataSet 세팅
+    for (let i = 0; i < 7; i++) {
+      results.push({
+        day: moment().add(0 - i, 'days').format('ddd'),
+        count: 0
+      })
+    };
+    
+    // 완료된 데이터 목록
+    let completedItems = filter(items, (item) => {
+      return item.is_completed;
+    })
+    
+    map(completedItems, (item, key) => {
+      let day = moment(item.completed_at).format('ddd');
+      map(results, (result) => {
+        if (result.day === day) {
+          result.count++;
+        }
+      })
+    })
+    
+    return results;
   }
 
   // 완료목록 필터링 로직
@@ -234,14 +281,18 @@ class Dashboard extends Component {
       weekCount, 
       todoItems,
       settings,
+      todayCompletedCount,
       completedCount,
+      weeklyStats,
       loading} = this.state;
     
     return (
       <div className="wtd-dashboard">
         {loading && <div className="wtd-dashboard__loading-container"><MainLoading /></div>}
-        <DashboardHeader 
-          completedCount={ completedCount } 
+        <DashboardHeader
+          weeklyStats={ weeklyStats } 
+          todayCompletedCount={ todayCompletedCount } 
+          completedCount={ completedCount }
           todoItems={ todoItems }
           settings={ settings } 
         />

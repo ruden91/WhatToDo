@@ -11,7 +11,7 @@ export default class InboxContainer extends Component {
     }    
   }
 
-  handleTodoListAddClick = (willModifyTodoListIndex) => {
+  handleTodoListAddClick = (willModifyTodoListIndex = -1) => {
     this.setState({
       willModifyTodoListIndex
     })

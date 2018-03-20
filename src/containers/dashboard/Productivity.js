@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import ReactModal from 'react-modal';
 
 import { database, auth } from 'database/firebase';
-import { filter } from 'lodash';
+import { filter, map } from 'lodash';
 
 import { Circle } from 'rc-progress';
 import ProductivityCanvas from 'containers/dashboard/ProductivityCanvas';
@@ -12,6 +12,7 @@ export default class Productivity extends Component {
     super(props);
     this.state = {
       toggleProductivityModal: false,
+      goalCount: 10
     }
 
     this.filteredTodoItems = filter(this.props.todoItems, (item) => item.active);
@@ -35,9 +36,9 @@ export default class Productivity extends Component {
   }
 
   changeNumberToPercentage (number) {
-    const { completedCount } = this.props;
+    const { todayCompletedCount } = this.props;
 
-    let percent = completedCount / 10 * 100;
+    let percent = todayCompletedCount / 10 * 100;
     
     if (percent > 100) {
       percent = 100;
@@ -45,17 +46,31 @@ export default class Productivity extends Component {
     return percent;
   }
 
+  mapToComponent = () => {
+    const { weeklyStats } = this.props;
+
+    return map(weeklyStats, (stats, key) => {
+      return (
+        <li key={key}>
+          <div></div>
+          <span>{ stats.day } <b>{ stats.count }</b></span>
+        </li>
+      )
+    });
+  }
+
   render() {
-    const { completedCount } = this.props;
-    console.log(completedCount)
+    const { todayCompletedCount, completedCount } = this.props;
+    const { goalCount } = this.state;
     const customStyles = {
-      overlay: { zIndex: 10},
+      overlay: { zIndex: 10, backgroundColor: 'transparent'},
       content: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(40%, -67%)',
         width: '320px',
-        top: '43px',
-        right: '10px',
-        left: 'auto',
-        bottom: 'auto',
+        height: '500px',
         padding: 0,
         zIndex: 10        
       }
@@ -74,8 +89,6 @@ export default class Productivity extends Component {
             ariaHideApp={ false }
             contentLabel="ProductivityModal"
             style={ customStyles }
-            overlayClassName="ReactModal__ProductivityModal"
-            parentSelector={ this.getParent }            
           >
             <div className="wtd-dashboard-productivity__modal">
               <header>
@@ -83,11 +96,11 @@ export default class Productivity extends Component {
                 <button onClick={ this.handleProductivityModalClose }></button>
               </header>
               <div>
-                <p>{ completedCount }작업을 완료했습니다. <a href="javascript:;">완료한 모든 작업 보기</a></p>
+                <p>{ completedCount }작업을 완료했습니다.</p>
 
                 <ul className="wtd-dashboard-productivity__tab">
                   <li><a href="javascript:;">일일</a></li>
-                  <li><a href="javascript:;">주간</a></li>
+                  <li><a href="javascript:;" onClick={ () => alert('준비중입니다.')}>주간</a></li>
                 </ul>
                 
                 <div className="wtd-dashboard-productivity__streak">
@@ -101,23 +114,13 @@ export default class Productivity extends Component {
                     />
                     <i className={`fas fa-trophy wtd-dashboard-productivity__trophy-icon ${iconClass}`}></i>
                   </div>
-                  <p>1일 동안 연이어 목표를 완료했습니다.</p>
-                  <p className="sm">
-                    당신의 가장 긴 스트리크: 1일
-                    <br />
-                    (2018년3월10일 - 2018년3월17일)
-                  </p>                  
+                  {goalCount > todayCompletedCount && <h4>일일 목표: <b>{ todayCompletedCount }/{ goalCount }작업</b></h4>}                  
+                  {goalCount <= todayCompletedCount && <h4> 목표달성 했드아아아~!</h4>}                  
                 </div>
                 <h6>지난 7일 완료</h6>
                 <div className="wtd-dashboard-productivity__chart">
                   <ul>
-                    <li><div style={{ width: 5/10 * 100}}></div><span>토 <b>5</b></span></li>
-                    <li><div style={{ width: 2/10 * 100}}></div><span>금 <b>30</b></span></li>
-                    <li><div style={{ width: 8/10 * 100}}></div><span>목 <b>100</b></span></li>
-                    <li><div style={{ width: 8/10 * 100}}></div><span>수 <b>8</b></span></li>
-                    <li><div style={{ width: 0/10 * 100}}></div><span>화 <b>0</b></span></li>
-                    <li><div style={{ width: 1/10 * 100}}></div><span>월 <b>1</b></span></li>
-                    <li><div style={{ width: 3/10 * 100}}></div><span>일 <b>3</b></span></li>
+                    { this.mapToComponent() }
                   </ul>
                   <ProductivityCanvas />
                 </div>
