@@ -53,7 +53,7 @@ export default class Productivity extends Component {
       return (
         <li key={key}>
           <div></div>
-          <span>{ stats.day } <b>{ stats.count }</b></span>
+          <span >{ stats.day } <b>{ stats.count }</b></span>
         </li>
       )
     });
@@ -66,9 +66,9 @@ export default class Productivity extends Component {
       overlay: { zIndex: 10, backgroundColor: 'transparent'},
       content: {
         position: 'absolute',
-        top: '50%',
+        top: '43px',
         left: '50%',
-        transform: 'translate(40%, -67%)',
+        transform: 'translateX(35%)',
         width: '320px',
         height: '500px',
         padding: 0,

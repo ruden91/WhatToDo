@@ -90,9 +90,11 @@ class SettingButton extends Component {
       overlay: { zIndex: 10, backgroundColor: 'transparent'},
       content: {
         position: 'absolute',
-        top: '50%',
+        top: '42px',
         left: '50%',
-        transform: 'translate(58%, -117%)',
+        right: 0,
+        bottom: 0,
+        transform: 'translateX(120%)',
         width: '210px',
         height: '285px',
         padding: 0,
@@ -130,8 +132,6 @@ class SettingButton extends Component {
           ariaHideApp={ false }
           contentLabel="settingModal"
           style={ customStyles }
-          overlayClassName="ReactModal__Overlaysdsd"
-          parentSelector={ this.getParent }
         >
           <table className="wtd-dashboard-header__setting-panels">
             <tbody>
