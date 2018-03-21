@@ -119,6 +119,51 @@ export const themes = () => {
     name: '다즐링 블루',
     color: '#2E4DA7',
     active: false
-  }              
+  },
+  {
+    name: 'Olive drab',
+    color: '#6b8e23',
+    active: false
+  },                
+  {
+    name: 'Misty rose',
+    color: '#ffe4e1',
+    active: false
+  },                
+  {
+    name: 'Orange red',
+    color: '#ff4500',
+    active: false
+  },                
+  {
+    name: 'Dim gray',
+    color: '#696969',
+    active: false
+  },                 
+  {
+    name: 'Aqua',
+    color: '#028482',
+    active: false
+  },                 
+  {
+    name: 'Dark slate blue',
+    color: '#483d8b',
+    active: false
+  },                 
+  {
+    name: 'Forest green',
+    color: '#228b22',
+    active: false
+  },                 
+  {
+    name: 'Medium slate blue',
+    color: '#7b68ee',
+    active: false
+  },
+  {
+    name: 'Steel blue',
+    color: '#4682b4',
+    active: false
+  },                 
   ]
 }
