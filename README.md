@@ -11,9 +11,9 @@ WhatToDo는 실시간 일정관리 웹 애플리케이션입니다.
   - [Webpack](https://webpack.js.org/) - A module bundler for Javascript
 
 ### Future Ideas
-  - [o] - 작업완료 차트
-  - [o] - 커스텀 테마
-  - [o] - 날짜별 리스트 관리
+  - [x] - 작업완료 차트
+  - [x] - 커스텀 테마
+  - [x] - 날짜별 리스트 관리
   - [ ] - 익명 사용자 로그인
   - [ ] - 해시태그
 
