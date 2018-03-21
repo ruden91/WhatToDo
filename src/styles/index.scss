@@ -95,8 +95,8 @@ $defaultFontColor: #6f6f6f;
   }
   td {
     font-size: 14px;
-    border-bottom: 1px solid #f0f0f0;  
-    vertical-align: middle;  
+    vertical-align: middle;
+    border-top: 1px solid #f0f0f0;
     &:nth-of-type(1) {
       width: 32px;
       div {
@@ -120,24 +120,53 @@ $defaultFontColor: #6f6f6f;
       }
     }
     &:nth-of-type(2) {
-      width: 500px;
+      width: 550px;
       overflow: hidden;
-      cursor: text;      
+      cursor: text;
+      
+      p {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-word;        
+      }
     }
     &:nth-of-type(3) {
-      color: #202020;
-      font-size: 11px;
-      text-align: right;
-      white-space: nowrap;
-      padding-left: 5px !important;
-      padding-top: 14px;
-      padding-bottom: 12px;      
-    }
-    &:nth-of-type(4) {
-    }            
+      border-top: none;
+      // color: #202020;
+      // font-size: 11px;
+      // text-align: right;
+      // white-space: nowrap;
+      // padding-left: 5px !important;
+      // padding-top: 14px;
+      // padding-bottom: 12px;      
+    }           
   }
 }
-
+.wtd-dashboard__todo-item-container {
+  position: relative;
+  button {
+    color: $defaultFontColor;
+    opacity: 0;
+    transition: opacity .25s ease-in-out;    
+  }
+  &:hover {
+    button {
+      opacity: .6;
+    }
+  }  
+}
+.test-todo__drag-button {
+  float: left;
+  position: absolute;
+  width: 27px;
+  height: 20px;
+  margin-left: -27px;
+  z-index: 0;
+  margin-top: 13px;  
+}
+.test-todo {
+  position: relative;
+}
 .wtd-dashboard__add-schedule {
   color: #3d3d3d;
   position: relative;

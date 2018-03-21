@@ -46,7 +46,7 @@ import moment from 'moment';
 //     if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
 //       return;
 //     }
-    
+
 //     props.moveCard(dragIndex, hoverIndex);
 
 //     monitor.getItem().index = hoverIndex;
@@ -72,7 +72,7 @@ class TodoItem extends Component {
   }
   completeTodoItem = (id) => {
     const { uid } = auth.currentUser;
-    
+
     // 완료 필드 업데이트
     database.ref('items').child(uid).child(id).update({
       is_completed: true,
@@ -85,7 +85,7 @@ class TodoItem extends Component {
   //     ...item,
   //     active: true
   //   }
-    
+
   //   database.ref('todoItems/' + uid).child(id).update(updatedItem);
   // }
 
@@ -103,26 +103,31 @@ class TodoItem extends Component {
     // const { content, due } = this.props.item;
     // const { index } = this.props;
     // const { isDragging, connectDragSource, connectDropTarget } = this.props;
-    
+
     // const dragging = isDragging ? 'is-dragging' : '';
     return (
       // onClick={this.props.onModifyClick.bind(this)}
-      <li>
+      <li className="wtd-dashboard__todo-item-container">
+        <div className="test-todo__drag-button">
+          <button onClick={() => alert('drag 추가중')}><i className="fas fa-sort"></i></button>
+        </div>
         <table className="test-todo">
-        <tbody>
-          <tr>
-            <td>
-              <div onClick={ () => this.completeTodoItem(index) }>
-                <i className="fas fa-check"></i>
-              </div>
-            </td>
-            <td onClick={ () => onModifyClick(index) }><p>{ content }</p></td>
-            <td><span></span></td>
-            <td><button>delete</button></td>
-          </tr>
-        </tbody>
+          <tbody>
+            <tr>
+              <td>
+                <div onClick={() => this.completeTodoItem(index)}>
+                  <i className="fas fa-check"></i>
+                </div>
+              </td>
+              <td onClick={() => onModifyClick(index)}><p>{content}</p></td>
+              {/* <td><span></span></td> */}
+              <td className="test-todo__update-button">
+                <button onClick={() => alert('update 추가중')}><i className="fas fa-ellipsis-h"></i></button>
+              </td>
+            </tr>
+          </tbody>
         </table>
-      </li>      
+      </li>
     )
     // return connectDragSource(connectDropTarget(
     //   <li>
