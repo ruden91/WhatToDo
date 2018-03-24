@@ -30,15 +30,21 @@ export const FacebookAuthProvider = new firebase.auth.FacebookAuthProvider();
  *  beta
  *  has_push_reminders
  *  dateist_inline_disabled,
- * 
+ *
  */
-export const writeUserData = ({ uid, email, displayName, photoURL, metadata}) => {
+export const writeUserData = ({
+  uid,
+  email,
+  displayName,
+  photoURL,
+  metadata
+}) => {
   let userRef = database.ref('users').child(uid);
 
   userRef.set({
     is_premium: false,
     next_week: 0,
-    daily_goal: null,
+    daily_goal: 10,
     completed_today: 0,
     completed_count: 0,
     uid,
@@ -59,12 +65,15 @@ export const writeUserData = ({ uid, email, displayName, photoURL, metadata}) =>
       beta: 1,
       has_push_reminders: false
     }
-  })
-}
+  });
+};
 
 export const addTodoItem = ({ uid, content, created_at, due }) => {
-  let itemRef = database.ref('items').child(uid).push();
-  
+  let itemRef = database
+    .ref('items')
+    .child(uid)
+    .push();
+
   itemRef.set({
     uid,
     content,
@@ -85,4 +94,36 @@ export const addTodoItem = ({ uid, content, created_at, due }) => {
     day_order: -1,
     is_deleted: 0
   });
-}
+};
+
+// user의 특정 필드 값을 가져오는 함수
+export const fetchSpecificUserData = (field = null) => {
+  // field 파라미터가 null일 때 예외처리
+  if (field === null) {
+    throw '필드값을 넣어주세요.';
+  }
+  let result;
+  let { uid } = auth.currentUser;
+  let userRef = database.ref('users').child(uid);
+
+  userRef
+    .child(field)
+    .once('value')
+    .then(snap => {
+      return snap.val();
+    });
+};
+
+export const updateSpecificUserData = (field = null, data) => {
+  // field 파라미터가 null일 때 예외처리
+  if (field === null) {
+    throw '필드값을 넣어주세요.';
+  }
+  let updateData = {};
+  let { uid } = auth.currentUser;
+  let userRef = database.ref('users').child(uid);
+
+  updateData[field] = data;
+
+  userRef.update(updateData);
+};

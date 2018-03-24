@@ -4,24 +4,24 @@
 /// @access public
 /// @param {String} $element - Element's name
 @mixin e($element) {
-    &__#{$element} {
-        @content;
-    }
+  &__#{$element} {
+    @content;
+  }
 }
 
 /// Block Modifier
 /// @access public
 /// @param {String} $modifier - Modifier's name
 @mixin m($modifier) {
-    &--#{$modifier} {
-        @content;
-    }
+  &--#{$modifier} {
+    @content;
+  }
 }
 
 /// clearfix
 @mixin clearfix {
   &:after {
-    content: "";
+    content: '';
     display: table;
     clear: both;
   }
@@ -29,45 +29,74 @@
 
 // layout center alignment
 @mixin center-layout {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 // keyframes
-@mixin keyframes( $animationName )
-{
-    @-webkit-keyframes $animationName {
-        @content;
-    }
-    @-moz-keyframes $animationName {
-        @content;
-    }
-    @-o-keyframes $animationName {
-        @content;
-    }
-    @keyframes $animationName {
-        @content;
-    }
+@mixin keyframes($animationName) {
+  @-webkit-keyframes $animationName {
+    @content;
+  }
+  @-moz-keyframes $animationName {
+    @content;
+  }
+  @-o-keyframes $animationName {
+    @content;
+  }
+  @keyframes $animationName {
+    @content;
+  }
 }
 
 // close button(pseudo class)
 @mixin close-button {
-    &:before, &:after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 2px;
-        height: 100%;
-        background-color: $defaultFontColor;
-        opacity: .15;        
-    }
-    &:before {
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background-color: $defaultFontColor;
+    opacity: 0.15;
+  }
+  &:before {
     transform: translate(-50%, -50%) rotate(45deg);
-    }
-    &:after {
+  }
+  &:after {
     transform: translate(-50%, -50%) rotate(-45deg);
-    }     
+  }
+}
+
+@mixin component-box {
+  display: block;
+  border-bottom: solid 1px #eee;
+  padding: 2em 0;
+}
+
+@mixin component-header {
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  font-size: 14px;
+  color: #202020;
+}
+
+@mixin component-description {
+  margin-bottom: 20px;
+}
+
+@mixin edit-button {
+  display: inline-block;
+  font-size: 11px;
+  margin-left: 1em;
+  color: #dd4b39;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }

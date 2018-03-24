@@ -49,7 +49,7 @@ li {
   margin: 0 auto;
   padding: 0 1rem; }
   .wtd-container:after {
-    content: "";
+    content: '';
     display: table;
     clear: both; }
 
@@ -112,7 +112,7 @@ li {
       .wtd-header.wtd-header--is-detached .wtd-header__action-link--sign-up:hover:after {
         border: none; }
   .wtd-header:after {
-    content: "";
+    content: '';
     display: table;
     clear: both; }
   .wtd-header__floating {
@@ -181,7 +181,7 @@ li {
     display: inline-block;
     font-size: 12px; }
   .wtd-footer__site-nav-container:after {
-    content: "";
+    content: '';
     display: table;
     clear: both; }
   .wtd-footer__site-nav {
@@ -407,7 +407,7 @@ li {
   .wtd-dashboard-header__inner {
     padding: 13px 0 10px 0; }
     .wtd-dashboard-header__inner:after {
-      content: "";
+      content: '';
       display: table;
       clear: both; }
     .wtd-dashboard-header__inner a {
@@ -432,14 +432,14 @@ li {
       width: 16px;
       height: 16px; }
       .wtd-dashboard-header__action--add:before, .wtd-dashboard-header__action--add:after {
-        content: "";
+        content: '';
         position: absolute;
         top: 50%;
         left: 50%;
         width: 2px;
         height: 100%;
         background-color: #6f6f6f;
-        opacity: .15; }
+        opacity: 0.15; }
       .wtd-dashboard-header__action--add:before {
         transform: translate(-50%, -50%) rotate(45deg); }
       .wtd-dashboard-header__action--add:after {
@@ -491,7 +491,7 @@ li {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   z-index: 10; }
   .wtd-dashboard-user-setting__header:after {
-    content: "";
+    content: '';
     display: table;
     clear: both; }
   .wtd-dashboard-user-setting__header p {
@@ -517,14 +517,14 @@ li {
       height: 23px;
       top: -3px; }
       .wtd-dashboard-user-setting__header button .wtd-dashboard-user-setting__close-button:before, .wtd-dashboard-user-setting__header button .wtd-dashboard-user-setting__close-button:after {
-        content: "";
+        content: '';
         position: absolute;
         top: 50%;
         left: 50%;
         width: 2px;
         height: 100%;
         background-color: #6f6f6f;
-        opacity: .15; }
+        opacity: 0.15; }
       .wtd-dashboard-user-setting__header button .wtd-dashboard-user-setting__close-button:before {
         transform: translate(-50%, -50%) rotate(45deg); }
       .wtd-dashboard-user-setting__header button .wtd-dashboard-user-setting__close-button:after {
@@ -571,7 +571,7 @@ li {
   position: relative;
   background-color: #fafafa; }
   .wtd-dashboard-user-setting__content:after {
-    content: "";
+    content: '';
     display: table;
     clear: both; }
 
@@ -651,7 +651,7 @@ li {
 .wtd-signup-modal__inner-container {
   padding: 0 15px; }
 .wtd-signup-modal__header:after {
-  content: "";
+  content: '';
   display: table;
   clear: both; }
 .wtd-signup-modal__header p {
@@ -667,14 +667,14 @@ li {
     .wtd-signup-modal__close-btn-wrap > button:hover:before, .wtd-signup-modal__close-btn-wrap > button:hover:after {
       opacity: .4; }
     .wtd-signup-modal__close-btn-wrap > button:before, .wtd-signup-modal__close-btn-wrap > button:after {
-      content: "";
+      content: '';
       position: absolute;
       top: 50%;
       left: 50%;
       width: 2px;
       height: 100%;
       background-color: #6f6f6f;
-      opacity: .15; }
+      opacity: 0.15; }
     .wtd-signup-modal__close-btn-wrap > button:before {
       transform: translate(-50%, -50%) rotate(45deg); }
     .wtd-signup-modal__close-btn-wrap > button:after {
@@ -1103,7 +1103,7 @@ li {
     margin: 10px 0;
     font-size: 12px; }
     .todo-app__chat-container ul li:after {
-      content: "";
+      content: '';
       display: table;
       clear: both; }
     .todo-app__chat-container ul li.self p {
@@ -1343,7 +1343,7 @@ li {
   margin-top: 10px;
   margin-bottom: 10px; }
   .wtd-dashboard__add-todo-item-form > div:after {
-    content: "";
+    content: '';
     display: table;
     clear: both; }
   .wtd-dashboard__add-todo-item-form > div > input {
@@ -1399,7 +1399,7 @@ li {
 .wtd-dashboard-productivity__tab {
   margin-top: 15px; }
   .wtd-dashboard-productivity__tab:after {
-    content: "";
+    content: '';
     display: table;
     clear: both; }
   .wtd-dashboard-productivity__tab li {
@@ -1461,14 +1461,14 @@ li {
     width: 16px;
     height: 16px; }
     .wtd-dashboard-productivity__modal header button:before, .wtd-dashboard-productivity__modal header button:after {
-      content: "";
+      content: '';
       position: absolute;
       top: 50%;
       left: 50%;
       width: 2px;
       height: 100%;
       background-color: #6f6f6f;
-      opacity: .15; }
+      opacity: 0.15; }
     .wtd-dashboard-productivity__modal header button:before {
       transform: translate(-50%, -50%) rotate(45deg); }
     .wtd-dashboard-productivity__modal header button:after {
@@ -1607,7 +1607,7 @@ li {
   border: 1px solid #ddd;
   overflow: hidden; }
   .wtd-dashboard-theme-setting__monitor-container:after {
-    content: "";
+    content: '';
     display: table;
     clear: both; }
   .wtd-dashboard-theme-setting__monitor-container header {
@@ -1686,6 +1686,36 @@ li {
       .wtd-dashboard-theme-setting > div ul li span:nth-of-type(2) {
         display: inline-block; }
 
+.wtd-dashboard-karma-setting {
+  display: block;
+  border-bottom: solid 1px #eee;
+  padding: 2em 0; }
+  .wtd-dashboard-karma-setting h6 {
+    margin-bottom: 0.5em;
+    font-weight: bold;
+    font-size: 14px;
+    color: #202020; }
+  .wtd-dashboard-karma-setting > p {
+    margin-bottom: 20px; }
+  .wtd-dashboard-karma-setting__setting-box label {
+    display: inline-block;
+    vertical-align: top;
+    color: #aaa;
+    padding-right: 10px;
+    font-size: 13px; }
+  .wtd-dashboard-karma-setting__setting-box input[type='number']::-webkit-outer-spin-button,
+  .wtd-dashboard-karma-setting__setting-box input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; }
+  .wtd-dashboard-karma-setting__setting-box > a {
+    display: inline-block;
+    font-size: 11px;
+    margin-left: 1em;
+    color: #dd4b39;
+    text-decoration: none; }
+    .wtd-dashboard-karma-setting__setting-box > a:hover {
+      text-decoration: underline; }
+
 .DayPickerInput-OverlayWrapper {
   position: absolute;
   top: 37px;
@@ -1702,7 +1732,7 @@ li {
     margin-left: 5px;
     margin-right: 5px; }
     .DayPickerInput-OverlayWrapper header ul:after {
-      content: "";
+      content: '';
       display: table;
       clear: both; }
     .DayPickerInput-OverlayWrapper header ul li {
@@ -1815,14 +1845,14 @@ li {
   display: inline-block;
   padding-left: 5px; }
   .wtd-dashboard__add-schedule:before, .wtd-dashboard__add-schedule:after {
-    content: "";
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;
     width: 2px;
     height: 100%;
     background-color: #6f6f6f;
-    opacity: .15; }
+    opacity: 0.15; }
   .wtd-dashboard__add-schedule:before {
     transform: translate(-50%, -50%) rotate(45deg); }
   .wtd-dashboard__add-schedule:after {
