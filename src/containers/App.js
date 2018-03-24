@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 
 import AppHeader from 'components/AppHeader';
 import IntroComponent from 'components/IntroComponent';
@@ -9,44 +9,46 @@ import AppSignupForm from 'components/AppSignupForm';
 import MainLoading from 'components/MainLoading';
 
 import ReactModal from 'react-modal';
-import { auth, GithubAuthProvider, GoogleAuthProvider, FacebookAuthProvider } from 'database/firebase';
-import * as actions from '../actions';
-import Store from '../store';
+import {
+  auth,
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  FacebookAuthProvider
+} from 'database/firebase';
 
 class App extends Component {
   state = {
     toggleSignupModal: false,
     toggleLoginModal: false,
-    loading: true,
-    data: Store.getState()
-  }
+    loading: true
+  };
 
   // 로그인 모달 제어 이벤트
-  handleLoginButton = (e) => {
+  handleLoginButton = e => {
     e.preventDefault();
     this.setState({ toggleLoginModal: true });
-  }
+  };
 
   // 로그인 모달 닫기버튼 제어 함수
   handleLoginModalClose = () => {
     this.setState({ toggleLoginModal: false });
-  }
+  };
 
   // 회원가입 모달 제어 이벤트
-  handleSignUpButton = (e) => {
+  handleSignUpButton = e => {
     e.preventDefault();
-    
+
     this.setState({
       toggleSignupModal: true
-    })
-  }
+    });
+  };
 
   // 회원가입 모달 닫기버튼 제어 함수
   handleSignUpModalClose = () => {
     this.setState({ toggleSignupModal: false });
-  }
+  };
 
-  handleProviderLogin = (provider) => {
+  handleProviderLogin = provider => {
     let providerName;
     if (provider === 'GoogleAuthProvider') {
       providerName = GoogleAuthProvider;
@@ -56,68 +58,61 @@ class App extends Component {
       providerName = GithubAuthProvider;
     }
 
-    auth.signInWithPopup(providerName).then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      let token = result.credential.accessToken;
-      // The signed-in user info.
-      let user = result.user;
+    auth
+      .signInWithPopup(providerName)
+      .then(result => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        let token = result.credential.accessToken;
+        // The signed-in user info.
+        let user = result.user;
+      })
+      .catch(error => {
+        console.log('인증실패');
+        console.log(error);
+        // Handle Errors here.
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        // The email of the user's account used.
+        let email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        let credential = error.credential;
+        // ...
+      });
+  };
 
-      actions.fetchCurrentUser(user);      
-    }).catch((error) => {
-      console.log('인증실패');
-      console.log(error)
-      // Handle Errors here.
-      let errorCode = error.code;
-      let errorMessage = error.message;
-      // The email of the user's account used.
-      let email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      let credential = error.credential;
-      // ...
-    })
-  }
-
-  handleScroll = (e) => {
+  handleScroll = e => {
     let scrollTop = e.srcElement.all[0].scrollTop;
     let headerElement = document.querySelector('.wtd-header');
-    
+
     if (scrollTop > 20) {
       headerElement.classList.add('wtd-header--is-detached');
     } else {
       headerElement.classList.remove('wtd-header--is-detached');
     }
-  }
-
-  updateState = () => {
-    this.setState(Store.getState());
-  }
+  };
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
-    Store.on('change', this.updateState);
 
     auth.onAuthStateChanged(currentUser => {
       if (currentUser) {
-
         this.props.history.push('/dashboard');
       } else {
         this.setState({
           loading: false
-        })
+        });
       }
-    })    
+    });
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
-    console.log(Store)
-    // Store.off('change', this.updateState);
   }
 
   render() {
     const { toggleLoginModal, toggleSignupModal } = this.state;
     const customStyles = {
-      overlay: {zIndex: 2, backgroundColor: 'rgba(102,102,102,0.5)'},
+      overlay: { zIndex: 2, backgroundColor: 'rgba(102,102,102,0.5)' },
       content: {
         boxShadow: '0 0 2px 0 rgba(0,0,0,0.5), 0 0 10px 0 rgba(0,0,0,0.2)',
         width: '420px',
@@ -126,48 +121,52 @@ class App extends Component {
         right: 'auto',
         bottom: 'auto',
         marginRight: '-50%',
-        transform: 'translate(-50%, -50%)'        
+        transform: 'translate(-50%, -50%)'
       }
-    };    
+    };
     return (
       <div className="wtd">
         {this.state.loading && <MainLoading />}
-        {!this.state.loading && <div><AppHeader 
-          handleLoginButton={ this.handleLoginButton }
-          handleSignUpButton={ this.handleSignUpButton } 
-        />
-        <IntroComponent handleSignUpButton={ this.handleSignUpButton } />
-        <AppFooter />
+        {!this.state.loading && (
+          <div>
+            <AppHeader
+              handleLoginButton={this.handleLoginButton}
+              handleSignUpButton={this.handleSignUpButton}
+            />
+            <IntroComponent handleSignUpButton={this.handleSignUpButton} />
+            <AppFooter />
 
-        <ReactModal
-          isOpen={ toggleLoginModal }
-          onRequestClose={this.handleLoginModalClose}
-          ariaHideApp={ false }
-          contentLabel="loginModal"
-          style={ customStyles }
-          closeTimeoutMS={200}
-        >
-          <AppLoginForm 
-            handleLoginModalClose={ this.handleLoginModalClose } 
-            handleProviderLogin={ this.handleProviderLogin }
-          />
-        </ReactModal>
+            <ReactModal
+              isOpen={toggleLoginModal}
+              onRequestClose={this.handleLoginModalClose}
+              ariaHideApp={false}
+              contentLabel="loginModal"
+              style={customStyles}
+              closeTimeoutMS={200}
+            >
+              <AppLoginForm
+                handleLoginModalClose={this.handleLoginModalClose}
+                handleProviderLogin={this.handleProviderLogin}
+              />
+            </ReactModal>
 
-        <ReactModal
-          isOpen={ toggleSignupModal }
-          onRequestClose={this.handleSignUpModalClose}
-          ariaHideApp={ false }
-          contentLabel="signupModal"
-          style={ customStyles }
-          closeTimeoutMS={200}
-        >
-          <AppSignupForm 
-            handleSignUpModalClose={ this.handleSignUpModalClose } 
-            handleProviderLogin={ this.handleProviderLogin }
-          />
-        </ReactModal></div>}
+            <ReactModal
+              isOpen={toggleSignupModal}
+              onRequestClose={this.handleSignUpModalClose}
+              ariaHideApp={false}
+              contentLabel="signupModal"
+              style={customStyles}
+              closeTimeoutMS={200}
+            >
+              <AppSignupForm
+                handleSignUpModalClose={this.handleSignUpModalClose}
+                handleProviderLogin={this.handleProviderLogin}
+              />
+            </ReactModal>
+          </div>
+        )}
       </div>
-    )
+    );
   }
 }
 
@@ -195,7 +194,7 @@ export default withRouter(App);
 //       settings: null,
 //       messages: null,
 //       verified: false
-//     }   
+//     }
 
 //     this.toggleAddTodoItem = this.toggleAddTodoItem.bind(this);
 //   }
@@ -243,7 +242,7 @@ export default withRouter(App);
 //         database.ref('messages').on('value', (snap) => {
 //           this.setState({
 //             messages: snap.val()
-//           })          
+//           })
 //         })
 
 //         // user todoItems
@@ -257,8 +256,8 @@ export default withRouter(App);
 //         this.setState({
 //           todoItems: null,
 //           loading: false
-//         })        
-//       }  
+//         })
+//       }
 //     })
 //   }
 //   // 최신순으로 todoItems를 정렬해주는 함수
