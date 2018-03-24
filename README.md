@@ -2,20 +2,23 @@
 
 ### About
 
-WhatToDo는 실시간 일정관리 웹 애플리케이션입니다.
+WhatToDo 는 실시간 일정관리 웹 애플리케이션입니다.
 
 ### Stack
-  - [Firebase](https://firebase.google.com/) - Serverless realtime database for Realtime Web Application
-  - [React](https://github.com/facebook/react) - UI framework
-  - [Sass](https://github.com/sass/sass) - CSS with superpowers
-  - [Webpack](https://webpack.js.org/) - A module bundler for Javascript
+
+* [Firebase](https://firebase.google.com/) - Serverless realtime database for Realtime Web Application
+* [React](https://github.com/facebook/react) - UI framework
+* [Sass](https://github.com/sass/sass) - CSS with superpowers
+* [Webpack](https://webpack.js.org/) - A module bundler for Javascript
 
 ### Future Ideas
-  - [x] - 작업완료 차트
-  - [x] - 커스텀 테마
-  - [x] - 날짜별 리스트 관리
-  - [ ] - 익명 사용자 로그인
-  - [ ] - 해시태그
+
+* [x] * 작업완료 차트
+* [x] * 커스텀 테마
+* [x] * 날짜별 리스트 관리
+* [ ] * 타입스크립트 전환
+* [ ] * 익명 사용자 로그인
+* [ ] * 해시태그
 
 ### Running Locally
 
@@ -34,10 +37,9 @@ npm start
 ```
 
 ### Disclaimer
+
 This program should only be used on non-copyrighted material.
 
 ## Authors
 
-* **박경두** - *Initial work* - [ruden91](https://github.com/ruden91)
-
-
+* **박경두** - _Initial work_ - [ruden91](https://github.com/ruden91)
