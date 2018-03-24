@@ -2,7 +2,9 @@ html {
   box-sizing: border-box;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
@@ -20,28 +22,37 @@ a {
   display: block;
   outline: none;
 }
-p, h1, h2, h3, h4, h5, h6 {
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-size: 14px;
   color: $defaultFontColor;
   font-weight: 400;
-  margin:0;
+  margin: 0;
   padding: 0;
   letter-spacing: -1px;
 }
-input, button {
+input,
+button {
   padding: 0;
-  margin: 0;  
+  margin: 0;
   background: transparent;
   color: $defaultFontColor;
   border: none;
-  outline: none;  
+  outline: none;
   letter-spacing: -1px;
 }
-p, ul, li {
+p,
+ul,
+li {
   margin: 0;
   padding: 0;
 }
-button {  
+button {
   cursor: pointer;
 }
 li {

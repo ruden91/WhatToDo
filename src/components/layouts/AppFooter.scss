@@ -1,6 +1,7 @@
+@import '~styles/common';
 .wtd-footer {
   background-color: #f7f7f7;
-  box-shadow: inset 0 1px 2px 0 rgba(0,0,0,0.08);
+  box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.08);
   padding: 1.5rem 0 1rem;
 
   @include e('separator') {
@@ -13,7 +14,7 @@
     display: inline-block;
     font-size: 12px;
   }
-  
+
   @include e('site-nav-container') {
     @include clearfix;
   }

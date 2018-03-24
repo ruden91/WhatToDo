@@ -1,0 +1,7 @@
+@import '~styles/common';
+
+.wtd-header {
+  @include e('brand') {
+    float: left;
+  }
+}

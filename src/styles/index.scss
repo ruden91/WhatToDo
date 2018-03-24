@@ -1,9 +1,7 @@
-/// variables
-$mainColor: #e44232;
-$defaultFontColor: #6f6f6f; 
-@import 'partials/base';
+@import 'common';
 @import 'default';
 
+/*
 @import 'components/index';
 @import 'containers/index';
 .DayPickerInput-OverlayWrapper {
@@ -15,14 +13,14 @@ $defaultFontColor: #6f6f6f;
   width: 260px;
   box-shadow: 0 1px 3px 0 rgba(0,0,0,0.4);
   font-size: 11px;
-  background-color: #fff;  
+  background-color: #fff;
 
   header {
     border-bottom: 1px solid #eee;
     padding: 10px 0 8px 0;
     margin-left: 5px;
-    margin-right: 5px;   
-    
+    margin-right: 5px;
+
     ul {
       @include clearfix;
       li {
@@ -38,7 +36,7 @@ $defaultFontColor: #6f6f6f;
             color: #222;
             top: 9px;
             font-size: 24px;
-            opacity: .7;            
+            opacity: .7;
           }
         }
 
@@ -59,7 +57,7 @@ $defaultFontColor: #6f6f6f;
 }
 .DayPicker {
   width: 235px;
-  margin-left: 10px;  
+  margin-left: 10px;
 }
 .DayPicker-Caption {
   > div {
@@ -70,14 +68,14 @@ $defaultFontColor: #6f6f6f;
   span {
     &:nth-of-type(1) {
       right: 0;
-      left: 25px;      
+      left: 25px;
     }
   }
 }
 .test-todo {
   position: relative;
   width: 100%;
-  border-collapse: collapse;  
+  border-collapse: collapse;
   min-height: 45px;
   &.is-dragging {
     &:after {
@@ -88,7 +86,7 @@ $defaultFontColor: #6f6f6f;
       top: 0;
       left: 0;
       background-color: #f7f7f7;
-    }    
+    }
   }
   tr {
     border-collapse: collapse;
@@ -123,11 +121,11 @@ $defaultFontColor: #6f6f6f;
       width: 550px;
       overflow: hidden;
       cursor: text;
-      
+
       p {
         overflow-wrap: break-word;
         word-wrap: break-word;
-        word-break: break-word;        
+        word-break: break-word;
       }
     }
     &:nth-of-type(3) {
@@ -138,8 +136,8 @@ $defaultFontColor: #6f6f6f;
       // white-space: nowrap;
       // padding-left: 5px !important;
       // padding-top: 14px;
-      // padding-bottom: 12px;      
-    }           
+      // padding-bottom: 12px;
+    }
   }
 }
 .wtd-dashboard__todo-item-container {
@@ -147,13 +145,13 @@ $defaultFontColor: #6f6f6f;
   button {
     color: $defaultFontColor;
     opacity: 0;
-    transition: opacity .25s ease-in-out;    
+    transition: opacity .25s ease-in-out;
   }
   &:hover {
     button {
       opacity: .6;
     }
-  }  
+  }
 }
 .test-todo__drag-button {
   float: left;
@@ -162,7 +160,7 @@ $defaultFontColor: #6f6f6f;
   height: 20px;
   margin-left: -27px;
   z-index: 0;
-  margin-top: 13px;  
+  margin-top: 13px;
 }
 .test-todo {
   position: relative;
@@ -178,3 +176,4 @@ $defaultFontColor: #6f6f6f;
     opacity: 1;
   }
 }
+*/
