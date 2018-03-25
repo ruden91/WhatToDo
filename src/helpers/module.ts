@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-import { filter, assign, map } from 'lodash';
+import { filter, assign, size } from 'lodash';
 
 /**
  * 아이템 리스트에서 date를 기준으로 count를 return해주는 함수
@@ -55,8 +55,9 @@ export const filterNotCompletedItem = (items: {}): Object => {
  */
 export const calculateNotCompletedItemsCount = (items: {}): number => {
   let copiedItems = assign({}, items);
-  console.log(map(filterNotCompletedItem(copiedItems), item => item));
-  return map(filterNotCompletedItem(copiedItems), item => item).length;
+
+  // object length를 구하기 위해 lodash size메소드 사용
+  return size(filterNotCompletedItem(copiedItems));
 };
 
 /**
@@ -90,5 +91,5 @@ export const filterCompletedItem = (items: {}): Object => {
  */
 export const calculateCompletedItemsCount = (items: {}): number => {
   let copiedItems = assign({}, items);
-  return map(filterCompletedItem(copiedItems), item => item).length;
+  return size(filterCompletedItem(copiedItems));
 };
