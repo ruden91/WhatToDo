@@ -4,6 +4,9 @@ import './DashboardAsideMenu.scss';
 
 interface DashboardAsideMenuProps {
   onSortBySpecificFilter: ((standard: string) => void);
+  inboxCount: number;
+  todayCount: number;
+  daysCount: number;
 }
 
 const DashboardAsideMenu: React.SFC<DashboardAsideMenuProps> = props => (
@@ -17,7 +20,7 @@ const DashboardAsideMenu: React.SFC<DashboardAsideMenuProps> = props => (
           <i className="fas fa-inbox" />
         </span>
         <span className="wtd-dashboard-aside-menu__panel-title">관리함</span>
-        <small>1</small>
+        <small>{props.inboxCount}</small>
       </li>
       <li
         className="wtd-dashboard-aside-menu__panel"
@@ -27,7 +30,7 @@ const DashboardAsideMenu: React.SFC<DashboardAsideMenuProps> = props => (
           <i className="far fa-calendar" />
         </span>
         <span className="wtd-dashboard-aside-menu__panel-title">오늘</span>
-        <small>2</small>
+        <small>{props.todayCount}</small>
       </li>
       <li
         className="wtd-dashboard-aside-menu__panel"
@@ -37,7 +40,7 @@ const DashboardAsideMenu: React.SFC<DashboardAsideMenuProps> = props => (
           <i className="fas fa-calendar-alt" />
         </span>
         <span className="wtd-dashboard-aside-menu__panel-title">다음 7일</span>
-        <small>3</small>
+        <small>{props.daysCount}</small>
       </li>
     </ul>
   </aside>

@@ -11,6 +11,9 @@ interface MainProps {
   items: {
     [key: string]: FirebaseTodoItemData;
   };
+  inboxCount: number;
+  todayCount: number;
+  daysCount: number;
   onSortBySpecificFilter: ((standard: string) => void);
 }
 

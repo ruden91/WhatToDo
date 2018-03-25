@@ -5,7 +5,10 @@ import MainLoading from 'components/MainLoading';
 import { withRouter } from 'react-router-dom';
 
 import Alert from 'react-s-alert';
-
+import {
+  calculateNotCompletedItemsCount,
+  calculateItemsCount
+} from 'helpers/module';
 interface FirebaseUserData {
   uid: string;
 }
@@ -31,6 +34,9 @@ interface AppState {
   initialItems: {
     [key: string]: FirebaseTodoItemData;
   };
+  inboxCount: number;
+  todayCount: number;
+  daysCount: number;
 }
 class App extends React.Component<AppProps & RouteProps, AppState> {
   constructor(props: any) {
@@ -40,7 +46,10 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
     loading: true,
     user: null,
     items: {},
-    initialItems: {}
+    initialItems: {},
+    inboxCount: 0,
+    todayCount: 0,
+    daysCount: 0
   };
 
   // 특정 기준으로 items 필터링
@@ -123,7 +132,10 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
                     user: userSnap.val(),
                     initialItems: itemSnap.val(),
                     items: itemSnap.val(),
-                    loading: false
+                    loading: false,
+                    inboxCount: calculateNotCompletedItemsCount(itemSnap.val()),
+                    todayCount: calculateItemsCount(itemSnap.val(), 0),
+                    daysCount: calculateItemsCount(itemSnap.val(), 7)
                   });
                 });
             }
