@@ -1,14 +1,24 @@
 import * as React from 'react';
-import { signOut } from 'database/firebase';
+// import { signOut } from 'database/firebase';
+import DashboardHeader from 'components/dashboard/DashboardHeader';
+import DashboardAsideMenu from 'components/dashboard/DashboardAsideMenu';
+import DashboardCollapseMenu from 'containers/dashboard/DashboardCollapseMenu';
+import './Dashboard.scss';
 export default class Dashboard extends React.Component<{}> {
   constructor(props: any) {
     super(props);
-    console.log(this);
   }
   render() {
     return (
-      <div style={{ height: 1050 }}>
-        <button onClick={signOut}>로그아웃</button>
+      <div className="wtd-dashboard">
+        <DashboardHeader />
+        <div className="wtd-container">
+          <div className="wtd-dashboard__left-side-content">
+            <DashboardAsideMenu />
+            <DashboardCollapseMenu />
+          </div>
+          <div className="wtd-dashboard__right-side-content" />
+        </div>
       </div>
     );
   }
@@ -352,20 +362,6 @@ export default class Dashboard extends React.Component<{}> {
 
 //     return (
 //       <div className="wtd-dashboard">
-//         {loading && (
-//           <div className="wtd-dashboard__loading-container">
-//             <MainLoading />
-//           </div>
-//         )}
-//         <DashboardHeader
-//           maxValue={maxValue}
-//           goalCount={goalCount}
-//           weeklyStats={weeklyStats}
-//           todayCompletedCount={todayCompletedCount}
-//           completedCount={completedCount}
-//           todoItems={todoItems}
-//           settings={settings}
-//         />
 //         <div className="wtd-container">
 //           <DashboardAsideMenu
 //             handlePanels={this.handlePanels}

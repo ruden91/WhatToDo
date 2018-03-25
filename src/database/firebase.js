@@ -43,11 +43,7 @@ export const authEmailAndPassword = (email, password) => {
 export const authProvider = provider => {
   auth
     .signInWithPopup(authProviderList[provider])
-    .then(result => {
-      console.log(provider);
-      console.log('가즈아아아아');
-      console.log(result);
-    })
+    .then(result => {})
     .catch(error => {});
 };
 // firebase logout function

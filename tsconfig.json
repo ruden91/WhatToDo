@@ -6,6 +6,7 @@
     },
     "outDir": "build/dist",
     "module": "esnext",
+    "typeRoots": ["./types", "./node_modules/@types"],
     "target": "es3",
     "lib": ["es6", "dom"],
     "sourceMap": true,
@@ -28,6 +29,7 @@
     "acceptance-tests",
     "webpack",
     "jest",
-    "src/setupTests.ts"
+    "src/setupTests.ts",
+    "typings"
   ]
 }

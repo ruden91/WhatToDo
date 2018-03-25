@@ -1,0 +1,215 @@
+@import '~styles/common';
+.wtd-dashboard-header {
+  position: fixed;
+  width: 100%;
+  background-color: #3d3d3d;
+  height: 43px;
+  z-index: 2;
+  @include e('inner') {
+    @include clearfix;
+    padding: 13px 0 10px 0;
+    a {
+      color: #fff;
+    }
+  }
+
+  @include e('logo-holder') {
+    float: left;
+  }
+  @include e('actions-holder') {
+    float: right;
+  }
+
+  @include e('actions') {
+    display: inline-block;
+    margin-right: 30px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  @include e('action') {
+    color: #fff;
+    font-size: 18px;
+    position: relative;
+
+    @include m('add') {
+      position: relative;
+      top: 1px;
+      transform: rotate(45deg);
+      width: 16px;
+      height: 16px;
+      @include close-button;
+      &:before,
+      &:after {
+        background-color: #fff;
+        opacity: 1;
+      }
+    }
+
+    span {
+      font-size: 12px;
+      font-weight: 300;
+      margin-left: 6px;
+      color: #cecece;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    @include m('setting') {
+      &:hover {
+        animation: rotateButton 2s linear infinite;
+      }
+    }
+  }
+  @keyframes rotateButton {
+    to {
+      transform: rotateZ(720deg);
+    }
+  }
+}
+
+.wtd-dashboard-header__setting-panels {
+  width: 100%;
+  td {
+    cursor: pointer;
+    padding: 10px 12px;
+    font-size: 12px;
+    span {
+      color: #999;
+      font-size: 11px;
+    }
+    a {
+      color: #999;
+      display: inline-block;
+      margin-left: 2px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    &.separator {
+      padding: 4px 0;
+      > div {
+        padding: 0;
+        height: 1px;
+        background-color: #ddd;
+      }
+    }
+  }
+}
+
+.wtd-dashboard-user-setting__header {
+  @include clearfix;
+  position: fixed;
+  display: block;
+  padding: 15px 25px 15px 18px;
+  width: 100%;
+  height: 44px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  p {
+    position: relative;
+    top: -1px;
+    float: left;
+    font-size: 18px;
+  }
+
+  button {
+    font-size: 14px;
+    float: right;
+    position: relative;
+    opacity: 0.5;
+    transition: opacity 0.35s ease;
+    &:hover {
+      opacity: 1;
+    }
+    span {
+      &:nth-of-type(1) {
+        vertical-align: top;
+        display: inline-block;
+      }
+    }
+    .wtd-dashboard-user-setting__close-button {
+      position: relative;
+      display: inline-block;
+      width: 23px;
+      height: 23px;
+      top: -3px;
+      @include close-button;
+      &:before,
+      &:after {
+        left: 66%;
+        top: 47%;
+        opacity: 1;
+      }
+    }
+  }
+}
+.wtd-dashboard-user-setting {
+  @include e('panels') {
+  }
+  @include e('panel') {
+    min-height: 22px;
+    font-size: 14px;
+    color: #333;
+    list-style: none;
+    cursor: pointer;
+    padding: 9px 0;
+    transition: color 0.1s ease-in, background-color 0.1s ease-in;
+    line-height: 1.25;
+
+    &:hover {
+      background-color: #fff;
+    }
+
+    span {
+      display: inline-block;
+    }
+    small {
+      display: inline-block;
+      margin-left: 4px;
+      color: #aaa;
+      font-size: 11px;
+    }
+    &.current {
+      background-color: #fff;
+      font-weight: bold;
+
+      small {
+        color: $mainColor;
+      }
+    }
+  }
+  @include e('panel-icon') {
+    color: $defaultFontColor;
+    font-size: 20px;
+    width: 25px;
+    padding-left: 8px;
+  }
+  @include e('panel-title') {
+    padding-left: 20px;
+  }
+}
+.wtd-dashboard-user-setting__content {
+  @include clearfix;
+  padding-top: 44px;
+  height: 100vh;
+  position: relative;
+  background-color: #fafafa;
+}
+.wtd-dashboard-user-setting__left-side-content {
+  float: left;
+  width: 260px;
+  padding-right: 30px;
+  padding-top: 80px;
+  border-right: 1px solid #f1f1f1;
+}
+.wtd-dashboard-user-setting__right-side-content {
+  float: left;
+  width: calc(100% - 260px);
+  height: calc(100vh - 44px);
+  padding: 80px 25px 12px 45px;
+  background-color: #fff;
+  border-right: 1px solid #f1f1f1;
+}

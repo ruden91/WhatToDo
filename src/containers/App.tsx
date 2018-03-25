@@ -49,9 +49,10 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
     // }, 3500);
     // 사용자 인증 체크
     auth.onAuthStateChanged((currentUser: object | null): void => {
-      console.log(currentUser);
       if (currentUser) {
         this.props.history.push('/dashboard');
+        console.log('currentUser data setting');
+        console.log(currentUser);
       } else {
         this.props.history.push('/');
       }
