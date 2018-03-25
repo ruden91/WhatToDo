@@ -17,7 +17,6 @@ export const calculateItemsCount = (items: {}, date: number): number => {
   return filter(copiedItems, (item: any) => {
     if (item.due) {
       if (moment(item.due).format() <= filterBy) {
-        console.log(moment(item.due).format('YYYY-MM-DD'));
         return item;
       }
     }
