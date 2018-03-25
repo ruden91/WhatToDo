@@ -51,28 +51,6 @@ export default class Intro extends React.Component<{}, IntroState> {
     this.setState({ toggleIntroModal: false, modalTarget: '' });
   };
 
-  public handleProviderLogin = (provider: string): void => {
-    // let providerName;
-    // if (provider === 'GoogleAuthProvider') {
-    //   providerName = GoogleAuthProvider;
-    // } else if (provider === 'FacebookAuthProvider') {
-    //   providerName = FacebookAuthProvider;
-    // } else if (provider === 'GithubAuthProvider') {
-    //   providerName = GithubAuthProvider;
-    // }
-    // auth
-    //   .signInWithPopup(providerName)
-    //   .then(result => {
-    //     // This gives you a Google Access Token. You can use it to access the Google API.
-    //     let token = result.credential.accessToken;
-    //     // The signed-in user info.
-    //     let user = result.user;
-    //   })
-    //   .catch(error => {
-    //     // ...
-    //   });
-  };
-
   // login component / signUp component 조건처리를 위한 함수
   // JSX 컴포넌트 형식을 반환하는 함수 타입체크 추가하기
   public renderConditionalModalComponent = (): any => {

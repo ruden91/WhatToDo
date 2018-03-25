@@ -1,78 +1,26 @@
 import * as React from 'react';
 
+import DashboardHeaderLogo from 'components/dashboard/DashboardHeaderLogo';
+import DashboardHeaderItems from 'containers/dashboard/DashboardHeaderItems';
 import './DashboardHeader.scss';
-const DashboardHeader: React.SFC = () => (
+
+interface DashboardHeaderProps {
+  onOpenDashboardModal: ((
+    e: React.MouseEvent<HTMLElement>,
+    target: string
+  ) => void);
+}
+
+const DashboardHeader: React.SFC<DashboardHeaderProps> = props => (
   <header className="wtd-dashboard-header">
     <div className="wtd-container">
       <div className="wtd-dashboard-header__inner">
-        <div className="wtd-dashboard-header__logo-holder">
-          <a className="wtd-dashboard-header__logo">WhatToDo</a>
-        </div>
-        <ul className="wtd-dashboard-header__actions-holder">
-          <li className="wtd-dashboard-header__actions">
-            <button className="wtd-dashboard-header__action wtd-dashboard-header__action--add" />
-          </li>
-          <li className="wtd-dashboard-header__actions">
-            {/* <Productivity 
-              maxValue={ maxValue }
-              goalCount={ goalCount } 
-              completedCount={ completedCount } 
-              todayCompletedCount={ todayCompletedCount } 
-              todoItems={ todoItems } 
-              weeklyStats={ weeklyStats } 
-            /> */}
-          </li>
-          <li className="wtd-dashboard-header__actions">
-            <button className="wtd-dashboard-header__action">
-              <i className="fas fa-bell" />
-            </button>
-          </li>
-          <li className="wtd-dashboard-header__actions">
-            {/* <SettingButton settings={ settings } /> */}
-          </li>
-        </ul>
+        <DashboardHeaderLogo />
+        <DashboardHeaderItems
+          onOpenDashboardModal={props.onOpenDashboardModal}
+        />
       </div>
     </div>
   </header>
 );
 export default DashboardHeader;
-// import React from 'react';
-// import { Link } from 'react-router-dom';
-
-// import SettingButton from 'containers/dashboard/SettingButton';
-// import Productivity from 'containers/dashboard/Productivity';
-// const DashboardHeader = ({ maxValue, goalCount, weeklyStats, completedCount, todayCompletedCount, todoItems, settings }) => (
-//   <header className="wtd-dashboard-header" style={{ backgroundColor: settings.theme.color }}>
-//     <div className="wtd-container">
-//       <div className="wtd-dashboard-header__inner">
-//         <div className="wtd-dashboard-header__logo-holder">
-//           <Link to="dashboard" className="wtd-dashboard-header__logo">WhatToDo</Link>
-//         </div>
-//         <ul className="wtd-dashboard-header__actions-holder">
-//           <li className="wtd-dashboard-header__actions">
-//             <button className="wtd-dashboard-header__action wtd-dashboard-header__action--add">
-//             </button>
-//           </li>
-//           <li className="wtd-dashboard-header__actions">
-//             <Productivity
-//               maxValue={ maxValue }
-//               goalCount={ goalCount }
-//               completedCount={ completedCount }
-//               todayCompletedCount={ todayCompletedCount }
-//               todoItems={ todoItems }
-//               weeklyStats={ weeklyStats }
-//             />
-//           </li>
-//           <li className="wtd-dashboard-header__actions">
-//             <button className="wtd-dashboard-header__action"><i className="fas fa-bell"></i></button>
-//           </li>
-//           <li className="wtd-dashboard-header__actions">
-//             <SettingButton settings={ settings } />
-//           </li>
-//         </ul>
-//       </div>
-//     </div>
-//   </header>
-// )
-
-// export default DashboardHeader;

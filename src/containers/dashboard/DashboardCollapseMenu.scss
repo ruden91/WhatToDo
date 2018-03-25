@@ -1,0 +1,69 @@
+@import '~styles/common';
+.wtd-dashboard-collapse {
+  @include e('header') {
+    transition: margin 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-bottom: 1px solid #f1f1f1;
+    position: relative;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 12.5px 0 12.5px 15px;
+    line-height: 1em;
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+    margin: 0;
+    .arrow {
+      display: inline-block;
+      content: '\20';
+      width: 0;
+      height: 0;
+      font-size: 0;
+      line-height: 0;
+      border-top: 3px solid transparent;
+      border-bottom: 3px solid transparent;
+      border-left: 4px solid #666;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+
+    &:hover {
+      background-color: #f7f7f7;
+    }
+  }
+  @include e('panel') {
+  }
+
+  > .rc-collapse-item-disabled {
+    > .rc-collapse-header {
+      cursor: not-allowed;
+      color: #999;
+      background-color: #f3f3f3;
+    }
+  }
+  > .rc-collapse-item-active {
+    > .rc-collapse-header {
+      .arrow {
+        border-left: 3px solid transparent;
+        border-right: 3px solid transparent;
+        border-top: 4px solid #666;
+        margin-right: 6px;
+      }
+    }
+  }
+  .rc-collapse-anim-active {
+    transition: height 0.2s ease-out;
+  }
+  .rc-collapse-content {
+    overflow: hidden;
+    color: #666;
+    padding: 0 16px;
+    background-color: #fff;
+    > .rc-collapse-content-box {
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+  }
+  .rc-collapse-content-inactive {
+    display: none;
+  }
+}
