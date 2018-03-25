@@ -7,12 +7,37 @@ import Settings from 'components/dashboard/Settings';
 
 import * as ReactModal from 'react-modal';
 import './Dashboard.scss';
-
+import { map } from 'lodash';
+interface FirebaseTodoItemData {
+  content: string;
+}
+interface DashboardProps {
+  // user: {
+  //   avatar: string;
+  //   completed_count: number;
+  //   completed_today: number;
+  //   display_name: string;
+  //   email: string;
+  //   features: {};
+  //   is_premium: boolean;
+  //   join_date: string;
+  //   last_signIn_time: string;
+  //   next_week: number;
+  //   theme: number;
+  //   uid: string;
+  //   weekly_goal: number;
+  // }
+  items: any;
+  onSortBySpecificFilter: ((standard: string) => void);
+}
 interface DashboardState {
   toggleDashboardModal: boolean;
   modalTarget: string;
 }
-export default class Dashboard extends React.Component<{}, DashboardState> {
+export default class Dashboard extends React.Component<
+  DashboardProps,
+  DashboardState
+> {
   constructor(props: any) {
     super(props);
   }
@@ -41,7 +66,6 @@ export default class Dashboard extends React.Component<{}, DashboardState> {
   // JSX 컴포넌트 형식을 반환하는 함수 타입체크 추가하기
   public renderConditionalDashboardModalComponent = (): any => {
     const { modalTarget } = this.state;
-    console.log(modalTarget);
     switch (modalTarget) {
       case 'productivity':
         return <div>productivity</div>;
@@ -50,6 +74,13 @@ export default class Dashboard extends React.Component<{}, DashboardState> {
       case 'notice':
         return <div>notice</div>;
     }
+  };
+
+  mapToComponent = (): any => {
+    const { items } = this.props;
+    return map(items, (item: FirebaseTodoItemData, key: string): any => {
+      return <div key={key}>{item.content}</div>;
+    });
   };
 
   render() {
@@ -73,10 +104,16 @@ export default class Dashboard extends React.Component<{}, DashboardState> {
         <DashboardHeader onOpenDashboardModal={this.openDashboardModal} />
         <div className="wtd-container wtd-container--dashboard">
           <div className="wtd-dashboard__left-side-content">
-            <DashboardAsideMenu />
-            <DashboardCollapseMenu />
+            <DashboardAsideMenu
+              onSortBySpecificFilter={this.props.onSortBySpecificFilter}
+            />
+            <DashboardCollapseMenu
+              onSortBySpecificFilter={this.props.onSortBySpecificFilter}
+            />
           </div>
-          <div className="wtd-dashboard__right-side-content" />
+          <div className="wtd-dashboard__right-side-content">
+            {this.mapToComponent()}
+          </div>
         </div>
 
         <ReactModal

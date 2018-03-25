@@ -2,7 +2,13 @@ import * as React from 'react';
 import Collapse from 'rc-collapse';
 
 import './DashboardCollapseMenu.scss';
-export default class DashboardCollapseMenu extends React.Component {
+
+interface DashboardCollapseMenuProps {
+  onSortBySpecificFilter: ((standard: string) => void);
+}
+export default class DashboardCollapseMenu extends React.Component<
+  DashboardCollapseMenuProps
+> {
   render() {
     let Panel = Collapse.Panel;
 
@@ -14,7 +20,9 @@ export default class DashboardCollapseMenu extends React.Component {
           headerClass="wtd-dashboard-collapse__header"
         >
           <ul>
-            <li>쇼핑</li>
+            <li onClick={() => this.props.onSortBySpecificFilter('shopping')}>
+              쇼핑
+            </li>
             <li>일</li>
             <li>심부름</li>
             <li>개인</li>

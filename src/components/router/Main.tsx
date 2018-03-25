@@ -3,16 +3,25 @@ import { Switch, Route } from 'react-router-dom';
 import NoMatch from 'components/lumber/NoMatch';
 import Intro from 'containers/Intro';
 import Dashboard from 'containers/Dashboard';
-// import AuthRoute from 'components/router/AuthRoute';
+
+interface FirebaseTodoItemData {}
+
 interface MainProps {
   user: object | null;
+  items: {
+    [key: string]: FirebaseTodoItemData;
+  };
+  onSortBySpecificFilter: ((standard: string) => void);
 }
 
-const Main: React.SFC<MainProps> = props => (
+const Main: React.SFC<MainProps> = AppProps => (
   <Switch>
-    {/* <AuthRoute {...props} /> */}
     <Route exact={true} path="/" component={Intro} />
-    <Route exact={true} path="/dashboard" component={Dashboard} />
+    <Route
+      exact={true}
+      path="/dashboard"
+      render={props => <Dashboard {...props} {...AppProps} />}
+    />
     <Route component={NoMatch} />
   </Switch>
 );

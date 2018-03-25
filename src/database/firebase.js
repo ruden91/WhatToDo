@@ -83,13 +83,8 @@ export const signOut = () => {
  *  dateist_inline_disabled,
  *
  */
-export const writeUserData = ({
-  uid,
-  email,
-  displayName,
-  photoURL,
-  metadata
-}) => {
+export const saveUserData = () => {
+  let { uid, email, displayName, photoURL, metadata } = auth.currentUser;
   let userRef = database.ref('users').child(uid);
 
   userRef.set({
@@ -117,12 +112,6 @@ export const writeUserData = ({
       has_push_reminders: false
     }
   });
-};
-
-export const checkUserData = () => {
-  setTimeout(() => {
-    return 'anskldf';
-  }, 1500);
 };
 
 export const addTodoItem = ({ uid, content, created_at, due }) => {
