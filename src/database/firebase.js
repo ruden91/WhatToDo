@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 
 import DB_CONFIG from './config';
-
+import Alert from 'react-s-alert';
 firebase.initializeApp(DB_CONFIG);
 
 export default firebase;
@@ -27,16 +27,23 @@ export const signInAnonymously = () => {
 
 export const createUserWithEmail = (email, password) => {
   auth.createUserWithEmailAndPassword(email, password).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log(error);
+    Alert.warning(error.message, {
+      position: 'top',
+      effect: 'scale',
+      beep: false,
+      timeout: 3000
+    });
   });
 };
 
-export const authEmailAndPassword = (email, password) => {
-  auth.signInWithEmailAndPassword(email, password).catch(error => {
-    console.log(error);
+export const signInWithEmail = (email, password) => {
+  auth.signInWithEmailAndPassword(email, password).catch((error: any): void => {
+    Alert.warning(error.message, {
+      position: 'top',
+      effect: 'scale',
+      beep: false,
+      timeout: 3000
+    });
   });
 };
 
@@ -44,7 +51,14 @@ export const authProvider = provider => {
   auth
     .signInWithPopup(authProviderList[provider])
     .then(result => {})
-    .catch(error => {});
+    .catch(error => {
+      Alert.warning(error.message, {
+        position: 'top',
+        effect: 'scale',
+        beep: false,
+        timeout: 3000
+      });
+    });
 };
 // firebase logout function
 export const signOut = () => {

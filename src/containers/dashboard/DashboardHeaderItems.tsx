@@ -19,9 +19,9 @@ export default class DashboardHeaderItems extends React.Component<
     return (
       <div>
         <ul className="wtd-dashboard-header__actions-holder">
-          <li className="wtd-dashboard-header__actions">
+          {/* <li className="wtd-dashboard-header__actions">
             <button className="wtd-dashboard-header__action wtd-dashboard-header__action--add" />
-          </li>
+          </li> */}
           <li className="wtd-dashboard-header__actions">
             <button
               className="wtd-dashboard-header__action"

@@ -3,6 +3,8 @@ import * as React from 'react';
 import DashboardHeader from 'components/dashboard/DashboardHeader';
 import DashboardAsideMenu from 'components/dashboard/DashboardAsideMenu';
 import DashboardCollapseMenu from 'containers/dashboard/DashboardCollapseMenu';
+import Settings from 'components/dashboard/Settings';
+
 import * as ReactModal from 'react-modal';
 import './Dashboard.scss';
 
@@ -44,7 +46,7 @@ export default class Dashboard extends React.Component<{}, DashboardState> {
       case 'productivity':
         return <div>productivity</div>;
       case 'setting':
-        return <div>setting</div>;
+        return <Settings />;
       case 'notice':
         return <div>notice</div>;
     }
@@ -53,22 +55,23 @@ export default class Dashboard extends React.Component<{}, DashboardState> {
   render() {
     const { toggleDashboardModal } = this.state;
     const customStyles = {
-      overlay: { zIndex: 2, backgroundColor: 'rgba(102,102,102,0.5)' },
+      overlay: { zIndex: 2, backgroundColor: 'transparent' },
       content: {
-        boxShadow: '0 0 2px 0 rgba(0,0,0,0.5), 0 0 10px 0 rgba(0,0,0,0.2)',
-        width: '420px',
-        top: '50%',
-        left: '50%',
-        right: 'auto',
+        position: 'absolute',
+        top: '43px',
+        left: 'auto',
+        transform: 'translateX(155%)',
+        right: '50%',
         bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)'
+        padding: 0,
+        width: '300px'
       }
     };
+
     return (
       <div className="wtd-dashboard">
         <DashboardHeader onOpenDashboardModal={this.openDashboardModal} />
-        <div className="wtd-container">
+        <div className="wtd-container wtd-container--dashboard">
           <div className="wtd-dashboard__left-side-content">
             <DashboardAsideMenu />
             <DashboardCollapseMenu />
@@ -83,7 +86,6 @@ export default class Dashboard extends React.Component<{}, DashboardState> {
           contentLabel="DashboardModal"
           style={customStyles}
         >
-          <header>닫기</header>
           {this.renderConditionalDashboardModalComponent()}
         </ReactModal>
       </div>

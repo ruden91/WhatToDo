@@ -69,35 +69,6 @@
   }
 }
 
-.wtd-dashboard-header__setting-panels {
-  width: 100%;
-  td {
-    cursor: pointer;
-    padding: 10px 12px;
-    font-size: 12px;
-    span {
-      color: #999;
-      font-size: 11px;
-    }
-    a {
-      color: #999;
-      display: inline-block;
-      margin-left: 2px;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-    &.separator {
-      padding: 4px 0;
-      > div {
-        padding: 0;
-        height: 1px;
-        background-color: #ddd;
-      }
-    }
-  }
-}
-
 .wtd-dashboard-user-setting__header {
   @include clearfix;
   position: fixed;

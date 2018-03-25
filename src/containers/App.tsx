@@ -4,6 +4,8 @@ import Main from 'components/router/Main';
 import MainLoading from 'components/MainLoading';
 import { withRouter } from 'react-router-dom';
 
+import Alert from 'react-s-alert';
+
 interface RouteProps {
   history: {
     push: ((path: string) => void);
@@ -68,6 +70,7 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
     return (
       <div className="wtd">
         {loading ? <MainLoading /> : <Main user={user} />}
+        <Alert stack={{ limit: 3 }} />
       </div>
     );
   }

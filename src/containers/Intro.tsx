@@ -9,7 +9,6 @@ import AppLoginForm from 'components/AppLoginForm';
 import AppSignupForm from 'components/AppSignupForm';
 
 import * as ReactModal from 'react-modal';
-
 interface IntroState {
   toggleIntroModal: boolean;
   modalTarget: string;

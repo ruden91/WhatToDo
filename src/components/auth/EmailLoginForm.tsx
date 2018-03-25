@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { authEmailAndPassword } from 'database/firebase';
+import { signInWithEmail } from 'database/firebase';
 
 interface EmailLoginFormState {
   email: string;
@@ -18,9 +18,8 @@ export default class EmailLoginForm extends React.Component<
 
   handleEmailForm = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-
     const { email, password } = this.state;
-    authEmailAndPassword(email, password);
+    signInWithEmail(email, password);
   };
 
   render() {

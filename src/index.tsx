@@ -12,7 +12,9 @@ import App from 'containers/App';
 // styles
 import 'normalize.css';
 import 'styles/index.scss';
-
+// optional - you can choose the effect you want
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/scale.css';
 ReactDOM.render(
   <BrowserRouter>
     <App />
