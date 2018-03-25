@@ -144,7 +144,18 @@
     }
   }
 }
-
+.wtd-anonymous-login-button {
+  color: #e44232;
+  display: inline-block;
+  margin-left: 5px;
+  font-weight: 400;
+  text-decoration: none;
+  text-align: center;
+  width: 100%;
+  &:hover {
+    text-decoration: underline;
+  }
+}
 .wtd-login-modal {
   @include e('help-block') {
     p {

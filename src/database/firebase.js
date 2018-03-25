@@ -16,6 +16,15 @@ export const authProviderList = {
   facebook: new firebase.auth.FacebookAuthProvider()
 };
 
+export const signInAnonymously = () => {
+  auth.signInAnonymously().catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // ...
+  });
+};
+
 export const createUserWithEmail = (email, password) => {
   auth.createUserWithEmailAndPassword(email, password).catch(function(error) {
     // Handle Errors here.

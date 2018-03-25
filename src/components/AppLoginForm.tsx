@@ -3,6 +3,7 @@ import { authProvider } from 'database/firebase';
 import './AppLoginForm.scss';
 
 import EmailLoginForm from 'components/auth/EmailLoginForm';
+import AnonymousLogin from 'components/auth/AnonymousLogin';
 interface AppLoginFormProps {
   closeIntroModal: ((e: any) => void);
   openIntroModal: ((e: React.MouseEvent<HTMLElement>, target: string) => void);
@@ -32,6 +33,7 @@ const AppLoginForm: React.SFC<AppLoginFormProps> = props => (
         <span>또는</span>
       </div>
       <EmailLoginForm />
+      <AnonymousLogin />
       <div className="wtd-login-modal__help-block">
         <p>
           <a href="#">패스워드를 잊어버렸습니까?</a>
