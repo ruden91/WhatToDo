@@ -5,13 +5,46 @@ import DB_CONFIG from './config';
 firebase.initializeApp(DB_CONFIG);
 
 export default firebase;
+
 export const database = firebase.database();
 export const auth = firebase.auth();
 export const storage = firebase.storage();
 
-export const GithubAuthProvider = new firebase.auth.GithubAuthProvider();
-export const GoogleAuthProvider = new firebase.auth.GoogleAuthProvider();
-export const FacebookAuthProvider = new firebase.auth.FacebookAuthProvider();
+export const authProviderList = {
+  github: new firebase.auth.GithubAuthProvider(),
+  google: new firebase.auth.GoogleAuthProvider(),
+  facebook: new firebase.auth.FacebookAuthProvider()
+};
+
+export const createUserWithEmail = (email, password) => {
+  auth.createUserWithEmailAndPassword(email, password).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log(error);
+  });
+};
+
+export const authEmailAndPassword = (email, password) => {
+  auth.signInWithEmailAndPassword(email, password).catch(error => {
+    console.log(error);
+  });
+};
+
+export const authProvider = provider => {
+  auth
+    .signInWithPopup(authProviderList[provider])
+    .then(result => {
+      console.log(provider);
+      console.log('가즈아아아아');
+      console.log(result);
+    })
+    .catch(error => {});
+};
+// firebase logout function
+export const signOut = () => {
+  auth.signOut();
+};
 
 // firebase helper function
 

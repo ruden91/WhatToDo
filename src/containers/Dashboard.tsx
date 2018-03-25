@@ -1,12 +1,16 @@
 import * as React from 'react';
-
+import { signOut } from 'database/firebase';
 export default class Dashboard extends React.Component<{}> {
   constructor(props: any) {
     super(props);
     console.log(this);
   }
   render() {
-    return <div style={{ height: 1050 }}>asdlkf</div>;
+    return (
+      <div style={{ height: 1050 }}>
+        <button onClick={signOut}>로그아웃</button>
+      </div>
+    );
   }
 }
 

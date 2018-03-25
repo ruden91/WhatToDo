@@ -5,7 +5,7 @@ import Intro from 'containers/Intro';
 import Dashboard from 'containers/Dashboard';
 // import AuthRoute from 'components/router/AuthRoute';
 interface MainProps {
-  user: any;
+  user: object | null;
 }
 
 const Main: React.SFC<MainProps> = props => (

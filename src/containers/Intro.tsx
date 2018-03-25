@@ -78,7 +78,12 @@ export default class Intro extends React.Component<{}, IntroState> {
   public renderConditionalModalComponent = (): any => {
     const { modalTarget } = this.state;
     if (modalTarget === 'login') {
-      return <AppLoginForm closeIntroModal={this.closeIntroModal} />;
+      return (
+        <AppLoginForm
+          closeIntroModal={this.closeIntroModal}
+          openIntroModal={this.openIntroModal}
+        />
+      );
     } else if (modalTarget === 'signUp') {
       return <AppSignupForm closeIntroModal={this.closeIntroModal} />;
     }

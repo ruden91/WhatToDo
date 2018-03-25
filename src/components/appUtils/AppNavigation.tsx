@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 import './AppNavigation.scss';
 
@@ -10,7 +10,7 @@ interface AppNavigationProps {
 const AppNavigation: React.SFC<AppNavigationProps> = props => (
   <div className="wtd-header__actions-holder">
     <ul className="wtd-header__actions">
-      <li className="wtd-header__action">
+      {/* <li className="wtd-header__action">
         <Link to="tour" className="wtd-header__action-link">
           설명
         </Link>
@@ -24,7 +24,7 @@ const AppNavigation: React.SFC<AppNavigationProps> = props => (
         <a href="#" className="wtd-header__action-link">
           비즈니스
         </a>
-      </li>
+      </li> */}
       <li className="wtd-header__action">
         <a
           href="javascript:;"
