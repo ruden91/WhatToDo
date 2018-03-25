@@ -1,5 +1,4 @@
 import firebase from 'firebase';
-import firebaseui from 'firebaseui';
 
 import DB_CONFIG from './config';
 
@@ -66,6 +65,12 @@ export const writeUserData = ({
       has_push_reminders: false
     }
   });
+};
+
+export const checkUserData = () => {
+  setTimeout(() => {
+    return 'anskldf';
+  }, 1500);
 };
 
 export const addTodoItem = ({ uid, content, created_at, due }) => {

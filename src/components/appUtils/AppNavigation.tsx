@@ -2,7 +2,12 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 
 import './AppNavigation.scss';
-const AppNavigation: React.SFC = () => (
+
+interface AppNavigationProps {
+  openIntroModal: ((e: React.MouseEvent<HTMLElement>, target: string) => void);
+}
+
+const AppNavigation: React.SFC<AppNavigationProps> = props => (
   <div className="wtd-header__actions-holder">
     <ul className="wtd-header__actions">
       <li className="wtd-header__action">
@@ -24,7 +29,7 @@ const AppNavigation: React.SFC = () => (
         <a
           href="javascript:;"
           className="wtd-header__action-link"
-          // onClick={handleLoginButton}
+          onClick={e => props.openIntroModal(e, 'login')}
         >
           로그인
         </a>
@@ -33,7 +38,7 @@ const AppNavigation: React.SFC = () => (
         <a
           href="javascript:;"
           className="wtd-header__action-link wtd-header__action-link--sign-up"
-          // onClick={handleSignUpButton}
+          onClick={e => props.openIntroModal(e, 'signUp')}
         >
           가입
         </a>

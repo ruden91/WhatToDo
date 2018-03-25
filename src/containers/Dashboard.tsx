@@ -1,10 +1,15 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 
-export default class Dashboard extends Component {
+export default class Dashboard extends React.Component<{}> {
+  constructor(props: any) {
+    super(props);
+    console.log(this);
+  }
   render() {
-    return <div>asdlkf</div>;
+    return <div style={{ height: 1050 }}>asdlkf</div>;
   }
 }
+
 // import React, { Component } from 'react';
 // import { withRouter } from 'react-router-dom';
 // import { auth, database, writeUserData } from 'database/firebase';

@@ -1,32 +1,78 @@
 import * as React from 'react';
+import { auth } from 'database/firebase';
+import Main from 'components/router/Main';
+import MainLoading from 'components/MainLoading';
+import { withRouter } from 'react-router-dom';
 
-import AppHeader from 'components/layouts/AppHeader';
-import MainBanner from 'components/intro/MainBanner';
-import BrandIntro from 'components/intro/BrandIntro';
-import AboutDeveloper from 'components/intro/AboutDeveloper';
-import AppFooter from 'components/layouts/AppFooter';
-export default class App extends React.Component {
+interface RouteProps {
+  history: {
+    push: ((path: string) => void);
+  };
+  location: {
+    pathname: string;
+  };
+}
+interface AppProps {}
+
+interface AppState {
+  loading: Boolean;
+  user: any;
+}
+class App extends React.Component<AppProps & RouteProps, AppState> {
+  constructor(props: any) {
+    super(props);
+  }
+  state = {
+    loading: true,
+    user: null
+  };
+
+  componentDidMount() {
+    // const { user } = this.state;
+
+    // setTimeout(() => {
+    //   if (!user) {
+    //     this.props.history.push('/dashboard');
+
+    //     this.setState({
+    //       user: { uid: 'asdklfnkasdlflk' },
+    //       loading: false
+    //     });
+    //   } else {
+    //     this.props.history.push('/');
+
+    //     this.setState({
+    //       user: null,
+    //       loading: false
+    //     });
+    //   }
+    // }, 3500);
+    // 사용자 인증 체크
+    auth.onAuthStateChanged((currentUser: any): void => {
+      console.log(currentUser);
+      if (currentUser) {
+        this.props.history.push('/dashboard');
+      } else {
+        console.log('아무일도 없었다');
+      }
+
+      this.setState({
+        loading: false
+      });
+    });
+  }
+
   render() {
+    const { loading, user } = this.state;
     return (
       <div className="wtd">
-        <AppHeader />
-        <MainBanner />
-        <BrandIntro />
-        <AboutDeveloper />
-        <AppFooter />
+        {loading ? <MainLoading /> : <Main user={user} />}
       </div>
     );
   }
 }
-// import { withRouter } from 'react-router-dom';
 
-// import IntroComponent from 'components/IntroComponent';
-// import AppFooter from 'components/AppFooter';
-// import AppLoginForm from 'components/AppLoginForm';
-// import AppSignupForm from 'components/AppSignupForm';
-// import MainLoading from 'components/MainLoading';
-
-// import ReactModal from 'react-modal';
+export default withRouter(App);
 // import {
 //   auth,
 //   GithubAuthProvider,
@@ -39,74 +85,6 @@ export default class App extends React.Component {
 //     toggleSignupModal: false,
 //     toggleLoginModal: false,
 //     loading: true
-//   };
-
-//   // 로그인 모달 제어 이벤트
-//   handleLoginButton = e => {
-//     e.preventDefault();
-//     this.setState({ toggleLoginModal: true });
-//   };
-
-//   // 로그인 모달 닫기버튼 제어 함수
-//   handleLoginModalClose = () => {
-//     this.setState({ toggleLoginModal: false });
-//   };
-
-//   // 회원가입 모달 제어 이벤트
-//   handleSignUpButton = e => {
-//     e.preventDefault();
-
-//     this.setState({
-//       toggleSignupModal: true
-//     });
-//   };
-
-//   // 회원가입 모달 닫기버튼 제어 함수
-//   handleSignUpModalClose = () => {
-//     this.setState({ toggleSignupModal: false });
-//   };
-
-//   handleProviderLogin = provider => {
-//     let providerName;
-//     if (provider === 'GoogleAuthProvider') {
-//       providerName = GoogleAuthProvider;
-//     } else if (provider === 'FacebookAuthProvider') {
-//       providerName = FacebookAuthProvider;
-//     } else if (provider === 'GithubAuthProvider') {
-//       providerName = GithubAuthProvider;
-//     }
-
-//     auth
-//       .signInWithPopup(providerName)
-//       .then(result => {
-//         // This gives you a Google Access Token. You can use it to access the Google API.
-//         let token = result.credential.accessToken;
-//         // The signed-in user info.
-//         let user = result.user;
-//       })
-//       .catch(error => {
-//         console.log('인증실패');
-//         console.log(error);
-//         // Handle Errors here.
-//         let errorCode = error.code;
-//         let errorMessage = error.message;
-//         // The email of the user's account used.
-//         let email = error.email;
-//         // The firebase.auth.AuthCredential type that was used.
-//         let credential = error.credential;
-//         // ...
-//       });
-//   };
-
-//   handleScroll = e => {
-//     let scrollTop = e.srcElement.all[0].scrollTop;
-//     let headerElement = document.querySelector('.wtd-header');
-
-//     if (scrollTop > 20) {
-//       headerElement.classList.add('wtd-header--is-detached');
-//     } else {
-//       headerElement.classList.remove('wtd-header--is-detached');
-//     }
 //   };
 
 //   componentDidMount() {
