@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 import Alert from 'react-s-alert';
 import {
   calculateNotCompletedItemsCount,
+  calculateCompletedItemsCount,
   calculateItemsCount
 } from 'helpers/module';
 interface FirebaseUserData {
@@ -37,6 +38,7 @@ interface AppState {
   inboxCount: number;
   todayCount: number;
   daysCount: number;
+  completedCount: number;
 }
 class App extends React.Component<AppProps & RouteProps, AppState> {
   constructor(props: any) {
@@ -49,7 +51,8 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
     initialItems: {},
     inboxCount: 0,
     todayCount: 0,
-    daysCount: 0
+    daysCount: 0,
+    completedCount: 0
   };
 
   // 특정 기준으로 items 필터링
@@ -125,7 +128,8 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
             loading: false,
             inboxCount: calculateNotCompletedItemsCount(userItems),
             todayCount: calculateItemsCount(userItems, 0),
-            daysCount: calculateItemsCount(userItems, 7)
+            daysCount: calculateItemsCount(userItems, 7),
+            completedCount: calculateCompletedItemsCount(userItems)
           });
         });
 

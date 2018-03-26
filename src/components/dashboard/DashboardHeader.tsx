@@ -9,6 +9,7 @@ interface DashboardHeaderProps {
     e: React.MouseEvent<HTMLElement>,
     target: string
   ) => void);
+  completedCount: number;
 }
 
 const DashboardHeader: React.SFC<DashboardHeaderProps> = props => (
@@ -18,6 +19,7 @@ const DashboardHeader: React.SFC<DashboardHeaderProps> = props => (
         <DashboardHeaderLogo />
         <DashboardHeaderItems
           onOpenDashboardModal={props.onOpenDashboardModal}
+          completedCount={props.completedCount}
         />
       </div>
     </div>

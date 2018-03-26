@@ -182,6 +182,8 @@ export const signOut = (): void => {
 //  * @param {string} uid
 //  * @return {Array} user, items, settings dataSet
 //  */
+interface fetchFirebaseUserData {}
+
 export const fetchFirebaseUserData = async (uid: string) => {
   return await Promise.all([
     fetchFirebaseUserInfoData(uid),

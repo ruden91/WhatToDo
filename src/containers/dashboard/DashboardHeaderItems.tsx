@@ -5,6 +5,7 @@ interface DashboardHeaderItemsProps {
     e: React.MouseEvent<HTMLElement>,
     target: string
   ) => void);
+  completedCount: number;
 }
 
 export default class DashboardHeaderItems extends React.Component<
@@ -15,7 +16,7 @@ export default class DashboardHeaderItems extends React.Component<
   }
 
   render() {
-    const { onOpenDashboardModal } = this.props;
+    const { onOpenDashboardModal, completedCount } = this.props;
     return (
       <div>
         <ul className="wtd-dashboard-header__actions-holder">
@@ -28,7 +29,7 @@ export default class DashboardHeaderItems extends React.Component<
               onClick={e => onOpenDashboardModal(e, 'productivity')}
             >
               <i className="far fa-check-circle" />
-              <span>10</span>
+              <span>{completedCount}</span>
             </button>
           </li>
           <li className="wtd-dashboard-header__actions">

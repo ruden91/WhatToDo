@@ -31,6 +31,7 @@ interface DashboardProps {
   inboxCount: number;
   todayCount: number;
   daysCount: number;
+  completedCount: number;
   onSortBySpecificFilter: ((standard: string) => void);
 }
 interface DashboardState {
@@ -104,7 +105,10 @@ export default class Dashboard extends React.Component<
 
     return (
       <div className="wtd-dashboard">
-        <DashboardHeader onOpenDashboardModal={this.openDashboardModal} />
+        <DashboardHeader
+          onOpenDashboardModal={this.openDashboardModal}
+          {...this.props}
+        />
         <div className="wtd-container wtd-container--dashboard">
           <div className="wtd-dashboard__left-side-content">
             <DashboardAsideMenu {...this.props} />

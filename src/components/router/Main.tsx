@@ -14,6 +14,7 @@ interface MainProps {
   inboxCount: number;
   todayCount: number;
   daysCount: number;
+  completedCount: number;
   onSortBySpecificFilter: ((standard: string) => void);
 }
 
