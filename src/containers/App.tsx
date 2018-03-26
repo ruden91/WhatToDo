@@ -117,6 +117,7 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
           let userInfo = res[0];
           let userItems = res[1];
           // let userSettings = res[2];
+
           this.setState({
             user: userInfo,
             initialItems: userItems,
