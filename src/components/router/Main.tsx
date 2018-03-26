@@ -15,7 +15,9 @@ interface MainProps {
   todayCount: number;
   daysCount: number;
   completedCount: number;
+  todayCompletedCount: number;
   onSortBySpecificFilter: ((standard: string) => void);
+  weeklyStats: any;
 }
 
 const Main: React.SFC<MainProps> = AppProps => (

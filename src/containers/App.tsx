@@ -8,7 +8,9 @@ import Alert from 'react-s-alert';
 import {
   calculateNotCompletedItemsCount,
   calculateCompletedItemsCount,
-  calculateItemsCount
+  calculateItemsCount,
+  calculateDailyCompletedItems,
+  makeWeeklyStats
 } from 'helpers/module';
 interface FirebaseUserData {
   uid: string;
@@ -39,6 +41,8 @@ interface AppState {
   todayCount: number;
   daysCount: number;
   completedCount: number;
+  todayCompletedCount: number;
+  weeklyStats: any;
 }
 class App extends React.Component<AppProps & RouteProps, AppState> {
   constructor(props: any) {
@@ -52,7 +56,9 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
     inboxCount: 0,
     todayCount: 0,
     daysCount: 0,
-    completedCount: 0
+    completedCount: 0,
+    todayCompletedCount: 0,
+    weeklyStats: []
   };
 
   // 특정 기준으로 items 필터링
@@ -129,7 +135,9 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
             inboxCount: calculateNotCompletedItemsCount(userItems),
             todayCount: calculateItemsCount(userItems, 0),
             daysCount: calculateItemsCount(userItems, 7),
-            completedCount: calculateCompletedItemsCount(userItems)
+            completedCount: calculateCompletedItemsCount(userItems),
+            todayCompletedCount: calculateDailyCompletedItems(userItems, 0),
+            weeklyStats: makeWeeklyStats(userItems)
           });
         });
 
