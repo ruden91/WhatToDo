@@ -173,3 +173,57 @@ export const updateSpecificUserData = (field = null, data) => {
 
   userRef.update(updateData);
 };
+
+/**
+ * uid에 해당하는 전체 데이터를 받아오는 함수
+ *
+ * @param {string} uid
+ * @return {Array} user, items, settings dataSet
+ */
+export const fetchFirebaseUserData = async uid => {
+  return await Promise.all([
+    fetchFirebaseUserInfoData(uid),
+    fetchFirebaseUserTodoItemsData(uid),
+    fetchFirebaseUserSettingsData(uid)
+  ]);
+};
+
+////////////////// firebase 함수를 Promise로 사용하기 위해 Promise 객체로 변환 //////////////////
+/**
+ * uid에 해당하는 유저 데이터를 받아오는 함수
+ *
+ * @param {string} uid
+ * @return {Object} user Data
+ */
+export const fetchFirebaseUserInfoData = uid => {
+  let userRef = database.ref('users').child(uid);
+  return new Promise(resolve => {
+    userRef.on('value', snap => resolve(snap.val()));
+  });
+};
+
+/**
+ * uid에 해당하는 유저 아이템 목록 데이터를 받아오는 함수
+ *
+ * @param {string} uid
+ * @return {Object} user items Data
+ */
+export const fetchFirebaseUserTodoItemsData = uid => {
+  let userRef = database.ref('items').child(uid);
+  return new Promise(resolve => {
+    userRef.on('value', snap => resolve(snap.val()));
+  });
+};
+
+/**
+ * uid에 해당하는 유저 세팅 데이터를 받아오는 함수
+ *
+ * @param {string} uid
+ * @return {Object} user Data
+ */
+export const fetchFirebaseUserSettingsData = uid => {
+  let userRef = database.ref('settings').child(uid);
+  return new Promise(resolve => {
+    userRef.on('value', snap => resolve(snap.val()));
+  });
+};

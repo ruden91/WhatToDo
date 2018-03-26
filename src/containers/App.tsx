@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { database, auth, saveUserData } from 'database/firebase';
+import { fetchFirebaseUserData, auth } from 'database/firebase';
 import Main from 'components/router/Main';
 import MainLoading from 'components/MainLoading';
 import { withRouter } from 'react-router-dom';
@@ -113,33 +113,22 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
     // 사용자 인증 체크
     auth.onAuthStateChanged((currentUser: FirebaseUserData | null): void => {
       if (currentUser) {
-        console.log(currentUser);
-        let { uid } = currentUser;
-        this.props.history.push('/dashboard');
-        // 로그인한 유저의 uid를 통해 데이터베이스에서 유저정보와 유저데이터 그리고 유저 세팅 정보를 state에 저장한다.
-        database
-          .ref('users')
-          .child(uid)
-          .on('value', (userSnap: any) => {
-            if (!userSnap.val()) {
-              saveUserData();
-            } else {
-              database
-                .ref('items')
-                .child(uid)
-                .on('value', (itemSnap: any) => {
-                  this.setState({
-                    user: userSnap.val(),
-                    initialItems: itemSnap.val(),
-                    items: itemSnap.val(),
-                    loading: false,
-                    inboxCount: calculateNotCompletedItemsCount(itemSnap.val()),
-                    todayCount: calculateItemsCount(itemSnap.val(), 0),
-                    daysCount: calculateItemsCount(itemSnap.val(), 7)
-                  });
-                });
-            }
+        fetchFirebaseUserData(currentUser.uid).then((res: any) => {
+          let userInfo = res[0];
+          let userItems = res[1];
+          // let userSettings = res[2];
+          this.setState({
+            user: userInfo,
+            initialItems: userItems,
+            items: userItems,
+            loading: false,
+            inboxCount: calculateNotCompletedItemsCount(userItems),
+            todayCount: calculateItemsCount(userItems, 0),
+            daysCount: calculateItemsCount(userItems, 7)
           });
+        });
+
+        this.props.history.push('/dashboard');
       } else {
         this.props.history.push('/');
       }
