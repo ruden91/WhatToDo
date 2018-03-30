@@ -10,7 +10,8 @@ import {
   calculateCompletedItemsCount,
   calculateItemsCount,
   calculateDailyCompletedItems,
-  makeWeeklyStats
+  makeWeeklyStats,
+  filterItemsBySpecificStandard
 } from 'helpers/module';
 interface FirebaseUserData {
   uid: string;
@@ -31,9 +32,10 @@ interface FirebaseTodoItemData {}
 interface AppState {
   loading: Boolean;
   user: FirebaseUserData | null;
-  items: {
-    [key: string]: FirebaseTodoItemData;
-  };
+  items: {};
+  // items: {
+  //   [key: string]: FirebaseTodoItemData | {};
+  // };
   initialItems: {
     [key: string]: FirebaseTodoItemData;
   };
@@ -63,58 +65,13 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
 
   // 특정 기준으로 items 필터링
   public sortBySpecificFilter = (standard: string): void => {
-    console.log(standard);
-    if (standard === 'today') {
-      this.setState({
-        items: {
-          askldfladsf: {
-            content: '가즈아ㅏ아아아아'
-          },
-          askldfladsfbbbb: {
-            content: '가즈아ㅏ아아아아2222'
-          },
-          askldfladsfaaaa: {
-            content: '가즈아ㅏ아아아아22223333'
-          }
-        }
-      });
-    } else if (standard === 'days') {
-      this.setState({
-        items: {
-          askldfladsf: {
-            content: '가즈아ㅏ아아아아'
-          },
-          askldfladsfbbbb: {
-            content: '가즈아ㅏ아아아아2222'
-          },
-          askldfladsfaaaa: {
-            content: '가즈아ㅏ아아아아22223333'
-          },
-          askldfladsfccc: {
-            content: '가즈아ㅏ아아아아'
-          },
-          askldfladsfbbbba: {
-            content: '가즈아ㅏ아아아아2222'
-          },
-          askldfladsfaaada: {
-            content: '가즈아ㅏ아아아아22223333'
-          },
-          askldflfdfadsf: {
-            content: '가즈아ㅏ아아아아'
-          },
-          askldflasdfadsfbbbb: {
-            content: '가즈아ㅏ아아아아2222'
-          },
-          askldflqweadsfaaaa: {
-            content: '가즈아ㅏ아아아아22223333'
-          }
-        }
-      });
-    } else if (standard === 'inbox') {
-      this.setState({
-        items: this.state.initialItems
-      });
-    }
+    let result = filterItemsBySpecificStandard(
+      this.state.initialItems,
+      standard
+    );
+    this.setState({
+      items: result
+    });
   };
 
   componentDidMount() {
@@ -144,6 +101,9 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
         this.props.history.push('/dashboard');
       } else {
         this.props.history.push('/');
+        this.setState({
+          loading: false
+        });
       }
     });
   }

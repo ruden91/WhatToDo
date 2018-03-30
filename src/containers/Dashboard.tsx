@@ -3,15 +3,13 @@ import * as React from 'react';
 import DashboardHeader from 'components/dashboard/DashboardHeader';
 import DashboardAsideMenu from 'components/dashboard/DashboardAsideMenu';
 import DashboardCollapseMenu from 'containers/dashboard/DashboardCollapseMenu';
+import DashboardScheduleManager from 'containers/dashboard/DashboardScheduleManager';
 import Productivity from 'components/dashboard/productivity/Productivity';
 import Settings from 'components/dashboard/Settings';
 
 import * as ReactModal from 'react-modal';
 import './Dashboard.scss';
-import { map } from 'lodash';
-interface FirebaseTodoItemData {
-  content: string;
-}
+
 interface DashboardProps {
   // user: {
   //   avatar: string;
@@ -93,13 +91,6 @@ export default class Dashboard extends React.Component<
     }
   };
 
-  mapToComponent = (): any => {
-    const { items } = this.props;
-    return map(items, (item: FirebaseTodoItemData, key: string): any => {
-      return <div key={key}>{item.content}</div>;
-    });
-  };
-
   render() {
     const { toggleDashboardModal } = this.state;
     const customStyles = {
@@ -130,7 +121,7 @@ export default class Dashboard extends React.Component<
             />
           </div>
           <div className="wtd-dashboard__right-side-content">
-            {this.mapToComponent()}
+            <DashboardScheduleManager {...this.props} />
           </div>
         </div>
 
@@ -158,67 +149,3 @@ export default class Dashboard extends React.Component<
 //       }).concat([goalCount])
 //     );
 //   };
-
-//   setSortByDate(items, count = 0) {
-//     let today = moment()
-//       .add(0, 'days')
-//       .format('YYYY-MM-DD');
-//     let results = [];
-
-//     // 지난값 세팅
-//     results.push({
-//       title: '기한이 지난',
-//       date: null,
-//       items: {}
-//     });
-
-//     // 지난값은 디폴트로 넣어준다.
-//     map(items, (item, key) => {
-//       // 지난 값 체크
-//       if (moment(item.due).format('YYYY-MM-DD') < today) {
-//         results[0].items[key] = item;
-//       }
-//     });
-
-//     for (let i = 0; i < count; i++) {
-//       let date;
-//       let title;
-//       if (i === 0) {
-//         title = '오늘';
-//         date = moment()
-//           .add(i, 'days')
-//           .format('dddd MM월 DD일');
-//       } else if (i === 1) {
-//         title = '내일';
-//         date = moment()
-//           .add(i, 'days')
-//           .format('dddd MM월 DD일');
-//       } else {
-//         title = moment()
-//           .add(i, 'days')
-//           .format('dddd');
-//         date = moment()
-//           .add(i, 'days')
-//           .format('MM월 DD일');
-//       }
-
-//       results.push({
-//         title,
-//         date,
-//         items: {}
-//       });
-
-//       map(items, (item, key) => {
-//         if (
-//           moment(item.due).format('YYYY-MM-DD') ===
-//           moment()
-//             .add(i, 'days')
-//             .format('YYYY-MM-DD')
-//         ) {
-//           results[i + 1].items[key] = item;
-//         }
-//       });
-//     }
-
-//     return results;
-//   }

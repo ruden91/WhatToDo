@@ -149,3 +149,117 @@ export const makeWeeklyStats = (items: {}): Object => {
 
   return results;
 };
+
+export const filterItemsBySpecificStandard = (
+  items: any,
+  standard: string
+): Object => {
+  // 완료되지 않은 raw 데이터
+  let copiedItems = assign({}, filterNotCompletedItem(items));
+
+  console.log(copiedItems);
+  console.log('inbox는 완료된 전체 데이터 목록을 보여준다.');
+  console.log('today는 오늘 item만');
+  console.log('days는 일주일 데이터');
+  if (standard === 'inbox') {
+    return copiedItems;
+  } else if (standard === 'today') {
+    return filterItemsByDate(copiedItems);
+  } else if (standard === 'days') {
+    return filterItemsByDate(copiedItems, 6);
+  }
+
+  return copiedItems;
+};
+
+// // 날짜 기준 데이터 필터링
+// export const filterItemsByDate = (items: any, count: number): Object => {
+//   let today = moment()
+//     .add(0, 'days')
+//     .format('YYYY-MM-DD');
+//   let results: any = [];
+
+//   // 지난값 세팅
+//   results.push({
+//     title: '기한이 지난',
+//     date: null,
+//     items: {}
+//   });
+
+//   // 지난값은 디폴트로 넣어준다.
+//   map(items, (item, key) => {
+//     // 지난 값 체크
+//     if (moment(item.due).format('YYYY-MM-DD') < today) {
+//       results[0].items[key] = item;
+//     }
+//   });
+
+//   for (let i = 0; i < count; i++) {
+//     let date;
+//     let title;
+//     if (i === 0) {
+//       title = '오늘';
+//       date = moment()
+//         .add(i, 'days')
+//         .format('dddd MM월 DD일');
+//     } else if (i === 1) {
+//       title = '내일';
+//       date = moment()
+//         .add(i, 'days')
+//         .format('dddd MM월 DD일');
+//     } else {
+//       title = moment()
+//         .add(i, 'days')
+//         .format('dddd');
+//       date = moment()
+//         .add(i, 'days')
+//         .format('MM월 DD일');
+//     }
+
+//     results.push({
+//       title,
+//       date,
+//       items: {}
+//     });
+
+//     map(items, (item, key) => {
+//       if (
+//         moment(item.due).format('YYYY-MM-DD') ===
+//         moment()
+//           .add(i, 'days')
+//           .format('YYYY-MM-DD')
+//       ) {
+//         results[i + 1].items[key] = item;
+//       }
+//     });
+//   }
+
+//   return results;
+// };
+
+// 특정 날짜 기준 데이터 필터링
+export const filterItemsByDate = (items: any, date: number = 0): Object => {
+  let copiedItems = assign({}, items);
+  let results = {};
+  let filterBy = moment()
+    .add(date, 'days')
+    .format();
+
+  filter(copiedItems, (item, key) => {
+    if (item.due <= filterBy || !item.due) {
+      results[key] = item;
+    }
+  });
+  console.log(results);
+  console.log(size(results));
+  return results;
+};
+
+// 프로젝트 기준 데이터 필터링
+export const filterItemsByProject = () => {};
+
+// 라벨 기준 데이터 필터링
+export const filterItemsByLabel = () => {};
+
+// 필터 기준 데이터 필터링
+export const filterItemsByFilter = () => {};

@@ -10,6 +10,7 @@ WhatToDo 는 실시간 일정관리 웹 애플리케이션입니다.
 * [React](https://github.com/facebook/react) - UI framework
 * [Sass](https://github.com/sass/sass) - CSS with superpowers
 * [Webpack](https://webpack.js.org/) - A module bundler for Javascript
+* [Typescript](http://www.typescriptlang.org/) -TypeScript is a typed superset of Javascript that compiles to plain Javascript
 
 ### Future Ideas
 
@@ -17,7 +18,7 @@ WhatToDo 는 실시간 일정관리 웹 애플리케이션입니다.
 * [x] * 커스텀 테마
 * [x] * 날짜별 리스트 관리
 * [ ] * 타입스크립트 전환
-* [ ] * 익명 사용자 로그인
+* [x] * 익명 사용자 로그인
 * [ ] * 해시태그
 
 ### Running Locally

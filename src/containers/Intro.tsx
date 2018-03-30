@@ -70,6 +70,10 @@ export default class Intro extends React.Component<{}, IntroState> {
     window.addEventListener('scroll', this.handleAppScroll);
   }
 
+  componentWillUnMount() {
+    window.removeEventListener('scroll', this.handleAppScroll);
+  }
+
   render() {
     const { toggleIntroModal } = this.state;
 
