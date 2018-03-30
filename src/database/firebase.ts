@@ -232,6 +232,35 @@ export const fetchFirebaseUserSettingsData = (uid: string) => {
   });
 };
 
+export const createItem = (content: any, due: any): void => {
+  let { uid }: any = auth.currentUser;
+  let ItemRef = database
+    .ref('items')
+    .child(uid)
+    .push();
+
+  ItemRef.set({
+    uid,
+    content,
+    created_at: new Date().getDate(),
+    is_completed: false,
+    completed_at: null,
+    due,
+    priority: 1,
+    indent: 1,
+    item_order: 0,
+    labels: null,
+    checked: false,
+    in_history: 0,
+    assigned_by_uid: null,
+    responsible_by_uid: null,
+    all_notes_fetched: true,
+    project_id: null,
+    day_order: -1,
+    is_deleted: 0
+  });
+};
+
 export const updateItem = (uniqueKey: string): void => {
   let { uid }: any = auth.currentUser;
 

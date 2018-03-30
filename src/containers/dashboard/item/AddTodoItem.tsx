@@ -1,8 +1,42 @@
 import * as React from 'react';
+import { createItem } from 'database/firebase';
+interface State {
+  content: string;
+}
+export default class AddTodoItem extends React.Component<{}, State> {
+  state = {
+    content: ''
+  };
 
-export default class AddTodoItem extends React.Component {
+  changeTodoItemContent = (e: any): void => {
+    this.setState({ content: e.target.value });
+  };
+
+  handleAddTodoForm = (e: any): void => {
+    e.preventDefault();
+    const { content } = this.state;
+    if (content === '') {
+      return;
+    }
+    createItem(content, null);
+
+    this.setState({
+      content: ''
+    });
+  };
   render() {
-    return <div>addtodo</div>;
+    return (
+      <div>
+        <form onSubmit={this.handleAddTodoForm}>
+          <input
+            type="text"
+            value={this.state.content}
+            onChange={e => this.changeTodoItemContent(e)}
+          />
+          <button type="submit">add</button>
+        </form>
+      </div>
+    );
   }
 }
 // import React, { Component } from 'react';
