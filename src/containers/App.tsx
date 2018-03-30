@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { fetchFirebaseUserData, auth } from 'database/firebase';
 import Main from 'components/router/Main';
 import MainLoading from 'components/MainLoading';
 import { withRouter } from 'react-router-dom';
-
+import { database, auth } from 'database/firebase';
 import Alert from 'react-s-alert';
 import {
   calculateNotCompletedItemsCount,
@@ -79,22 +78,26 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
     // 사용자 인증 체크
     auth.onAuthStateChanged((currentUser: FirebaseUserData | null): void => {
       if (currentUser) {
-        fetchFirebaseUserData(currentUser.uid).then((res: any) => {
-          let userInfo = res[0];
-          let userItems = res[1];
-          // let userSettings = res[2];
+        let userRef = database.ref('users').child(currentUser.uid);
+        let itemRef = database.ref('items').child(currentUser.uid);
 
+        userRef.on('value', (snap: any) => {
           this.setState({
-            user: userInfo,
-            initialItems: userItems,
-            items: userItems,
-            loading: false,
-            inboxCount: calculateNotCompletedItemsCount(userItems),
-            todayCount: calculateItemsCount(userItems, 0),
-            daysCount: calculateItemsCount(userItems, 7),
-            completedCount: calculateCompletedItemsCount(userItems),
-            todayCompletedCount: calculateDailyCompletedItems(userItems, 0),
-            weeklyStats: makeWeeklyStats(userItems)
+            user: snap.val()
+          });
+        });
+
+        itemRef.on('value', (snap: any) => {
+          this.setState({
+            initialItems: snap.val(),
+            items: snap.val(),
+            inboxCount: calculateNotCompletedItemsCount(snap.val()),
+            todayCount: calculateItemsCount(snap.val(), 0),
+            daysCount: calculateItemsCount(snap.val(), 7),
+            completedCount: calculateCompletedItemsCount(snap.val()),
+            todayCompletedCount: calculateDailyCompletedItems(snap.val(), 0),
+            weeklyStats: makeWeeklyStats(snap.val()),
+            loading: false
           });
         });
 

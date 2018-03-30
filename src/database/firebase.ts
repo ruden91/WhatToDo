@@ -231,3 +231,16 @@ export const fetchFirebaseUserSettingsData = (uid: string) => {
     userRef.on('value', (snap: any) => resolve(snap.val()));
   });
 };
+
+export const updateItem = (uniqueKey: string): void => {
+  let { uid }: any = auth.currentUser;
+
+  database
+    .ref('items')
+    .child(uid)
+    .child(uniqueKey)
+    .update({
+      is_completed: true,
+      completed_at: new Date().getTime()
+    });
+};
