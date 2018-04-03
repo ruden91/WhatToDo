@@ -3,13 +3,28 @@ import * as React from 'react';
 import TodoItem from 'components/dashboard/item/TodoItem';
 import AddTodoItem from 'containers/dashboard/item/AddTodoItem';
 import { map } from 'lodash';
+import './TodoList.scss';
 interface Props {
   items: any;
 }
-export default class TodoList extends React.Component<Props> {
+
+interface State {
+  toggleAddTodoButton: boolean;
+}
+export default class TodoList extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
   }
+  state = {
+    toggleAddTodoButton: false
+  };
+
+  handleToggleAddTodoButton = (e: any) => {
+    e.preventDefault();
+    this.setState({
+      toggleAddTodoButton: true
+    });
+  };
 
   mapToComponent = () => {
     const { items } = this.props;
@@ -20,11 +35,19 @@ export default class TodoList extends React.Component<Props> {
   };
 
   render() {
+    const { toggleAddTodoButton } = this.state;
     return (
-      <div>
+      <div className="wtd-dashboard-todo-list">
         <p>subTitle</p>
         {this.mapToComponent()}
-        <AddTodoItem />
+        {!toggleAddTodoButton && (
+          <div className="wtd-dashboard-todo-list__add-task">
+            <a href="javascript:;" onClick={this.handleToggleAddTodoButton}>
+              <span />작업 추가
+            </a>
+          </div>
+        )}
+        {toggleAddTodoButton && <AddTodoItem />}
       </div>
     );
   }
