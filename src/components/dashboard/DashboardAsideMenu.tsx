@@ -3,7 +3,7 @@ import * as React from 'react';
 import './DashboardAsideMenu.scss';
 
 interface DashboardAsideMenuProps {
-  onSortBySpecificFilter: ((standard: string) => void);
+  changeFilter: ((standard: string) => void);
   inboxCount: number;
   todayCount: number;
   daysCount: number;
@@ -14,7 +14,7 @@ const DashboardAsideMenu: React.SFC<DashboardAsideMenuProps> = props => (
     <ul className="wtd-dashboard-aside-menu__panels">
       <li
         className="wtd-dashboard-aside-menu__panel"
-        onClick={() => props.onSortBySpecificFilter('inbox')}
+        onClick={() => props.changeFilter('inbox')}
       >
         <span className="wtd-dashboard-aside-menu__panel-icon">
           <i className="fas fa-inbox" />
@@ -24,7 +24,7 @@ const DashboardAsideMenu: React.SFC<DashboardAsideMenuProps> = props => (
       </li>
       <li
         className="wtd-dashboard-aside-menu__panel"
-        onClick={() => props.onSortBySpecificFilter('today')}
+        onClick={() => props.changeFilter('today')}
       >
         <span className="wtd-dashboard-aside-menu__panel-icon">
           <i className="far fa-calendar" />
@@ -34,7 +34,7 @@ const DashboardAsideMenu: React.SFC<DashboardAsideMenuProps> = props => (
       </li>
       <li
         className="wtd-dashboard-aside-menu__panel"
-        onClick={() => props.onSortBySpecificFilter('days')}
+        onClick={() => props.changeFilter('days')}
       >
         <span className="wtd-dashboard-aside-menu__panel-icon">
           <i className="fas fa-calendar-alt" />

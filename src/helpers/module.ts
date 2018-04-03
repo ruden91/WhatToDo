@@ -156,11 +156,6 @@ export const filterItemsBySpecificStandard = (
 ): Object => {
   // 완료되지 않은 raw 데이터
   let copiedItems = assign({}, filterNotCompletedItem(items));
-
-  console.log(copiedItems);
-  console.log('inbox는 완료된 전체 데이터 목록을 보여준다.');
-  console.log('today는 오늘 item만');
-  console.log('days는 일주일 데이터');
   if (standard === 'inbox') {
     return copiedItems;
   } else if (standard === 'today') {
@@ -246,7 +241,7 @@ export const filterItemsByDate = (items: any, date: number = 0): Object => {
     .format();
 
   filter(copiedItems, (item, key) => {
-    if (item.due <= filterBy || !item.due) {
+    if (item.due <= filterBy) {
       results[key] = item;
     }
   });

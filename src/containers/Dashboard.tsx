@@ -32,7 +32,7 @@ interface DashboardProps {
   daysCount: number;
   completedCount: number;
   todayCompletedCount: number;
-  onSortBySpecificFilter: ((standard: string) => void);
+  changeFilter: ((standard: string) => void);
   weeklyStats: any;
 }
 interface DashboardState {
@@ -116,9 +116,7 @@ export default class Dashboard extends React.Component<
         <div className="wtd-container wtd-container--dashboard">
           <div className="wtd-dashboard__left-side-content">
             <DashboardAsideMenu {...this.props} />
-            <DashboardCollapseMenu
-              onSortBySpecificFilter={this.props.onSortBySpecificFilter}
-            />
+            <DashboardCollapseMenu />
           </div>
           <div className="wtd-dashboard__right-side-content">
             <DashboardScheduleManager {...this.props} />

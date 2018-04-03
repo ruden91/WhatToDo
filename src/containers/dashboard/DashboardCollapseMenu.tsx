@@ -3,9 +3,7 @@ import Collapse from 'rc-collapse';
 
 import './DashboardCollapseMenu.scss';
 
-interface DashboardCollapseMenuProps {
-  onSortBySpecificFilter: ((standard: string) => void);
-}
+interface DashboardCollapseMenuProps {}
 export default class DashboardCollapseMenu extends React.Component<
   DashboardCollapseMenuProps
 > {
@@ -20,9 +18,7 @@ export default class DashboardCollapseMenu extends React.Component<
           headerClass="wtd-dashboard-collapse__header"
         >
           <ul>
-            <li onClick={() => this.props.onSortBySpecificFilter('shopping')}>
-              쇼핑
-            </li>
+            <li>쇼핑</li>
             <li>일</li>
             <li>심부름</li>
             <li>개인</li>

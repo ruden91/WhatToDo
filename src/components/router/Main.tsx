@@ -16,7 +16,7 @@ interface MainProps {
   daysCount: number;
   completedCount: number;
   todayCompletedCount: number;
-  onSortBySpecificFilter: ((standard: string) => void);
+  changeFilter: (standard: string) => void;
   weeklyStats: any;
 }
 

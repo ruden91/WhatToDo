@@ -44,6 +44,7 @@ interface AppState {
   completedCount: number;
   todayCompletedCount: number;
   weeklyStats: any;
+  filter: string;
 }
 class App extends React.Component<AppProps & RouteProps, AppState> {
   constructor(props: any) {
@@ -59,18 +60,17 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
     daysCount: 0,
     completedCount: 0,
     todayCompletedCount: 0,
-    weeklyStats: []
+    weeklyStats: [],
+    filter: 'today'
   };
+  
+  public changeFilter = (standard: string) => {
+    const { initialItems } = this.state;
 
-  // 특정 기준으로 items 필터링
-  public sortBySpecificFilter = (standard: string): void => {
-    let result = filterItemsBySpecificStandard(
-      this.state.initialItems,
-      standard
-    );
     this.setState({
-      items: result
-    });
+      items: filterItemsBySpecificStandard(initialItems, standard),
+      filter: standard
+    })
   };
 
   componentDidMount() {
@@ -88,9 +88,10 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
         });
 
         itemRef.on('value', (snap: any) => {
+          const { filter } = this.state;
           this.setState({
             initialItems: snap.val(),
-            items: snap.val(),
+            items: filterItemsBySpecificStandard(snap.val(), filter),
             inboxCount: calculateNotCompletedItemsCount(snap.val()),
             todayCount: calculateItemsCount(snap.val(), 0),
             daysCount: calculateItemsCount(snap.val(), 7),
@@ -100,7 +101,6 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
             loading: false
           });
         });
-
         this.props.history.push('/dashboard');
       } else {
         this.props.history.push('/');
@@ -118,10 +118,7 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
         {loading ? (
           <MainLoading />
         ) : (
-          <Main
-            {...this.state}
-            onSortBySpecificFilter={this.sortBySpecificFilter}
-          />
+          <Main {...this.state} changeFilter={this.changeFilter} />
         )}
         <Alert stack={{ limit: 3 }} />
       </div>
