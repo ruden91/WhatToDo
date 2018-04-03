@@ -3,6 +3,7 @@ import * as React from 'react';
 interface ProductivityCanvasProps {
   dailyGoal: number;
   maxValue: number;
+  completedCount: number;
 }
 export default class ProductivityCanvas extends React.Component<
   ProductivityCanvasProps

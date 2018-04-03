@@ -17,7 +17,11 @@ const Productivity: React.SFC<ProductivityProps> = props => (
     <div className="wtd-dashboard-productivity__streak">
       <div className="wtd-dashboard-productivity__streak-chart-container">
         <Circle
-          percent={10}
+          percent={
+            props.completedCount / 10 * 100 > 100
+              ? 100
+              : props.completedCount / 10 * 100
+          }
           strokeWidth="4"
           strokeColor="#dd4b39"
           strokeLinecap="round"
@@ -35,7 +39,11 @@ const Productivity: React.SFC<ProductivityProps> = props => (
       <h6>지난 7일 완료</h6>
       <div className="wtd-dashboard-productivity__chart">
         <ProductivityChart weeklyStats={props.weeklyStats} />
-        <ProductivityCanvas dailyGoal={props.dailyGoal} maxValue={10} />
+        <ProductivityCanvas
+          dailyGoal={props.dailyGoal}
+          maxValue={10}
+          completedCount={props.completedCount}
+        />
       </div>
       <a href="javascript:;" className="wtd-dashboard-productivity__move-karma">
         Karma 목표 및 설정
