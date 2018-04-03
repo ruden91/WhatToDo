@@ -245,8 +245,6 @@ export const filterItemsByDate = (items: any, date: number = 0): Object => {
       results[key] = item;
     }
   });
-  console.log(results);
-  console.log(size(results));
   return results;
 };
 

@@ -1,30 +1,54 @@
 import * as React from 'react';
 import { createItem } from 'database/firebase';
+import InfiniteCalendar from 'react-infinite-calendar';
+import 'react-infinite-calendar/styles.css';
+import * as moment from 'moment';
+import 'moment/locale/ko';
+
 interface State {
   content: string;
+  selectDate: string | Object;
+  toggleCalendar: boolean;
 }
 export default class AddTodoItem extends React.Component<{}, State> {
   state = {
-    content: ''
+    content: '',
+    selectDate: new Date(),
+    toggleCalendar: false
   };
 
   changeTodoItemContent = (e: any): void => {
     this.setState({ content: e.target.value });
   };
+  selectDate = (selectDate: any) => {
+    
+    this.setState({
+      selectDate: moment(selectDate).format('YYYY-MM-DD'),
+      toggleCalendar: false
+    })
+  }
+  handleCalendar = () => {
+    this.setState({
+      toggleCalendar: !this.state.toggleCalendar
+    })
+  }
 
   handleAddTodoForm = (e: any): void => {
     e.preventDefault();
-    const { content } = this.state;
+    const { content, selectDate } = this.state;
+    
     if (content === '') {
       return;
     }
-    createItem(content, null);
+    createItem(content, selectDate);
 
     this.setState({
-      content: ''
+      content: '',
+      selectDate: new Date()
     });
   };
   render() {
+    const { toggleCalendar, selectDate } = this.state;
     return (
       <div>
         <form onSubmit={this.handleAddTodoForm}>
@@ -35,6 +59,13 @@ export default class AddTodoItem extends React.Component<{}, State> {
           />
           <button type="submit">add</button>
         </form>
+        <button onClick={this.handleCalendar}>calendar toggle</button>
+        {toggleCalendar && <InfiniteCalendar
+            width={300}
+            selected={selectDate}
+            height={400}
+            onSelect={this.selectDate}
+        />}       
       </div>
     );
   }
