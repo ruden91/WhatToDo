@@ -1,0 +1,101 @@
+@import '~styles/common';
+.wtd-dashboard-todo-item {
+  page-break-inside: avoid;
+  padding: 0 6px 0 6px;
+  font-size: 14px;
+  transition: opacity 150ms ease-in;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    td {
+      vertical-align: top;
+      padding-top: 13px;
+      padding-bottom: 13px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+  }
+  &:hover {
+    .wtd-dashboard-todo-item__menu,
+    .wtd-dashboard-todo-item__invisible-space {
+      opacity: 0.3;
+      button {
+        opacity: 0.3;
+      }
+    }
+  }
+  @include e('invisible-space') {
+    float: left;
+    position: absolute;
+    width: 27px;
+    height: 20px;
+    margin-left: -27px;
+    z-index: 0;
+    margin-top: 13px;
+    transition: 0.3s all ease-in-out;
+    opacity: 0;
+  }
+
+  @include e('checker') {
+    width: 16px;
+    padding-top: 14px;
+    padding-right: 10px;
+  }
+  @include e('check-box') {
+    position: relative;
+    border: 1px solid #999;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    transition: 0.3s all ease-in-out;
+    svg {
+      font-size: 11px;
+      @include center-layout;
+      display: inline;
+      color: #999;
+      opacity: 0;
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.12);
+      svg {
+        opacity: 1;
+      }
+    }
+  }
+  @include e('content') {
+    max-width: 500px;
+    overflow: hidden;
+    cursor: text;
+    user-select: text;
+    text-align: left;
+  }
+  @include e('project-task') {
+    vertical-align: top;
+    color: #202020;
+    font-size: 11px;
+    text-align: right;
+    white-space: nowrap;
+    padding-left: 5px;
+    padding-top: 14px;
+    padding-bottom: 12px;
+  }
+  @include e('menu') {
+    padding-top: 15px !important;
+    padding-bottom: 8px !important;
+    border-bottom: 1px solid transparent !important;
+    cursor: pointer;
+    width: 20px;
+    button {
+      opacity: 0;
+      color: #202020;
+      transition: 0.3s all ease-in-out;
+    }
+
+    &:hover {
+      button {
+        opacity: 1;
+      }
+    }
+  }
+}
