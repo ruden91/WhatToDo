@@ -1,5 +1,6 @@
 @import '~styles/common';
 .add-todo-item {
+  position: relative;
   margin-top: 10px;
   margin-bottom: 10px;
   @include e('input-actions') {
@@ -58,6 +59,16 @@
 
     &:hover {
       text-decoration: underline;
+    }
+  }
+  @include e('calendar') {
+    position: absolute;
+    right: 0;
+    top: 40px;
+    .Cal__Header__root,
+    .Cal__Weekdays__root,
+    .Cal__Day__selection {
+      background-color: $mainColor !important;
     }
   }
 }

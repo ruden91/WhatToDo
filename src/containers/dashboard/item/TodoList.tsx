@@ -22,7 +22,7 @@ export default class TodoList extends React.Component<Props, State> {
   handleToggleAddTodoButton = (e: any) => {
     e.preventDefault();
     this.setState({
-      toggleAddTodoButton: true
+      toggleAddTodoButton: !this.state.toggleAddTodoButton
     });
   };
 
@@ -47,7 +47,11 @@ export default class TodoList extends React.Component<Props, State> {
             </a>
           </div>
         )}
-        {toggleAddTodoButton && <AddTodoItem />}
+        {toggleAddTodoButton && (
+          <AddTodoItem
+            onHandleToggleAddTodoButton={this.handleToggleAddTodoButton}
+          />
+        )}
       </div>
     );
   }

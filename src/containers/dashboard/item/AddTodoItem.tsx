@@ -6,12 +6,19 @@ import * as moment from 'moment';
 import 'moment/locale/ko';
 import './AddTodoItem.scss';
 import ContentEditable from 'react-contenteditable';
+
+interface Props {
+  onHandleToggleAddTodoButton: (e: any) => void;
+}
 interface State {
   content: string;
   selectDate: string | Object;
   toggleCalendar: boolean;
 }
-export default class AddTodoItem extends React.Component<{}, State> {
+export default class AddTodoItem extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+  }
   state = {
     content: '',
     selectDate: new Date(),
@@ -21,13 +28,16 @@ export default class AddTodoItem extends React.Component<{}, State> {
   changeTodoItemContent = (e: any): void => {
     this.setState({ content: e.target.value });
   };
+
   selectDate = (selectDate: any) => {
     this.setState({
-      selectDate: moment(selectDate).format('YYYY-MM-DD'),
-      toggleCalendar: false
+      selectDate,
+      toggleCalendar: !this.state.toggleCalendar
     });
   };
-  handleCalendar = () => {
+
+  handleCalendar = (e: any) => {
+    e.preventDefault();
     this.setState({
       toggleCalendar: !this.state.toggleCalendar
     });
@@ -36,19 +46,22 @@ export default class AddTodoItem extends React.Component<{}, State> {
   handleAddTodoForm = (e: any): void => {
     e.preventDefault();
     const { content, selectDate } = this.state;
-
+    const refinedSelectDate = moment(selectDate).format('YYYY-MM-DD');
+    console.log(refinedSelectDate);
     if (content === '') {
       return;
     }
-    createItem(content, selectDate);
+    createItem(content, refinedSelectDate);
 
     this.setState({
       content: '',
       selectDate: new Date()
     });
   };
+
   render() {
     const { toggleCalendar, selectDate } = this.state;
+    const { onHandleToggleAddTodoButton } = this.props;
     return (
       <div className="add-todo-item">
         <form onSubmit={this.handleAddTodoForm}>
@@ -79,7 +92,11 @@ export default class AddTodoItem extends React.Component<{}, State> {
                   </button>
                 </td>
                 <td>
-                  <a href="javascript:;" className="add-todo-item__cancel-item">
+                  <a
+                    href="javascript:;"
+                    className="add-todo-item__cancel-item"
+                    onClick={onHandleToggleAddTodoButton}
+                  >
                     취소
                   </a>
                 </td>
@@ -91,8 +108,10 @@ export default class AddTodoItem extends React.Component<{}, State> {
           <InfiniteCalendar
             width={300}
             selected={selectDate}
-            height={400}
+            height={280}
             onSelect={this.selectDate}
+            rowHeight={42}
+            className="add-todo-item__calendar"
           />
         )}
       </div>
