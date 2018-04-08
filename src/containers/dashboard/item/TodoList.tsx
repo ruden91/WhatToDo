@@ -8,6 +8,7 @@ interface Props {
   items: any;
   title: string | null;
   date: string | null;
+  showButton: boolean;
 }
 
 interface State {
@@ -36,21 +37,27 @@ export default class TodoList extends React.Component<Props, State> {
 
   render() {
     const { toggleAddTodoButton } = this.state;
-    const { title, date } = this.props;
+    const { title, date, showButton } = this.props;
     return (
       <div className="wtd-dashboard-todo-list">
-        <p>
-          {title}
-          <span>{date}</span>
-        </p>
-        {this.mapToComponent()}
-        {!toggleAddTodoButton && (
-          <div className="wtd-dashboard-todo-list__add-task">
-            <a href="javascript:;" onClick={this.handleToggleAddTodoButton}>
-              <span />작업 추가
-            </a>
-          </div>
+        {title && (
+          <header className="wtd-dashboard-todo-list__header">
+            <h2>
+              {title}
+              <span>{date}</span>
+            </h2>
+          </header>
         )}
+        {this.mapToComponent()}
+        {showButton &&
+          !toggleAddTodoButton && (
+            <div className="wtd-dashboard-todo-list__add-task">
+              <a href="javascript:;" onClick={this.handleToggleAddTodoButton}>
+                <span />작업 추가
+              </a>
+            </div>
+          )}
+
         {toggleAddTodoButton && (
           <AddTodoItem onHandleToggleAddTodoButton={this.handleToggleAddTodoButton} />
         )}

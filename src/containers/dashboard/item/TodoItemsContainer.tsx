@@ -20,14 +20,21 @@ export default class TodoItemsContainer extends React.Component<Props> {
     } else if (filter === 'inbox') {
       result = [
         {
-          items
+          items,
+          showButton: true
         }
       ];
     } else if (filter === 'days') {
       result = this.sortByDate(items, 7);
     }
     return result.map((item: any, index: number) => (
-      <TodoList items={item.items} title={item.title} date={item.date} key={index} />
+      <TodoList
+        items={item.items}
+        title={item.title}
+        date={item.date}
+        showButton={item.showButton}
+        key={index}
+      />
     ));
   };
 
@@ -41,7 +48,8 @@ export default class TodoItemsContainer extends React.Component<Props> {
     results.push({
       title: '기한이 지난',
       date: null,
-      items: {}
+      items: {},
+      showButton: false
     });
 
     // 지난값은 디폴트로 넣어준다.
@@ -77,7 +85,8 @@ export default class TodoItemsContainer extends React.Component<Props> {
       results.push({
         title,
         date,
-        items: {}
+        items: {},
+        showButton: true
       });
 
       map(items, (item, key) => {

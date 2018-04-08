@@ -1,7 +1,7 @@
 @import '~styles/common';
 .wtd-dashboard-todo-item {
   page-break-inside: avoid;
-  padding: 0 6px 0 6px;
+  padding: 0 6px 0 0;
   font-size: 14px;
   transition: opacity 150ms ease-in;
   table {
