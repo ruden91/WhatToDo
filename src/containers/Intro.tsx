@@ -36,10 +36,7 @@ export default class Intro extends React.Component<{}, IntroState> {
   };
 
   // 로그인 모달 제어 이벤트
-  public openIntroModal = (
-    e: React.MouseEvent<HTMLElement>,
-    target: string
-  ): void => {
+  public openIntroModal = (e: React.MouseEvent<HTMLElement>, target: string): void => {
     e.preventDefault();
 
     this.setState({ toggleIntroModal: true, modalTarget: target });
@@ -56,10 +53,7 @@ export default class Intro extends React.Component<{}, IntroState> {
     const { modalTarget } = this.state;
     if (modalTarget === 'login') {
       return (
-        <AppLoginForm
-          closeIntroModal={this.closeIntroModal}
-          openIntroModal={this.openIntroModal}
-        />
+        <AppLoginForm closeIntroModal={this.closeIntroModal} openIntroModal={this.openIntroModal} />
       );
     } else if (modalTarget === 'signUp') {
       return <AppSignupForm closeIntroModal={this.closeIntroModal} />;
@@ -70,7 +64,7 @@ export default class Intro extends React.Component<{}, IntroState> {
     window.addEventListener('scroll', this.handleAppScroll);
   }
 
-  componentWillUnMount() {
+  componentWillUnmount() {
     window.removeEventListener('scroll', this.handleAppScroll);
   }
 

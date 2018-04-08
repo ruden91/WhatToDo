@@ -25,12 +25,13 @@
     }
   }
   @include e('invisible-space') {
-    float: left;
     position: absolute;
+    cursor: move;
     width: 27px;
+    font-size: 17px;
     height: 20px;
     margin-left: -27px;
-    z-index: 0;
+    z-index: 100;
     margin-top: 13px;
     transition: 0.3s all ease-in-out;
     opacity: 0;

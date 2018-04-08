@@ -49,4 +49,17 @@
       }
     }
   }
+  @include e('drop-content') {
+    margin-top: 10px;
+    border: 1px solid #f0f0f0;
+    padding: 10px 10px;
+    text-align: center;
+    p {
+      letter-spacing: 0;
+      font-weight: 300;
+      span {
+        font-weight: bold;
+      }
+    }
+  }
 }

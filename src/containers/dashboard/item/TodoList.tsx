@@ -88,6 +88,11 @@ export default class TodoList extends React.Component<Props, State> {
 
         {todoListIndex === index &&
           todoItemIndex === -1 && <AddTodoItem onHandleAddTodoItem={onHandleAddTodoItem} />}
+        <div className="wtd-dashboard-todo-list__drop-content">
+          <p>
+            드롭하여 연기: <span>토요일</span>
+          </p>
+        </div>
       </div>
     );
   }

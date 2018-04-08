@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import TodoItemsContainer from 'containers/dashboard/item/TodoItemsContainer';
 import './DashboardScheduleManager.scss';
 interface Props {

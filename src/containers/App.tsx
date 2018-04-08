@@ -2,6 +2,8 @@ import * as React from 'react';
 import Main from 'components/router/Main';
 import MainLoading from 'components/MainLoading';
 import { withRouter } from 'react-router-dom';
+import * as ReactDnd from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import { database, auth } from 'database/firebase';
 import Alert from 'react-s-alert';
 import {
@@ -63,14 +65,14 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
     weeklyStats: [],
     filter: 'today'
   };
-  
+
   public changeFilter = (standard: string) => {
     const { initialItems } = this.state;
 
     this.setState({
       items: filterItemsBySpecificStandard(initialItems, standard),
       filter: standard
-    })
+    });
   };
 
   componentDidMount() {
@@ -115,15 +117,10 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
     const { loading } = this.state;
     return (
       <div className="wtd">
-        {loading ? (
-          <MainLoading />
-        ) : (
-          <Main {...this.state} changeFilter={this.changeFilter} />
-        )}
+        {loading ? <MainLoading /> : <Main {...this.state} changeFilter={this.changeFilter} />}
         <Alert stack={{ limit: 3 }} />
       </div>
     );
   }
 }
-
-export default withRouter(App);
+export default withRouter(ReactDnd.DragDropContext(HTML5Backend)(App));
