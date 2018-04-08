@@ -9,6 +9,7 @@ import ContentEditable from 'react-contenteditable';
 
 interface Props {
   onHandleAddTodoItem: (tabIndex: number, index: number) => void;
+  realDate: {} | null;
 }
 interface State {
   content: string;
@@ -47,18 +48,27 @@ export default class AddTodoItem extends React.Component<Props, State> {
     e.preventDefault();
     const { content, selectDate } = this.state;
     const refinedSelectDate = moment(selectDate).format('YYYY-MM-DD');
-    console.log(refinedSelectDate);
+
     if (content === '') {
       return;
     }
     createItem(content, refinedSelectDate);
 
     this.setState({
-      content: '',
-      selectDate: new Date()
+      content: ''
     });
   };
-
+  componentDidMount() {
+    if (!this.props.realDate) {
+      this.setState({
+        selectDate: new Date()
+      });
+    } else {
+      this.setState({
+        selectDate: this.props.realDate
+      });
+    }
+  }
   render() {
     const { toggleCalendar, selectDate } = this.state;
     const { onHandleAddTodoItem } = this.props;

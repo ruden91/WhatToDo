@@ -61,5 +61,12 @@
         font-weight: bold;
       }
     }
+
+    &.is-active {
+      background-color: #999;
+      p {
+        color: #fff;
+      }
+    }
   }
 }

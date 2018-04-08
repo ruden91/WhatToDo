@@ -57,6 +57,7 @@ export default class TodoItemsContainer extends React.Component<Props, States> {
         onHandleAddTodoItem={this.handleAddTodoItem}
         todoListIndex={todoListIndex}
         todoItemIndex={todoItemIndex}
+        realDate={item.realDate}
       />
     ));
   };
@@ -109,7 +110,10 @@ export default class TodoItemsContainer extends React.Component<Props, States> {
         title,
         date,
         items: {},
-        showButton: true
+        showButton: true,
+        realDate: moment()
+          .add(i, 'days')
+          .format()
       });
 
       map(items, (item, key) => {
