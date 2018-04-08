@@ -11,8 +11,17 @@ import ItemTypes from 'itemTypes/todoTypes';
  * Only `beginDrag` function is required.
  */
 const itemSource = {
-  beginDrag() {
-    return {};
+  beginDrag(props: any) {
+    props.onHandleDropContent();
+
+    return {
+      ...props
+    };
+  },
+  endDrag(props: any, monitor: any) {
+    const item = monitor.getItem();
+    console.log(item);
+    props.onHandleDropContent();
   }
 };
 
@@ -36,6 +45,7 @@ interface Props {
   index: number;
   todoListIndex: number;
   onHandleAddTodoItem: (tabIndex: number, index: number) => void;
+  onHandleDropContent: () => void;
 }
 interface States {}
 class TodoItem extends React.Component<Props, States> {
@@ -43,7 +53,7 @@ class TodoItem extends React.Component<Props, States> {
     super(props);
   }
   render() {
-    const { isDragging, connectDragSource, connectDragPreview } = this.props;
+    const { isDragging, connectDragSource, connectDragPreview, index, todoListIndex } = this.props;
     const opacity = isDragging ? 0.4 : 1;
 
     return connectDragPreview(
@@ -66,9 +76,7 @@ class TodoItem extends React.Component<Props, States> {
               </td>
               <td
                 className="wtd-dashboard-todo-item__content"
-                onClick={() =>
-                  this.props.onHandleAddTodoItem(this.props.todoListIndex, this.props.index)
-                }
+                onClick={() => this.props.onHandleAddTodoItem(todoListIndex, index)}
               >
                 <span>{this.props.content}</span>
               </td>

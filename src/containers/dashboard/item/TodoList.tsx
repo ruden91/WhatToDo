@@ -1,9 +1,25 @@
 import * as React from 'react';
-
+import * as ReactDnd from 'react-dnd';
+import ItemTypes from 'itemTypes/todoTypes';
 import TodoItem from 'components/dashboard/item/TodoItem';
 import AddTodoItem from 'containers/dashboard/item/AddTodoItem';
 import { map } from 'lodash';
 import './TodoList.scss';
+
+const itemTarget = {
+  drop(props: any) {
+    return {};
+  }
+};
+
+/**
+ * Specifies which props to inject into your component.
+ */
+function collect(connect: any, monitor: any) {
+  return {
+    connectDropTarget: connect.dropTarget()
+  };
+}
 interface Props {
   items: any;
   title: string | null;
@@ -13,25 +29,27 @@ interface Props {
   index: number;
   todoListIndex: number;
   todoItemIndex: number;
+  connectDropTarget: ReactDnd.ConnectDropTarget;
 }
 
 interface State {
   toggleAddTodoButton: boolean;
+  toggleDropContext: boolean;
 }
-export default class TodoList extends React.Component<Props, State> {
+class TodoList extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
   }
   state = {
-    toggleAddTodoButton: false
+    toggleAddTodoButton: false,
+    toggleDropContext: false
   };
 
-  // handleToggleAddTodoButton = (e: any) => {
-  //   e.preventDefault();
-  //   this.setState({
-  //     toggleAddTodoButton: !this.state.toggleAddTodoButton
-  //   });
-  // };
+  handleDropContent = () => {
+    this.setState({
+      toggleDropContext: !this.state.toggleDropContext
+    });
+  };
 
   mapToComponent = () => {
     const { items, onHandleAddTodoItem, todoListIndex, todoItemIndex, index } = this.props;
@@ -50,6 +68,7 @@ export default class TodoList extends React.Component<Props, State> {
             index={itemIndex}
             todoListIndex={index}
             onHandleAddTodoItem={onHandleAddTodoItem}
+            onHandleDropContent={this.handleDropContent}
           />
         );
       }
@@ -64,8 +83,11 @@ export default class TodoList extends React.Component<Props, State> {
       index,
       onHandleAddTodoItem,
       todoListIndex,
-      todoItemIndex
+      todoItemIndex,
+      connectDropTarget
     } = this.props;
+    const { toggleDropContext } = this.state;
+
     return (
       <div className="wtd-dashboard-todo-list">
         {title && (
@@ -85,15 +107,19 @@ export default class TodoList extends React.Component<Props, State> {
               </a>
             </div>
           )}
-
         {todoListIndex === index &&
           todoItemIndex === -1 && <AddTodoItem onHandleAddTodoItem={onHandleAddTodoItem} />}
-        <div className="wtd-dashboard-todo-list__drop-content">
-          <p>
-            드롭하여 연기: <span>토요일</span>
-          </p>
-        </div>
+        {toggleDropContext &&
+          connectDropTarget(
+            <div className="wtd-dashboard-todo-list__drop-content">
+              <p>
+                드롭하여 연기: <span>다음날로 연기</span>
+              </p>
+            </div>
+          )}
       </div>
     );
   }
 }
+
+export default ReactDnd.DropTarget(ItemTypes.TODOITEM, itemTarget, collect)(TodoList);
