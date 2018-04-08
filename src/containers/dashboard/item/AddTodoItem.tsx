@@ -8,7 +8,7 @@ import './AddTodoItem.scss';
 import ContentEditable from 'react-contenteditable';
 
 interface Props {
-  onHandleToggleAddTodoButton: (e: any) => void;
+  onHandleAddTodoItem: (tabIndex: number, index: number) => void;
 }
 interface State {
   content: string;
@@ -61,7 +61,7 @@ export default class AddTodoItem extends React.Component<Props, State> {
 
   render() {
     const { toggleCalendar, selectDate } = this.state;
-    const { onHandleToggleAddTodoButton } = this.props;
+    const { onHandleAddTodoItem } = this.props;
     return (
       <div className="add-todo-item">
         <form onSubmit={this.handleAddTodoForm}>
@@ -95,7 +95,7 @@ export default class AddTodoItem extends React.Component<Props, State> {
                   <a
                     href="javascript:;"
                     className="add-todo-item__cancel-item"
-                    onClick={onHandleToggleAddTodoButton}
+                    onClick={() => onHandleAddTodoItem(-1, -1)}
                   >
                     취소
                   </a>

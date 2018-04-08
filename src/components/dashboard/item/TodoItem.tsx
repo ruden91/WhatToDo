@@ -5,6 +5,9 @@ import './TodoItem.scss';
 interface Props {
   content: string;
   uniqueKey: string;
+  index: number;
+  todoListIndex: number;
+  onHandleAddTodoItem: (tabIndex: number, index: number) => void;
 }
 const TodoItem: React.SFC<Props> = props => (
   <li className="wtd-dashboard-todo-item">
@@ -22,7 +25,10 @@ const TodoItem: React.SFC<Props> = props => (
               <i className="fas fa-check" />
             </button>
           </td>
-          <td className="wtd-dashboard-todo-item__content">
+          <td
+            className="wtd-dashboard-todo-item__content"
+            onClick={() => props.onHandleAddTodoItem(props.todoListIndex, props.index)}
+          >
             <span>{props.content}</span>
           </td>
           <td className="wtd-dashboard-todo-item__project-task" />

@@ -4,16 +4,16 @@
     float: left;
     width: 260px;
     padding-right: 30px;
-    height: 100vh;
     padding-top: 80px;
-    border-right: 1px solid #f1f1f1;
   }
   @include e('right-side-content') {
     float: left;
     width: calc(100% - 260px);
-    height: 100vh;
     padding: 80px 25px 12px 45px;
     background-color: #fff;
+    min-height: 100vh;
+    height: 100%;
+    border-left: 1px solid #f1f1f1;
     border-right: 1px solid #f1f1f1;
     position: relative;
     z-index: 1;

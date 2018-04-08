@@ -9,6 +9,10 @@ interface Props {
   title: string | null;
   date: string | null;
   showButton: boolean;
+  onHandleAddTodoItem: (tabIndex: number, index: number) => void;
+  index: number;
+  todoListIndex: number;
+  todoItemIndex: number;
 }
 
 interface State {
@@ -22,22 +26,46 @@ export default class TodoList extends React.Component<Props, State> {
     toggleAddTodoButton: false
   };
 
-  handleToggleAddTodoButton = (e: any) => {
-    e.preventDefault();
-    this.setState({
-      toggleAddTodoButton: !this.state.toggleAddTodoButton
+  // handleToggleAddTodoButton = (e: any) => {
+  //   e.preventDefault();
+  //   this.setState({
+  //     toggleAddTodoButton: !this.state.toggleAddTodoButton
+  //   });
+  // };
+
+  mapToComponent = () => {
+    const { items, onHandleAddTodoItem, todoListIndex, todoItemIndex, index } = this.props;
+    let itemIndex = 0;
+
+    return map(items, (item, key) => {
+      itemIndex++;
+      if (itemIndex === todoItemIndex && index === todoListIndex) {
+        return <AddTodoItem onHandleAddTodoItem={onHandleAddTodoItem} key={key} />;
+      } else {
+        return (
+          <TodoItem
+            {...item}
+            key={key}
+            uniqueKey={key}
+            index={itemIndex}
+            todoListIndex={index}
+            onHandleAddTodoItem={onHandleAddTodoItem}
+          />
+        );
+      }
     });
   };
 
-  mapToComponent = () => {
-    const { items } = this.props;
-
-    return map(items, (item, key) => <TodoItem {...item} key={key} uniqueKey={key} />);
-  };
-
   render() {
-    const { toggleAddTodoButton } = this.state;
-    const { title, date, showButton } = this.props;
+    const {
+      title,
+      date,
+      showButton,
+      index,
+      onHandleAddTodoItem,
+      todoListIndex,
+      todoItemIndex
+    } = this.props;
     return (
       <div className="wtd-dashboard-todo-list">
         {title && (
@@ -50,17 +78,16 @@ export default class TodoList extends React.Component<Props, State> {
         )}
         {this.mapToComponent()}
         {showButton &&
-          !toggleAddTodoButton && (
+          (!(todoListIndex === index) || todoItemIndex !== -1) && (
             <div className="wtd-dashboard-todo-list__add-task">
-              <a href="javascript:;" onClick={this.handleToggleAddTodoButton}>
+              <a href="javascript:;" onClick={() => onHandleAddTodoItem(index, -1)}>
                 <span />작업 추가
               </a>
             </div>
           )}
 
-        {toggleAddTodoButton && (
-          <AddTodoItem onHandleToggleAddTodoButton={this.handleToggleAddTodoButton} />
-        )}
+        {todoListIndex === index &&
+          todoItemIndex === -1 && <AddTodoItem onHandleAddTodoItem={onHandleAddTodoItem} />}
       </div>
     );
   }

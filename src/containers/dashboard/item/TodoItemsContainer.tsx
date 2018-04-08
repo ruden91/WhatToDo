@@ -7,12 +7,31 @@ interface Props {
   items: any;
   filter: string;
 }
-export default class TodoItemsContainer extends React.Component<Props> {
+interface States {
+  todoListIndex: number;
+  todoItemIndex: number;
+  toggleAddTodoItem: boolean;
+}
+export default class TodoItemsContainer extends React.Component<Props, States> {
   constructor(props: Props) {
     super(props);
   }
 
+  state: States = {
+    todoListIndex: -1,
+    todoItemIndex: -1,
+    toggleAddTodoItem: false
+  };
+
+  handleAddTodoItem = (tabIndex: number = -1, index: number = -1): void => {
+    this.setState({
+      todoListIndex: tabIndex,
+      todoItemIndex: index
+    });
+  };
+
   mapToComponent = () => {
+    const { todoListIndex, todoItemIndex } = this.state;
     const { items, filter } = this.props;
     let result = [];
     if (filter === 'today') {
@@ -33,7 +52,11 @@ export default class TodoItemsContainer extends React.Component<Props> {
         title={item.title}
         date={item.date}
         showButton={item.showButton}
+        index={index}
         key={index}
+        onHandleAddTodoItem={this.handleAddTodoItem}
+        todoListIndex={todoListIndex}
+        todoItemIndex={todoItemIndex}
       />
     ));
   };
