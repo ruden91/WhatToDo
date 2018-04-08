@@ -27,6 +27,7 @@ interface Props {
   title: string | null;
   date: string;
   realDate: {} | null;
+  filter: string;
   showButton: boolean;
   onHandleAddTodoItem: (tabIndex: number, index: number) => void;
   index: number;
@@ -62,7 +63,8 @@ class TodoList extends React.Component<Props, State> {
       todoListIndex,
       todoItemIndex,
       index,
-      realDate
+      realDate,
+      filter
     } = this.props;
     let itemIndex = 0;
 
@@ -82,6 +84,7 @@ class TodoList extends React.Component<Props, State> {
             todoListIndex={index}
             onHandleAddTodoItem={onHandleAddTodoItem}
             onHandleDropContent={this.handleDropContent}
+            filter={filter}
           />
         );
       }

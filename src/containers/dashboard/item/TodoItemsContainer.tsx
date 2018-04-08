@@ -58,6 +58,7 @@ export default class TodoItemsContainer extends React.Component<Props, States> {
         todoListIndex={todoListIndex}
         todoItemIndex={todoItemIndex}
         realDate={item.realDate}
+        filter={filter}
       />
     ));
   };

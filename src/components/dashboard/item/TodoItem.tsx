@@ -12,16 +12,19 @@ import ItemTypes from 'itemTypes/todoTypes';
  */
 const itemSource = {
   beginDrag(props: any) {
-    props.onHandleDropContent();
+    if (props.filter !== 'inbox') {
+      props.onHandleDropContent();
+    }
 
     return {
       ...props
     };
   },
   endDrag(props: any, monitor: any) {
-    const item = monitor.getItem();
-    console.log(item);
-    props.onHandleDropContent();
+    // const item = monitor.getItem();
+    if (props.filter !== 'inbox') {
+      props.onHandleDropContent();
+    }
   }
 };
 
@@ -44,6 +47,7 @@ interface Props {
   uniqueKey: string;
   index: number;
   todoListIndex: number;
+  filter: string;
   onHandleAddTodoItem: (tabIndex: number, index: number) => void;
   onHandleDropContent: () => void;
 }
