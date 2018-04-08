@@ -6,6 +6,8 @@ import { map } from 'lodash';
 import './TodoList.scss';
 interface Props {
   items: any;
+  title: string | null;
+  date: string | null;
 }
 
 interface State {
@@ -29,16 +31,18 @@ export default class TodoList extends React.Component<Props, State> {
   mapToComponent = () => {
     const { items } = this.props;
 
-    return map(items, (item, key) => (
-      <TodoItem {...item} key={key} uniqueKey={key} />
-    ));
+    return map(items, (item, key) => <TodoItem {...item} key={key} uniqueKey={key} />);
   };
 
   render() {
     const { toggleAddTodoButton } = this.state;
+    const { title, date } = this.props;
     return (
       <div className="wtd-dashboard-todo-list">
-        <p>subTitle</p>
+        <p>
+          {title}
+          <span>{date}</span>
+        </p>
         {this.mapToComponent()}
         {!toggleAddTodoButton && (
           <div className="wtd-dashboard-todo-list__add-task">
@@ -48,9 +52,7 @@ export default class TodoList extends React.Component<Props, State> {
           </div>
         )}
         {toggleAddTodoButton && (
-          <AddTodoItem
-            onHandleToggleAddTodoButton={this.handleToggleAddTodoButton}
-          />
+          <AddTodoItem onHandleToggleAddTodoButton={this.handleToggleAddTodoButton} />
         )}
       </div>
     );

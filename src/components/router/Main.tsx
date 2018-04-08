@@ -8,6 +8,7 @@ interface FirebaseTodoItemData {}
 
 interface MainProps {
   user: object | null;
+  filter: string;
   items: {
     [key: string]: FirebaseTodoItemData;
   };

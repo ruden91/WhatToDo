@@ -242,7 +242,7 @@ export const createItem = (content: any, due: any): void => {
   ItemRef.set({
     uid,
     content,
-    created_at: new Date().getDate(),
+    created_at: new Date().getTime(),
     is_completed: false,
     completed_at: null,
     due,

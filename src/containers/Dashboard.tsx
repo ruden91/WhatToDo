@@ -26,6 +26,7 @@ interface DashboardProps {
   //   uid: string;
   //   weekly_goal: number;
   // }
+  filter: string;
   items: any;
   inboxCount: number;
   todayCount: number;
