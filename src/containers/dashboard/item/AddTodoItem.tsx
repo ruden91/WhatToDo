@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createItem } from 'database/firebase';
+import { createItem, updateItemContent } from 'database/firebase';
 import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
 import * as moment from 'moment';
@@ -10,6 +10,8 @@ import ContentEditable from 'react-contenteditable';
 interface Props {
   onHandleAddTodoItem: (tabIndex: number, index: number) => void;
   realDate: {} | null;
+  item?: any;
+  index?: string;
 }
 interface State {
   content: string;
@@ -47,31 +49,49 @@ export default class AddTodoItem extends React.Component<Props, State> {
   handleAddTodoForm = (e: any): void => {
     e.preventDefault();
     const { content, selectDate } = this.state;
+    const { item, index, onHandleAddTodoItem } = this.props;
     const refinedSelectDate = moment(selectDate).format('YYYY-MM-DD');
 
     if (content === '') {
       return;
     }
-    createItem(content, refinedSelectDate);
+    if (item && index) {
+      updateItemContent(index, content, refinedSelectDate);
+      onHandleAddTodoItem(-1, -1);
+    } else {
+      createItem(content, refinedSelectDate);
 
-    this.setState({
-      content: ''
-    });
+      this.setState({
+        content: ''
+      });
+    }
   };
   componentDidMount() {
-    if (!this.props.realDate) {
+    const { item } = this.props;
+
+    // item이 있는 경우 update, 없다면 create
+    if (item) {
       this.setState({
-        selectDate: new Date()
-      });
+        selectDate: item.due,
+        content: item.content
+      })
     } else {
-      this.setState({
-        selectDate: this.props.realDate
-      });
+      if (!this.props.realDate) {
+        this.setState({
+          selectDate: new Date()
+        });
+      } else {
+        this.setState({
+          selectDate: this.props.realDate
+        });
+      }
     }
   }
   render() {
     const { toggleCalendar, selectDate } = this.state;
-    const { onHandleAddTodoItem } = this.props;
+    const { item, onHandleAddTodoItem } = this.props;
+    const hasItem = !!item;
+
     return (
       <div className="add-todo-item">
         <form onSubmit={this.handleAddTodoForm}>
@@ -98,7 +118,7 @@ export default class AddTodoItem extends React.Component<Props, State> {
               <tr>
                 <td>
                   <button type="submit" className="add-todo-item__add-item">
-                    작업 추가
+                    {hasItem ? '업데이트' : '작업 추가'}
                   </button>
                 </td>
                 <td>

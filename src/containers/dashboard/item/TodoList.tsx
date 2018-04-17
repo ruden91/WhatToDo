@@ -72,7 +72,13 @@ class TodoList extends React.Component<Props, State> {
       itemIndex++;
       if (itemIndex === todoItemIndex && index === todoListIndex) {
         return (
-          <AddTodoItem onHandleAddTodoItem={onHandleAddTodoItem} key={key} realDate={realDate} />
+          <AddTodoItem 
+            onHandleAddTodoItem={onHandleAddTodoItem} 
+            key={key}
+            index={key} 
+            realDate={realDate} 
+            item={item}
+          />
         );
       } else {
         return (

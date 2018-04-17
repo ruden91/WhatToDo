@@ -7,13 +7,14 @@ interface DashboardAsideMenuProps {
   inboxCount: number;
   todayCount: number;
   daysCount: number;
+  filter: string;
 }
 
 const DashboardAsideMenu: React.SFC<DashboardAsideMenuProps> = props => (
   <aside className="wtd-dashboard-aside-menu">
     <ul className="wtd-dashboard-aside-menu__panels">
       <li
-        className="wtd-dashboard-aside-menu__panel"
+        className={`wtd-dashboard-aside-menu__panel ${props.filter === 'inbox' ? 'current' : ''}`}
         onClick={() => props.changeFilter('inbox')}
       >
         <span className="wtd-dashboard-aside-menu__panel-icon">
@@ -23,7 +24,7 @@ const DashboardAsideMenu: React.SFC<DashboardAsideMenuProps> = props => (
         <small>{props.inboxCount}</small>
       </li>
       <li
-        className="wtd-dashboard-aside-menu__panel"
+        className={`wtd-dashboard-aside-menu__panel ${props.filter === 'today' ? 'current' : ''}`}
         onClick={() => props.changeFilter('today')}
       >
         <span className="wtd-dashboard-aside-menu__panel-icon">
@@ -33,7 +34,7 @@ const DashboardAsideMenu: React.SFC<DashboardAsideMenuProps> = props => (
         <small>{props.todayCount}</small>
       </li>
       <li
-        className="wtd-dashboard-aside-menu__panel"
+        className={`wtd-dashboard-aside-menu__panel ${props.filter === 'days' ? 'current' : ''}`}
         onClick={() => props.changeFilter('days')}
       >
         <span className="wtd-dashboard-aside-menu__panel-icon">

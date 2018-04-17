@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { updateItem } from 'database/firebase';
 import './TodoItem.scss';
-
+import { findDOMNode } from 'react-dom';
 import * as ReactDnd from 'react-dnd';
 import ItemTypes from 'itemTypes/todoTypes';
 
@@ -17,17 +17,65 @@ const itemSource = {
     }
 
     return {
-      ...props
+      uid: props.uniqueKey,
+      index: props.index
     };
   },
   endDrag(props: any, monitor: any) {
-    // const item = monitor.getItem();
+    const item = monitor.getItem();
+    console.log(item);
     if (props.filter !== 'inbox') {
       props.onHandleDropContent();
     }
   }
 };
 
+const itemTarget = {
+  hover(props: any, monitor: any, component: any) {
+    const dragIndex = monitor.getItem().index;
+    const hoverIndex = props.index;
+
+    // Don't replace items with themselves
+    if (dragIndex === hoverIndex) {
+      return;
+    }
+
+    // Determine rectangle on screen
+    const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
+
+    // Get vertical middle
+    const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+
+    // Determine mouse position
+    const clientOffset = monitor.getClientOffset();
+
+    // Get pixels to the top
+    const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+
+    // Only perform the move when the mouse has crossed half of the items height
+    // When dragging downwards, only move when the cursor is below 50%
+    // When dragging upwards, only move when the cursor is above 50%
+
+    // Dragging downwards
+    if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+      return;
+    }
+
+    // Dragging upwards
+    if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+      return;
+    }
+    console.log(hoverIndex);
+    // // Time to actually perform the action
+    // props.moveCard(dragIndex, hoverIndex);
+
+    // // Note: we're mutating the monitor item here!
+    // // Generally it's better to avoid mutations,
+    // // but it's good here for the sake of performance
+    // // to avoid expensive index searches.
+    // monitor.getItem().index = hoverIndex;
+  }
+};
 /**
  * Specifies which props to inject into your component.
  */
@@ -41,6 +89,7 @@ function collect(connect: any, monitor: any) {
 
 interface Props {
   connectDragSource: ReactDnd.ConnectDragSource;
+  connectDropTarget: ReactDnd.ConnectDropTarget;
   connectDragPreview: ReactDnd.ConnectDragPreview;
   isDragging: boolean;
   content: string;
@@ -57,7 +106,14 @@ class TodoItem extends React.Component<Props, States> {
     super(props);
   }
   render() {
-    const { isDragging, connectDragSource, connectDragPreview, index, todoListIndex } = this.props;
+    const {
+      isDragging,
+      connectDropTarget,
+      connectDragSource,
+      connectDragPreview,
+      index,
+      todoListIndex
+    } = this.props;
     const opacity = isDragging ? 0.4 : 1;
 
     return connectDragPreview(
@@ -67,35 +123,40 @@ class TodoItem extends React.Component<Props, States> {
             <i className="fas fa-sort" />
           </div>
         )}
-        <table cellPadding="0" cellSpacing="0">
-          <tbody>
-            <tr>
-              <td className="wtd-dashboard-todo-item__checker">
-                <button
-                  className="wtd-dashboard-todo-item__check-box"
-                  onClick={() => updateItem(this.props.uniqueKey)}
+        {connectDropTarget(
+          <table cellPadding="0" cellSpacing="0">
+            <tbody>
+              <tr>
+                <td className="wtd-dashboard-todo-item__checker">
+                  <button
+                    className="wtd-dashboard-todo-item__check-box"
+                    onClick={() => updateItem(this.props.uniqueKey)}
+                  >
+                    <i className="fas fa-check" />
+                  </button>
+                </td>
+                <td
+                  className="wtd-dashboard-todo-item__content"
+                  onClick={() => this.props.onHandleAddTodoItem(todoListIndex, index)}
                 >
-                  <i className="fas fa-check" />
-                </button>
-              </td>
-              <td
-                className="wtd-dashboard-todo-item__content"
-                onClick={() => this.props.onHandleAddTodoItem(todoListIndex, index)}
-              >
-                <span>{this.props.content}</span>
-              </td>
-              <td className="wtd-dashboard-todo-item__project-task" />
-              <td className="wtd-dashboard-todo-item__menu">
-                <button onClick={() => alert('update 추가중')}>
-                  <i className="fas fa-ellipsis-h" />
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                  <span>{this.props.content}</span>
+                </td>
+                <td className="wtd-dashboard-todo-item__project-task" />
+                <td className="wtd-dashboard-todo-item__menu">
+                  <button onClick={() => alert('update 추가중')}>
+                    <i className="fas fa-ellipsis-h" />
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        )}
       </li>
     );
   }
 }
-
-export default ReactDnd.DragSource(ItemTypes.TODOITEM, itemSource, collect)(TodoItem);
+export default ReactDnd.DragSource(ItemTypes.TODOITEM, itemSource, collect)(
+  ReactDnd.DropTarget(ItemTypes.TODOITEM, itemTarget, connect => ({
+    connectDropTarget: connect.dropTarget()
+  }))(TodoItem)
+);

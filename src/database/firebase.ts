@@ -232,7 +232,7 @@ export const fetchFirebaseUserSettingsData = (uid: string) => {
   });
 };
 
-export const createItem = (content: any, due: any): void => {
+export const createItem = (content: string, due: any): void => {
   let { uid }: any = auth.currentUser;
   let ItemRef = database
     .ref('items')
@@ -260,6 +260,19 @@ export const createItem = (content: any, due: any): void => {
     is_deleted: 0
   });
 };
+
+export const updateItemContent = (uniqueKey: string, content: string, due: any): void => {
+  let { uid }: any = auth.currentUser;
+  
+  database
+    .ref('items')
+    .child(uid)
+    .child(uniqueKey)
+    .update({
+      content,
+      due
+    });
+}
 
 export const updateItem = (uniqueKey: string): void => {
   let { uid }: any = auth.currentUser;

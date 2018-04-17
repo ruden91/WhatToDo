@@ -1,9 +1,9 @@
 @import '~styles/common';
 .wtd-dashboard {
+  background-color: #fafafa;
   @include e('left-side-content') {
     float: left;
     width: 260px;
-    padding-right: 30px;
     padding-top: 80px;
   }
   @include e('right-side-content') {
