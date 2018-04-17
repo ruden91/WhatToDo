@@ -112,7 +112,7 @@ class TodoList extends React.Component<Props, State> {
     } = this.props;
 
     const { toggleDropContext } = this.state;
-    const isActive = isOver;
+    const isActive = isOver;``
     const activedClass = isActive ? 'is-active' : '';
     return (
       <div className="wtd-dashboard-todo-list">

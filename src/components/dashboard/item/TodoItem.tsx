@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { updateItem } from 'database/firebase';
+import { updateItem, removeItem } from 'database/firebase';
 import './TodoItem.scss';
 import { findDOMNode } from 'react-dom';
 import * as ReactDnd from 'react-dnd';
@@ -100,11 +100,30 @@ interface Props {
   onHandleAddTodoItem: (tabIndex: number, index: number) => void;
   onHandleDropContent: () => void;
 }
-interface States {}
+interface States {
+  toggleSideMenu: boolean;
+}
 class TodoItem extends React.Component<Props, States> {
   constructor(props: Props) {
     super(props);
   }
+
+  state: States = {
+    toggleSideMenu: false
+  }
+
+  handleSideToggleMenu = () => {
+    console.log('handleSideToggleMenu')
+    this.setState({
+      toggleSideMenu: !this.state.toggleSideMenu
+    })
+  }
+
+  handleRemoveTodoItem = () => {
+    const { uniqueKey } = this.props;
+    removeItem(uniqueKey);
+  }
+
   render() {
     const {
       isDragging,
@@ -114,10 +133,11 @@ class TodoItem extends React.Component<Props, States> {
       index,
       todoListIndex
     } = this.props;
+    const { toggleSideMenu } = this.state;
     const opacity = isDragging ? 0.4 : 1;
 
     return connectDragPreview(
-      <li className="wtd-dashboard-todo-item" style={{ opacity }}>
+      <li className={`wtd-dashboard-todo-item ${toggleSideMenu ? 'on-menu-show' : ''}`} style={{ opacity }}>
         {connectDragSource(
           <div className="wtd-dashboard-todo-item__invisible-space">
             <i className="fas fa-sort" />
@@ -143,7 +163,7 @@ class TodoItem extends React.Component<Props, States> {
                 </td>
                 <td className="wtd-dashboard-todo-item__project-task" />
                 <td className="wtd-dashboard-todo-item__menu">
-                  <button onClick={() => alert('update 추가중')}>
+                  <button onClick={() => this.handleSideToggleMenu()}>
                     <i className="fas fa-ellipsis-h" />
                   </button>
                 </td>
@@ -151,6 +171,23 @@ class TodoItem extends React.Component<Props, States> {
             </tbody>
           </table>
         )}
+        {toggleSideMenu && 
+          <ul className="wtd-dashboard-todo-item__side-menu">
+            <li>
+              <button onClick={() => this.props.onHandleAddTodoItem(todoListIndex, index)}>
+                작업 편집
+              </button>
+            </li>
+            <li>작업 보관</li>
+            <li>프로젝트로 이동</li>
+            <li>사본 만들기</li>
+            <li>
+              <button onClick={this.handleRemoveTodoItem}>
+                작업 삭제
+              </button>
+            </li>
+          </ul>        
+        }        
       </li>
     );
   }

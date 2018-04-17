@@ -261,6 +261,16 @@ export const createItem = (content: string, due: any): void => {
   });
 };
 
+export const removeItem = (uniqueKey: string): void => {
+  let { uid }: any = auth.currentUser;
+  
+  database
+    .ref('items')
+    .child(uid)
+    .child(uniqueKey)
+    .remove();
+}
+
 export const updateItemContent = (uniqueKey: string, content: string, due: any): void => {
   let { uid }: any = auth.currentUser;
   
