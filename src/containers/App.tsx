@@ -32,7 +32,7 @@ interface FirebaseTodoItemData {}
 
 interface AppState {
   loading: Boolean;
-  user: FirebaseUserData | null;
+  user: any;
   items: {};
   // items: {
   //   [key: string]: FirebaseTodoItemData | {};
@@ -84,6 +84,7 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
         let itemRef = database.ref('items').child(currentUser.uid);
 
         userRef.on('value', (snap: any) => {
+          console.log(snap.val());
           this.setState({
             user: snap.val()
           });
@@ -98,7 +99,7 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
             todayCount: calculateItemsCount(snap.val(), 0),
             daysCount: calculateItemsCount(snap.val(), 7),
             completedCount: calculateCompletedItemsCount(snap.val()),
-            todayCompletedCount: calculateDailyCompletedItems(snap.val(), 0),
+            todayCompletedCount: calculateDailyCompletedItems(snap.val()),
             weeklyStats: makeWeeklyStats(snap.val()),
             loading: false
           });

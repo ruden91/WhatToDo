@@ -6,42 +6,50 @@ import './Productivity.scss';
 interface ProductivityProps {
   completedCount: number;
   dailyGoal: number;
+  maxValue: number;
   todayCompletedCount: number;
   weeklyStats: any;
+  closeDashboardModal: (e:any) => void;
 }
 const Productivity: React.SFC<ProductivityProps> = props => (
   <div className="wtd-dashboard-productivity">
-    <header>당신의 생산성</header>
-    <p>{props.completedCount}작업을 완료했습니다.</p>
+    <header>
+      당신의 생산성 
+      <button 
+        onClick={props.closeDashboardModal}
+        className="wtd-dashboard-productivity__close-btn"
+      ></button>
+    </header>
+    <p>{props.completedCount}작업을 완료했습니다</p>
 
     <div className="wtd-dashboard-productivity__streak">
       <div className="wtd-dashboard-productivity__streak-chart-container">
         <Circle
           percent={
-            props.completedCount / 10 * 100 > 100
+            (props.todayCompletedCount / props.dailyGoal) * 100 > 100
               ? 100
-              : props.completedCount / 10 * 100
+              : (props.todayCompletedCount / props.dailyGoal) * 100
           }
           strokeWidth="4"
           strokeColor="#dd4b39"
           strokeLinecap="round"
           className="wtd-dashboard-productivity__circle-chart"
         />
-        {/* <i
-          className={`fas fa-trophy wtd-dashboard-productivity__trophy-icon ${iconClass}`}
-        /> */}
+        <i
+          className="fas fa-trophy wtd-dashboard-productivity__trophy-icon"
+        />
       </div>
+      <p>
+        일일 목표: {props.todayCompletedCount}/{props.dailyGoal}작업
+      </p>        
     </div>
-    <p>
-      일일 목표: {props.todayCompletedCount}/{props.dailyGoal}작업
-    </p>
     <div>
       <h6>지난 7일 완료</h6>
       <div className="wtd-dashboard-productivity__chart">
-        <ProductivityChart weeklyStats={props.weeklyStats} />
+        <ProductivityChart weeklyStats={props.weeklyStats} maxValue={props.maxValue} />
         <ProductivityCanvas
           dailyGoal={props.dailyGoal}
-          maxValue={10}
+          maxValue={props.maxValue}
           completedCount={props.completedCount}
         />
       </div>

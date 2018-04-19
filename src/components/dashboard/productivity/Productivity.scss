@@ -1,11 +1,36 @@
 @import '~styles/common';
-.wtd-dashboard-productivity__streak-chart-container {
-  position: relative;
-  width: 72px;
-  height: 72px;
-  margin: 0 auto;
-  margin-bottom: 20px;
-  .wtd-dashboard-productivity__trophy-icon {
+.wtd-dashboard-productivity {
+  padding: 10px;
+  header {
+    margin-bottom: 10px;
+  }
+  @include e('chart') {
+    position: relative;
+    padding: 10px 0;
+  }
+  @include e('close-btn') {
+    float:right;
+    display: block;
+    position: relative;
+    width: 15px;
+    height: 15px;
+
+    &:hover {
+      &:before,
+      &:after {
+        opacity: 0.4;
+      }
+    }
+    @include close-button;
+  }
+  @include e('streak-chart-container') {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    margin: 0 auto;
+    margin-bottom: 20px;    
+  }
+  @include e('trophy-icon') {
     position: absolute;
     top: 53%;
     left: 50%;
@@ -13,18 +38,12 @@
     font-size: 35px;
     &.active {
       color: #dd4b39;
-    }
-  }
-}
-.wtd-dashboard-productivity {
-  @include e('chart') {
-    position: relative;
-    padding: 10px 0;
+    }    
   }
 
   @include e('move-karma') {
     border-top: 1px solid #e0e0e0;
-    padding: 1.5em 0;
+    padding: 1.5em 0 0.5em 0;
     text-align: center;
     font-size: 11px;
     color: #dd4b39;
@@ -37,7 +56,7 @@
   @include e('streak') {
     text-align: center;
     border-bottom: 1px solid #e0e0e0;
-    padding: 1em 0 1em 0;
+    padding: 1.5em 0 1.5em 0;
     margin-bottom: 10px;
     p {
       font-size: 11px;

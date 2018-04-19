@@ -10,19 +10,16 @@ import { filter, assign, size, map } from 'lodash';
  * @return {number} count
  */
 export const calculateDailyCompletedItems = (
-  items: {},
-  date: number
+  items: {}
 ): number => {
   let copiedItems = assign({}, filterCompletedItem(items));
   let filterBy = moment()
-    .add(date, 'days')
-    .format();
-
+    .add(0, 'days')
+    .format('YYYY-MM-DD');
+  
   return filter(copiedItems, (item: any) => {
-    if (item.due) {
-      if (moment(item.due).format() === filterBy) {
-        return item;
-      }
+    if (moment(item.completed_at).format('YYYY-MM-DD') === filterBy) {
+      return item;
     }
   }).length;
 };

@@ -7,7 +7,7 @@ import Dashboard from 'containers/Dashboard';
 interface FirebaseTodoItemData {}
 
 interface MainProps {
-  user: object | null;
+  user: any;
   filter: string;
   items: {
     [key: string]: FirebaseTodoItemData;

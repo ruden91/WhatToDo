@@ -9,23 +9,9 @@ import Settings from 'components/dashboard/Settings';
 
 import * as ReactModal from 'react-modal';
 import './Dashboard.scss';
-
+import { max, map } from 'lodash';
 interface DashboardProps {
-  // user: {
-  //   avatar: string;
-  //   completed_count: number;
-  //   completed_today: number;
-  //   display_name: string;
-  //   email: string;
-  //   features: {};
-  //   is_premium: boolean;
-  //   join_date: string;
-  //   last_signIn_time: string;
-  //   next_week: number;
-  //   theme: number;
-  //   uid: string;
-  //   weekly_goal: number;
-  // }
+  user: any;
   filter: string;
   items: any;
   inboxCount: number;
@@ -39,7 +25,6 @@ interface DashboardProps {
 interface DashboardState {
   toggleDashboardModal: boolean;
   modalTarget: string;
-  dailyGoal: number; // 데일리 목표 테스트 코드
 }
 export default class Dashboard extends React.Component<
   DashboardProps,
@@ -52,7 +37,6 @@ export default class Dashboard extends React.Component<
   state: DashboardState = {
     toggleDashboardModal: false,
     modalTarget: '',
-    dailyGoal: 10
   };
 
   // dashboard modal open event
@@ -73,16 +57,20 @@ export default class Dashboard extends React.Component<
   // header modal component 조건처리를 위한 함수
   // JSX 컴포넌트 형식을 반환하는 함수 타입체크 추가하기
   public renderConditionalDashboardModalComponent = (): any => {
-    const { modalTarget, dailyGoal } = this.state;
+    const { modalTarget } = this.state;
     const { completedCount, todayCompletedCount, weeklyStats } = this.props;
+    const { daily_goal } = this.props.user;
+    
     switch (modalTarget) {
       case 'productivity':
         return (
           <Productivity
             completedCount={completedCount}
-            dailyGoal={dailyGoal}
+            dailyGoal={daily_goal}
+            maxValue={this.calculateMaxValue()}
             todayCompletedCount={todayCompletedCount}
             weeklyStats={weeklyStats}
+            closeDashboardModal={this.closeDashboardModal}
           />
         );
       case 'setting':
@@ -90,6 +78,15 @@ export default class Dashboard extends React.Component<
       case 'notice':
         return <div>notice</div>;
     }
+  };
+  
+  calculateMaxValue = ():number => {
+
+    return max(
+      map(this.props.weeklyStats, (stats:any):any => {
+        return stats.count;
+      }).concat([this.props.user.daily_goal])
+    );
   };
 
   render() {
@@ -137,14 +134,3 @@ export default class Dashboard extends React.Component<
     );
   }
 }
-
-//   calculateMaxValue = items => {
-//     let results = this.getWeeklyStats(items);
-//     const { goalCount } = this.state;
-
-//     return max(
-//       map(results, stats => {
-//         return stats.count;
-//       }).concat([goalCount])
-//     );
-//   };

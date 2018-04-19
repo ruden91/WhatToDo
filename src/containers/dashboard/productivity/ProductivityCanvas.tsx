@@ -13,18 +13,16 @@ export default class ProductivityCanvas extends React.Component<
   }
 
   drawCanvas = (): void => {
-    // const { dailyGoal, maxValue } = this.props;
+    const { dailyGoal, maxValue } = this.props;
 
     const canvas: any = document.querySelector(
       '.wtd-dashboard__productivity-canvas'
     );
 
-    let value = 10;
-    // let value = 220 * (dailyGoal / maxValue * 100) / 100;
+    let value = 220 * (dailyGoal / maxValue * 100) / 100;
 
     if (canvas) {
       let context = canvas.getContext('2d');
-      console.log(context);
       // circle
       context.beginPath();
       context.arc(value, 5, 1.5, 0, Math.PI / 180 * 360, false);
