@@ -13,7 +13,7 @@ import { max, map } from "lodash";
 interface DashboardProps {
   user: any;
   filter: string;
-  items: any;
+  items: any[];
   inboxCount: number;
   todayCount: number;
   daysCount: number;
@@ -21,7 +21,11 @@ interface DashboardProps {
   todayCompletedCount: number;
   changeFilter: ((standard: string) => void);
   weeklyStats: any;
-  moveTodoItem: (dragUniqKey: string, hoverUniqKey: string) => void;
+  moveTodoItem: (
+    dragUniqKey: string,
+    hoverUniqKey: string,
+    targetPosition: string
+  ) => void;
   postponeTodoItem: (item: any) => void;
 }
 interface DashboardState {

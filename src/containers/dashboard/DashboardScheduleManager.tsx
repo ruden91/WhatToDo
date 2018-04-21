@@ -2,9 +2,13 @@ import * as React from "react";
 import TodoItemsContainer from "containers/dashboard/item/TodoItemsContainer";
 import "./DashboardScheduleManager.scss";
 interface Props {
-  items: any;
+  items: any[];
   filter: string;
-  moveTodoItem: (dragUniqKey: string, hoverUniqKey: string) => void;
+  moveTodoItem: (
+    dragUniqKey: string,
+    hoverUniqKey: string,
+    targetPosition: string
+  ) => void;
   postponeTodoItem: (item: any) => void;
 }
 export default class DashboardScheduleManager extends React.Component<Props> {

@@ -4,14 +4,10 @@ import NoMatch from "components/lumber/NoMatch";
 import Intro from "containers/Intro";
 import Dashboard from "containers/Dashboard";
 
-interface FirebaseTodoItemData {}
-
 interface MainProps {
   user: any;
   filter: string;
-  items: {
-    [key: string]: FirebaseTodoItemData;
-  };
+  items: any[];
   inboxCount: number;
   todayCount: number;
   daysCount: number;
@@ -19,7 +15,11 @@ interface MainProps {
   todayCompletedCount: number;
   changeFilter: (standard: string) => void;
   weeklyStats: any;
-  moveTodoItem: (dragUniqKey: string, hoverUniqKey: string) => void;
+  moveTodoItem: (
+    dragUniqKey: string,
+    hoverUniqKey: string,
+    targetPosition: string
+  ) => void;
   postponeTodoItem: (item: any) => void;
 }
 

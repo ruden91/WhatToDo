@@ -4,9 +4,13 @@ import TodoList from "containers/dashboard/item/TodoList";
 import * as moment from "moment";
 import { map } from "lodash";
 interface Props {
-  items: any;
+  items: any[];
   filter: string;
-  moveTodoItem: (dragUniqKey: string, hoverUniqKey: string) => void;
+  moveTodoItem: (
+    dragUniqKey: string,
+    hoverUniqKey: string,
+    targetPosition: string
+  ) => void;
   postponeTodoItem: (item: any) => void;
 }
 interface States {

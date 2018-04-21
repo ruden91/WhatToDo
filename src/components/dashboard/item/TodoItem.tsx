@@ -39,16 +39,16 @@ const itemTarget = {
     const hoverUniqKey = props.uniqueKey;
     const dragTodoListIndex = monitor.getItem().todoListIndex;
     const hoverTodoListIndex = props.todoListIndex;
-
+    let targetPosition;
     // Don't replace items with themselves
     if (
       dragUniqKey === hoverUniqKey ||
-      dragTodoListIndex === hoverTodoListIndex
+      dragTodoListIndex === hoverTodoListIndex ||
+      hoverTodoListIndex === 0
     ) {
       return;
     }
-    console.log(monitor.getItem());
-    console.log(props);
+
     // Determine rectangle on screen
     const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
 
@@ -74,7 +74,14 @@ const itemTarget = {
     if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
       return;
     }
-    props.moveTodoItem(dragUniqKey, hoverUniqKey);
+
+    if (hoverClientY < hoverMiddleY) {
+      targetPosition = "up";
+    }
+    if (hoverClientY > hoverMiddleY) {
+      targetPosition = "down";
+    }
+    props.moveTodoItem(dragUniqKey, hoverUniqKey, targetPosition);
     // // Time to actually perform the action
     // props.moveCard(dragIndex, hoverIndex);
 
@@ -108,7 +115,11 @@ interface Props {
   filter: string;
   onHandleAddTodoItem: (tabIndex: number, index: number) => void;
   onHandleDropContent: () => void;
-  moveTodoItem: (dragUniqKey: string, hoverUniqKey: string) => void;
+  moveTodoItem: (
+    dragUniqKey: string,
+    hoverUniqKey: string,
+    targetPosition: string
+  ) => void;
   postponeTodoItem: (item: any) => void;
 }
 interface States {

@@ -1,12 +1,16 @@
-@import '~styles/common';
+@import "~styles/common";
 .wtd-dashboard-todo-item {
   position: relative;
+  @include m("reorder") {
+    // display: none;
+    // height: 0;
+  }
   &.on-menu-show {
     background-color: #eee;
 
     .wtd-dashboard-todo-item__menu {
       button {
-        opacity: .8;
+        opacity: 0.8;
       }
     }
   }
@@ -34,7 +38,7 @@
       }
     }
   }
-  @include e('side-menu') {
+  @include e("side-menu") {
     z-index: 1;
     position: absolute;
     top: 35px;
@@ -60,7 +64,7 @@
       }
     }
   }
-  @include e('invisible-space') {
+  @include e("invisible-space") {
     position: absolute;
     cursor: move;
     width: 27px;
@@ -73,12 +77,12 @@
     opacity: 0;
   }
 
-  @include e('checker') {
+  @include e("checker") {
     width: 16px;
     padding-top: 14px;
     padding-right: 10px;
   }
-  @include e('check-box') {
+  @include e("check-box") {
     position: relative;
     border: 1px solid #999;
     width: 16px;
@@ -100,14 +104,14 @@
       }
     }
   }
-  @include e('content') {
+  @include e("content") {
     max-width: 500px;
     overflow: hidden;
     cursor: text;
     user-select: text;
     text-align: left;
   }
-  @include e('project-task') {
+  @include e("project-task") {
     vertical-align: top;
     color: #202020;
     font-size: 11px;
@@ -117,7 +121,7 @@
     padding-top: 14px;
     padding-bottom: 12px;
   }
-  @include e('menu') {
+  @include e("menu") {
     padding-top: 15px !important;
     padding-bottom: 8px !important;
     border-bottom: 1px solid transparent !important;

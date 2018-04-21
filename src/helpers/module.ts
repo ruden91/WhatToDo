@@ -1,142 +1,108 @@
-import * as moment from 'moment';
-import 'moment/locale/ko';
-import { filter, assign, size, map } from 'lodash';
+import * as moment from "moment";
+import "moment/locale/ko";
+import { filter, size, map } from "lodash";
 
 /**
  * 아이템 리스트에서 date를 기준으로 완료된 목록의 count를 return해주는 함수
  *
- * @param {Object} items
+ * @param {Array} items
  * @param {number} date
  * @return {number} count
  */
-export const calculateDailyCompletedItems = (
-  items: {}
-): number => {
-  let copiedItems = assign({}, filterCompletedItem(items));
+export const calculateDailyCompletedItems = (items: any[]): number => {
   let filterBy = moment()
-    .add(0, 'days')
-    .format('YYYY-MM-DD');
-  
-  return filter(copiedItems, (item: any) => {
-    if (moment(item.completed_at).format('YYYY-MM-DD') === filterBy) {
-      return item;
-    }
-  }).length;
+    .add(0, "days")
+    .format("YYYY-MM-DD");
+
+  return size(
+    filter(
+      items,
+      (item: any) => moment(item.completed_at).format("YYYY-MM-DD") === filterBy
+    )
+  );
 };
 
 /**
  * 아이템 리스트에서 date를 기준으로 완료되지 않은 목록의 count를 return해주는 함수
  *
- * @param {Object} items
+ * @param {Array} items
  * @param {number} date
  * @return {number} count
  */
-export const calculateItemsCount = (items: {}, date: number): number => {
-  let copiedItems = assign({}, filterNotCompletedItem(items));
+export const calculateItemsCount = (items: any[], date: number): number => {
   let filterBy = moment()
-    .add(date, 'days')
+    .add(date, "days")
     .format();
 
-  return filter(copiedItems, (item: any) => {
-    if (item.due) {
-      if (moment(item.due).format() <= filterBy) {
-        return item;
-      }
-    }
-  }).length;
+  return size(
+    filter(
+      filterNotCompletedItem(items),
+      item => moment(item.due).format() <= filterBy
+    )
+  );
 };
 
 /**
  * 아이템 리스트에서 완료되지 않은 목록만 필터링 해주는 함수
  *
- * @param {Object} items
- * @return {Object} filtered items
+ * @param {Array} items
+ * @return {Array} filtered items
  */
-export const filterNotCompletedItem = (items: {}): Object => {
-  let copiedItems = assign({}, items);
-  let tempObj = {};
-
-  // is_completed 필드가 true인 경우에 임시 object에 저장한다.
-  filter(copiedItems, (item, key) => {
-    if (!item.is_completed) {
-      tempObj[key] = {
-        ...item
-      };
-    }
-    return item;
-  });
-
-  return tempObj;
+export const filterNotCompletedItem = (items: any[]): any[] => {
+  return filter(items, item => !item.is_completed);
 };
 
 /**
  * 완료되지 않은 목록 갯수를 구해주는 함수
  *
- * @param {Object} items
+ * @param {Array} items
  * @return {number} count
  */
-export const calculateNotCompletedItemsCount = (items: {}): number => {
-  let copiedItems = assign({}, items);
-
-  // object length를 구하기 위해 lodash size메소드 사용
-  return size(filterNotCompletedItem(copiedItems));
+export const calculateNotCompletedItemsCount = (items: any[]): number => {
+  return size(filterNotCompletedItem(items));
 };
 
 /**
  * 아이템 리스트에서 완료된 목록만 필터링 해주는 함수
  *
- * @param {Object} items
- * @return {Object} filtered items
+ * @param {Array} items
+ * @return {Array} filtered items
  */
-export const filterCompletedItem = (items: {}): Object => {
-  let copiedItems = assign({}, items);
-  let tempObj = {};
-
-  // is_completed 필드가 true인 경우에 임시 object에 저장한다.
-  filter(copiedItems, (item, key) => {
-    if (item.is_completed) {
-      tempObj[key] = {
-        ...item
-      };
-    }
-    return item;
-  });
-
-  return tempObj;
+export const filterCompletedItem = (items: any[]): any[] => {
+  return filter(items, item => item.is_completed);
 };
 
 /**
  * 완료된 목록 갯수를 구해주는 함수
  *
- * @param {Object} items
+ * @param {Array} items
  * @return {number} count
  */
-export const calculateCompletedItemsCount = (items: {}): number => {
-  let copiedItems = assign({}, items);
-  return size(filterCompletedItem(copiedItems));
+export const calculateCompletedItemsCount = (items: any[]): number => {
+  return size(filterCompletedItem(items));
 };
 
 /**
  * todoItems를 활용해서 주간 데이터 양식을 만들어주는 함수 (최근 5일)
  *
- * @param {Object} items
+ * @param {Array} items
  * @return {Array} weeklyStats
  */
-export const makeWeeklyStats = (items: {}): Object => {
+export const makeWeeklyStats = (items: any[]): Object => {
   let completedItems = filterCompletedItem(items);
   let results: any = [];
   // 지난 7일 dataSet 세팅
   for (let i = 0; i < 7; i++) {
     results.push({
       day: moment()
-        .add(0 - i, 'days')
-        .format('ddd'),
+        .add(0 - i, "days")
+        .format("ddd"),
       count: 0
     });
   }
 
   map(completedItems, (item: any, key) => {
-    let day = moment(item.completed_at).format('ddd');
+    let day = moment(item.completed_at).format("ddd");
     map(results, result => {
       if (result.day === day) {
         result.count++;
@@ -150,18 +116,18 @@ export const makeWeeklyStats = (items: {}): Object => {
 export const filterItemsBySpecificStandard = (
   items: any,
   standard: string
-): Object => {
-  // 완료되지 않은 raw 데이터
-  let copiedItems = assign({}, filterNotCompletedItem(items));
-  if (standard === 'inbox') {
-    return copiedItems;
-  } else if (standard === 'today') {
-    return filterItemsByDate(copiedItems);
-  } else if (standard === 'days') {
-    return filterItemsByDate(copiedItems, 6);
+): any[] => {
+  let filteredItem = filterNotCompletedItem(items);
+
+  if (standard === "inbox") {
+    return filteredItem;
+  } else if (standard === "today") {
+    return filterItemsByDate(filteredItem);
+  } else if (standard === "days") {
+    return filterItemsByDate(filteredItem, 6);
   }
 
-  return copiedItems;
+  return filteredItem;
 };
 
 // // 날짜 기준 데이터 필터링
@@ -230,19 +196,12 @@ export const filterItemsBySpecificStandard = (
 // };
 
 // 특정 날짜 기준 데이터 필터링
-export const filterItemsByDate = (items: any, date: number = 0): Object => {
-  let copiedItems = assign({}, items);
-  let results = {};
+export const filterItemsByDate = (items: any, date: number = 0): any[] => {
   let filterBy = moment()
-    .add(date, 'days')
+    .add(date, "days")
     .format();
 
-  filter(copiedItems, (item, key) => {
-    if (item.due <= filterBy) {
-      results[key] = item;
-    }
-  });
-  return results;
+  return filter(items, item => item.due <= filterBy);
 };
 
 // 프로젝트 기준 데이터 필터링

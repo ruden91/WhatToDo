@@ -24,7 +24,7 @@ function collect(connect: any, monitor: any) {
   };
 }
 interface Props {
-  items: any;
+  items: any[];
   title: string | null;
   date: string;
   realDate: {} | null;
@@ -36,7 +36,11 @@ interface Props {
   todoItemIndex: number;
   connectDropTarget: ReactDnd.ConnectDropTarget;
   isOver: any;
-  moveTodoItem: (dragUniqKey: string, hoverUniqKey: string) => void;
+  moveTodoItem: (
+    dragUniqKey: string,
+    hoverUniqKey: string,
+    targetPosition: string
+  ) => void;
   postponeTodoItem: (item: any) => void;
 }
 
@@ -77,8 +81,8 @@ class TodoList extends React.Component<Props, State> {
         return (
           <AddTodoItem
             onHandleAddTodoItem={onHandleAddTodoItem}
-            key={key}
-            index={key}
+            key={item.uniqueKey}
+            index={item.uniqueKey}
             realDate={realDate}
             item={item}
           />
@@ -87,8 +91,8 @@ class TodoList extends React.Component<Props, State> {
         return (
           <TodoItem
             {...item}
-            key={key}
-            uniqueKey={key}
+            key={item.uniqueKey}
+            uniqueKey={item.uniqueKey}
             index={itemIndex}
             todoListIndex={index}
             onHandleAddTodoItem={onHandleAddTodoItem}
