@@ -1,10 +1,10 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { updateItem, removeItem } from 'database/firebase';
-import './TodoItem.scss';
-import { findDOMNode } from 'react-dom';
-import * as ReactDnd from 'react-dnd';
-import ItemTypes from 'itemTypes/todoTypes';
+import { updateItem, removeItem } from "database/firebase";
+import "./TodoItem.scss";
+import { findDOMNode } from "react-dom";
+import * as ReactDnd from "react-dnd";
+import ItemTypes from "itemTypes/todoTypes";
 
 /**
  * Specifies the drag source contract.
@@ -12,19 +12,20 @@ import ItemTypes from 'itemTypes/todoTypes';
  */
 const itemSource = {
   beginDrag(props: any) {
-    if (props.filter !== 'inbox') {
+    if (props.filter !== "inbox") {
       props.onHandleDropContent();
     }
 
     return {
       uid: props.uniqueKey,
-      index: props.index
+      index: props.index,
+      todoListIndex: props.todoListIndex
     };
   },
   endDrag(props: any, monitor: any) {
     const item = monitor.getItem();
     console.log(item);
-    if (props.filter !== 'inbox') {
+    if (props.filter !== "inbox") {
       props.onHandleDropContent();
     }
   }
@@ -34,12 +35,20 @@ const itemTarget = {
   hover(props: any, monitor: any, component: any) {
     const dragIndex = monitor.getItem().index;
     const hoverIndex = props.index;
+    const dragUniqKey = monitor.getItem().uid;
+    const hoverUniqKey = props.uniqueKey;
+    const dragTodoListIndex = monitor.getItem().todoListIndex;
+    const hoverTodoListIndex = props.todoListIndex;
 
     // Don't replace items with themselves
-    if (dragIndex === hoverIndex) {
+    if (
+      dragUniqKey === hoverUniqKey ||
+      dragTodoListIndex === hoverTodoListIndex
+    ) {
       return;
     }
-
+    console.log(monitor.getItem());
+    console.log(props);
     // Determine rectangle on screen
     const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
 
@@ -65,7 +74,7 @@ const itemTarget = {
     if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
       return;
     }
-    console.log(hoverIndex);
+    props.moveTodoItem(dragUniqKey, hoverUniqKey);
     // // Time to actually perform the action
     // props.moveCard(dragIndex, hoverIndex);
 
@@ -99,6 +108,8 @@ interface Props {
   filter: string;
   onHandleAddTodoItem: (tabIndex: number, index: number) => void;
   onHandleDropContent: () => void;
+  moveTodoItem: (dragUniqKey: string, hoverUniqKey: string) => void;
+  postponeTodoItem: (item: any) => void;
 }
 interface States {
   toggleSideMenu: boolean;
@@ -110,19 +121,19 @@ class TodoItem extends React.Component<Props, States> {
 
   state: States = {
     toggleSideMenu: false
-  }
+  };
 
   handleSideToggleMenu = () => {
-    console.log('handleSideToggleMenu')
+    console.log("handleSideToggleMenu");
     this.setState({
       toggleSideMenu: !this.state.toggleSideMenu
-    })
-  }
+    });
+  };
 
   handleRemoveTodoItem = () => {
     const { uniqueKey } = this.props;
     removeItem(uniqueKey);
-  }
+  };
 
   render() {
     const {
@@ -137,7 +148,12 @@ class TodoItem extends React.Component<Props, States> {
     const opacity = isDragging ? 0.4 : 1;
 
     return connectDragPreview(
-      <li className={`wtd-dashboard-todo-item ${toggleSideMenu ? 'on-menu-show' : ''}`} style={{ opacity }}>
+      <li
+        className={`wtd-dashboard-todo-item ${
+          toggleSideMenu ? "on-menu-show" : ""
+        }`}
+        style={{ opacity }}
+      >
         {connectDragSource(
           <div className="wtd-dashboard-todo-item__invisible-space">
             <i className="fas fa-sort" />
@@ -157,7 +173,9 @@ class TodoItem extends React.Component<Props, States> {
                 </td>
                 <td
                   className="wtd-dashboard-todo-item__content"
-                  onClick={() => this.props.onHandleAddTodoItem(todoListIndex, index)}
+                  onClick={() =>
+                    this.props.onHandleAddTodoItem(todoListIndex, index)
+                  }
                 >
                   <span>{this.props.content}</span>
                 </td>
@@ -171,10 +189,14 @@ class TodoItem extends React.Component<Props, States> {
             </tbody>
           </table>
         )}
-        {toggleSideMenu && 
+        {toggleSideMenu && (
           <ul className="wtd-dashboard-todo-item__side-menu">
             <li>
-              <button onClick={() => this.props.onHandleAddTodoItem(todoListIndex, index)}>
+              <button
+                onClick={() =>
+                  this.props.onHandleAddTodoItem(todoListIndex, index)
+                }
+              >
                 작업 편집
               </button>
             </li>
@@ -182,12 +204,10 @@ class TodoItem extends React.Component<Props, States> {
             <li>프로젝트로 이동</li>
             <li>사본 만들기</li>
             <li>
-              <button onClick={this.handleRemoveTodoItem}>
-                작업 삭제
-              </button>
+              <button onClick={this.handleRemoveTodoItem}>작업 삭제</button>
             </li>
-          </ul>        
-        }        
+          </ul>
+        )}
       </li>
     );
   }

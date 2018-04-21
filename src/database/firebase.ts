@@ -1,7 +1,7 @@
-import * as firebase from 'firebase';
+import * as firebase from "firebase";
 
-import DB_CONFIG from './config';
-import Alert from 'react-s-alert';
+import DB_CONFIG from "./config";
+import Alert from "react-s-alert";
 
 firebase.initializeApp(DB_CONFIG);
 
@@ -29,8 +29,8 @@ export const signInAnonymously = (): void => {
 export const createUserWithEmail = (email: string, password: string): void => {
   auth.createUserWithEmailAndPassword(email, password).catch(function(error) {
     Alert.warning(error.message, {
-      position: 'top',
-      effect: 'scale',
+      position: "top",
+      effect: "scale",
       beep: false,
       timeout: 3000
     });
@@ -40,8 +40,8 @@ export const createUserWithEmail = (email: string, password: string): void => {
 export const signInWithEmail = (email: string, password: string): void => {
   auth.signInWithEmailAndPassword(email, password).catch((error: any): void => {
     Alert.warning(error.message, {
-      position: 'top',
-      effect: 'scale',
+      position: "top",
+      effect: "scale",
       beep: false,
       timeout: 3000
     });
@@ -54,8 +54,8 @@ export const authProvider = (provider: any) => {
     .then(result => {})
     .catch(error => {
       Alert.warning(error.message, {
-        position: 'top',
-        effect: 'scale',
+        position: "top",
+        effect: "scale",
         beep: false,
         timeout: 3000
       });
@@ -200,9 +200,9 @@ export const fetchFirebaseUserData = async (uid: string) => {
 //  * @return {Object} user Data
 //  */
 export const fetchFirebaseUserInfoData = (uid: string) => {
-  let userRef = database.ref('users').child(uid);
+  let userRef = database.ref("users").child(uid);
   return new Promise(resolve => {
-    userRef.on('value', (snap: any) => resolve(snap.val()));
+    userRef.on("value", (snap: any) => resolve(snap.val()));
   });
 };
 
@@ -213,9 +213,9 @@ export const fetchFirebaseUserInfoData = (uid: string) => {
 //  * @return {Object} user items Data
 //  */
 export const fetchFirebaseUserTodoItemsData = (uid: string) => {
-  let userRef = database.ref('items').child(uid);
+  let userRef = database.ref("items").child(uid);
   return new Promise(resolve => {
-    userRef.on('value', (snap: any) => resolve(snap.val()));
+    userRef.on("value", (snap: any) => resolve(snap.val()));
   });
 };
 
@@ -226,16 +226,16 @@ export const fetchFirebaseUserTodoItemsData = (uid: string) => {
 //  * @return {Object} user Data
 //  */
 export const fetchFirebaseUserSettingsData = (uid: string) => {
-  let userRef = database.ref('settings').child(uid);
+  let userRef = database.ref("settings").child(uid);
   return new Promise(resolve => {
-    userRef.on('value', (snap: any) => resolve(snap.val()));
+    userRef.on("value", (snap: any) => resolve(snap.val()));
   });
 };
 
 export const createItem = (content: string, due: any): void => {
   let { uid }: any = auth.currentUser;
   let ItemRef = database
-    .ref('items')
+    .ref("items")
     .child(uid)
     .push();
 
@@ -263,36 +263,52 @@ export const createItem = (content: string, due: any): void => {
 
 export const removeItem = (uniqueKey: string): void => {
   let { uid }: any = auth.currentUser;
-  
+
   database
-    .ref('items')
+    .ref("items")
     .child(uid)
     .child(uniqueKey)
     .remove();
-}
+};
 
-export const updateItemContent = (uniqueKey: string, content: string, due: any): void => {
+export const updateItemContent = (
+  uniqueKey: string,
+  content: string,
+  due: any
+): void => {
   let { uid }: any = auth.currentUser;
-  
+
   database
-    .ref('items')
+    .ref("items")
     .child(uid)
     .child(uniqueKey)
     .update({
       content,
       due
     });
-}
+};
 
 export const updateItem = (uniqueKey: string): void => {
   let { uid }: any = auth.currentUser;
 
   database
-    .ref('items')
+    .ref("items")
     .child(uid)
     .child(uniqueKey)
     .update({
       is_completed: true,
       completed_at: new Date().getTime()
+    });
+};
+
+export const postponeTodoItemData = (uniqueKey: string, due: string): void => {
+  let { uid }: any = auth.currentUser;
+
+  database
+    .ref("items")
+    .child(uid)
+    .child(uniqueKey)
+    .update({
+      due
     });
 };

@@ -1,15 +1,15 @@
-import * as React from 'react';
+import * as React from "react";
 // import { signOut } from 'database/firebase';
-import DashboardHeader from 'components/dashboard/DashboardHeader';
-import DashboardAsideMenu from 'components/dashboard/DashboardAsideMenu';
-import DashboardCollapseMenu from 'containers/dashboard/DashboardCollapseMenu';
-import DashboardScheduleManager from 'containers/dashboard/DashboardScheduleManager';
-import Productivity from 'components/dashboard/productivity/Productivity';
-import Settings from 'components/dashboard/Settings';
+import DashboardHeader from "components/dashboard/DashboardHeader";
+import DashboardAsideMenu from "components/dashboard/DashboardAsideMenu";
+import DashboardCollapseMenu from "containers/dashboard/DashboardCollapseMenu";
+import DashboardScheduleManager from "containers/dashboard/DashboardScheduleManager";
+import Productivity from "components/dashboard/productivity/Productivity";
+import Settings from "components/dashboard/Settings";
 
-import * as ReactModal from 'react-modal';
-import './Dashboard.scss';
-import { max, map } from 'lodash';
+import * as ReactModal from "react-modal";
+import "./Dashboard.scss";
+import { max, map } from "lodash";
 interface DashboardProps {
   user: any;
   filter: string;
@@ -21,6 +21,8 @@ interface DashboardProps {
   todayCompletedCount: number;
   changeFilter: ((standard: string) => void);
   weeklyStats: any;
+  moveTodoItem: (dragUniqKey: string, hoverUniqKey: string) => void;
+  postponeTodoItem: (item: any) => void;
 }
 interface DashboardState {
   toggleDashboardModal: boolean;
@@ -36,7 +38,7 @@ export default class Dashboard extends React.Component<
 
   state: DashboardState = {
     toggleDashboardModal: false,
-    modalTarget: '',
+    modalTarget: ""
   };
 
   // dashboard modal open event
@@ -51,7 +53,7 @@ export default class Dashboard extends React.Component<
 
   // dashboard modal close event
   public closeDashboardModal = (e: any): void => {
-    this.setState({ toggleDashboardModal: false, modalTarget: '' });
+    this.setState({ toggleDashboardModal: false, modalTarget: "" });
   };
 
   // header modal component 조건처리를 위한 함수
@@ -60,9 +62,9 @@ export default class Dashboard extends React.Component<
     const { modalTarget } = this.state;
     const { completedCount, todayCompletedCount, weeklyStats } = this.props;
     const { daily_goal } = this.props.user;
-    
+
     switch (modalTarget) {
-      case 'productivity':
+      case "productivity":
         return (
           <Productivity
             completedCount={completedCount}
@@ -73,17 +75,16 @@ export default class Dashboard extends React.Component<
             closeDashboardModal={this.closeDashboardModal}
           />
         );
-      case 'setting':
+      case "setting":
         return <Settings />;
-      case 'notice':
+      case "notice":
         return <div>notice</div>;
     }
   };
-  
-  calculateMaxValue = ():number => {
 
+  calculateMaxValue = (): number => {
     return max(
-      map(this.props.weeklyStats, (stats:any):any => {
+      map(this.props.weeklyStats, (stats: any): any => {
         return stats.count;
       }).concat([this.props.user.daily_goal])
     );
@@ -92,16 +93,16 @@ export default class Dashboard extends React.Component<
   render() {
     const { toggleDashboardModal } = this.state;
     const customStyles = {
-      overlay: { zIndex: 2, backgroundColor: 'transparent' },
+      overlay: { zIndex: 2, backgroundColor: "transparent" },
       content: {
-        position: 'absolute',
-        top: '43px',
-        left: 'auto',
-        transform: 'translateX(155%)',
-        right: '50%',
-        bottom: 'auto',
+        position: "absolute",
+        top: "43px",
+        left: "auto",
+        transform: "translateX(155%)",
+        right: "50%",
+        bottom: "auto",
         padding: 0,
-        width: '300px'
+        width: "300px"
       }
     };
 

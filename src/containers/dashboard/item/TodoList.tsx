@@ -1,14 +1,15 @@
-import * as React from 'react';
-import * as ReactDnd from 'react-dnd';
-import ItemTypes from 'itemTypes/todoTypes';
-import TodoItem from 'components/dashboard/item/TodoItem';
-import AddTodoItem from 'containers/dashboard/item/AddTodoItem';
-import { map } from 'lodash';
-import './TodoList.scss';
+import * as React from "react";
+import * as ReactDnd from "react-dnd";
+import ItemTypes from "itemTypes/todoTypes";
+import TodoItem from "components/dashboard/item/TodoItem";
+import AddTodoItem from "containers/dashboard/item/AddTodoItem";
+import { map } from "lodash";
+import "./TodoList.scss";
 // import * as moment from 'moment';
 
 const itemTarget = {
-  drop(props: any) {
+  drop(props: any, monitor: any, component: any) {
+    props.postponeTodoItem(monitor.getItem());
     return {};
   }
 };
@@ -35,6 +36,8 @@ interface Props {
   todoItemIndex: number;
   connectDropTarget: ReactDnd.ConnectDropTarget;
   isOver: any;
+  moveTodoItem: (dragUniqKey: string, hoverUniqKey: string) => void;
+  postponeTodoItem: (item: any) => void;
 }
 
 interface State {
@@ -72,11 +75,11 @@ class TodoList extends React.Component<Props, State> {
       itemIndex++;
       if (itemIndex === todoItemIndex && index === todoListIndex) {
         return (
-          <AddTodoItem 
-            onHandleAddTodoItem={onHandleAddTodoItem} 
+          <AddTodoItem
+            onHandleAddTodoItem={onHandleAddTodoItem}
             key={key}
-            index={key} 
-            realDate={realDate} 
+            index={key}
+            realDate={realDate}
             item={item}
           />
         );
@@ -90,6 +93,8 @@ class TodoList extends React.Component<Props, State> {
             todoListIndex={index}
             onHandleAddTodoItem={onHandleAddTodoItem}
             onHandleDropContent={this.handleDropContent}
+            moveTodoItem={this.props.moveTodoItem}
+            postponeTodoItem={this.props.postponeTodoItem}
             filter={filter}
           />
         );
@@ -112,8 +117,9 @@ class TodoList extends React.Component<Props, State> {
     } = this.props;
 
     const { toggleDropContext } = this.state;
-    const isActive = isOver;``
-    const activedClass = isActive ? 'is-active' : '';
+    const isActive = isOver;
+    ``;
+    const activedClass = isActive ? "is-active" : "";
     return (
       <div className="wtd-dashboard-todo-list">
         {title && (
@@ -128,18 +134,26 @@ class TodoList extends React.Component<Props, State> {
         {showButton &&
           (!(todoListIndex === index) || todoItemIndex !== -1) && (
             <div className="wtd-dashboard-todo-list__add-task">
-              <a href="javascript:;" onClick={() => onHandleAddTodoItem(index, -1)}>
+              <a
+                href="javascript:;"
+                onClick={() => onHandleAddTodoItem(index, -1)}
+              >
                 <span />작업 추가
               </a>
             </div>
           )}
         {todoListIndex === index &&
           todoItemIndex === -1 && (
-            <AddTodoItem onHandleAddTodoItem={onHandleAddTodoItem} realDate={realDate} />
+            <AddTodoItem
+              onHandleAddTodoItem={onHandleAddTodoItem}
+              realDate={realDate}
+            />
           )}
         {toggleDropContext &&
           connectDropTarget(
-            <div className={`wtd-dashboard-todo-list__drop-content ${activedClass}`}>
+            <div
+              className={`wtd-dashboard-todo-list__drop-content ${activedClass}`}
+            >
               <p>
                 드롭하여 연기: <span>다음날로 연기</span>
               </p>
@@ -150,4 +164,6 @@ class TodoList extends React.Component<Props, State> {
   }
 }
 
-export default ReactDnd.DropTarget(ItemTypes.TODOITEM, itemTarget, collect)(TodoList);
+export default ReactDnd.DropTarget(ItemTypes.TODOITEM, itemTarget, collect)(
+  TodoList
+);

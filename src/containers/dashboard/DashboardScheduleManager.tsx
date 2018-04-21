@@ -1,9 +1,11 @@
-import * as React from 'react';
-import TodoItemsContainer from 'containers/dashboard/item/TodoItemsContainer';
-import './DashboardScheduleManager.scss';
+import * as React from "react";
+import TodoItemsContainer from "containers/dashboard/item/TodoItemsContainer";
+import "./DashboardScheduleManager.scss";
 interface Props {
   items: any;
   filter: string;
+  moveTodoItem: (dragUniqKey: string, hoverUniqKey: string) => void;
+  postponeTodoItem: (item: any) => void;
 }
 export default class DashboardScheduleManager extends React.Component<Props> {
   constructor(props: Props) {
@@ -12,13 +14,13 @@ export default class DashboardScheduleManager extends React.Component<Props> {
 
   setDynamicTitle = () => {
     const { filter } = this.props;
-    let title = '';
-    if (filter === 'inbox') {
-      title = 'Inbox';
-    } else if (filter === 'today') {
-      title = '오늘';
-    } else if (filter === 'days') {
-      title = '다음 7일';
+    let title = "";
+    if (filter === "inbox") {
+      title = "Inbox";
+    } else if (filter === "today") {
+      title = "오늘";
+    } else if (filter === "days") {
+      title = "다음 7일";
     }
 
     return title;

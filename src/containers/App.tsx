@@ -1,11 +1,11 @@
-import * as React from 'react';
-import Main from 'components/router/Main';
-import MainLoading from 'components/MainLoading';
-import { withRouter } from 'react-router-dom';
-import * as ReactDnd from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
-import { database, auth } from 'database/firebase';
-import Alert from 'react-s-alert';
+import * as React from "react";
+import Main from "components/router/Main";
+import MainLoading from "components/MainLoading";
+import { withRouter } from "react-router-dom";
+import * as ReactDnd from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
+import { database, auth, postponeTodoItemData } from "database/firebase";
+import Alert from "react-s-alert";
 import {
   calculateNotCompletedItemsCount,
   calculateCompletedItemsCount,
@@ -13,7 +13,9 @@ import {
   calculateDailyCompletedItems,
   makeWeeklyStats,
   filterItemsBySpecificStandard
-} from 'helpers/module';
+} from "helpers/module";
+
+import * as moment from "moment";
 interface FirebaseUserData {
   uid: string;
 }
@@ -63,7 +65,7 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
     completedCount: 0,
     todayCompletedCount: 0,
     weeklyStats: [],
-    filter: 'today'
+    filter: "today"
   };
 
   public changeFilter = (standard: string) => {
@@ -75,22 +77,35 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
     });
   };
 
+  public postponeTodoItem = (item: any): void => {
+    let due = moment(this.state.items[item.uid].due)
+      .add("days", 1)
+      .format("YYYY-MM-DD");
+
+    postponeTodoItemData(item.uid, due);
+  };
+
+  public moveTodoItem = (dragUniqKey: string, hoverUniqKey: string): void => {
+    console.log(dragUniqKey);
+    console.log(hoverUniqKey);
+  };
+
   componentDidMount() {
     // const { user } = this.state;
     // 사용자 인증 체크
     auth.onAuthStateChanged((currentUser: FirebaseUserData | null): void => {
       if (currentUser) {
-        let userRef = database.ref('users').child(currentUser.uid);
-        let itemRef = database.ref('items').child(currentUser.uid);
+        let userRef = database.ref("users").child(currentUser.uid);
+        let itemRef = database.ref("items").child(currentUser.uid);
 
-        userRef.on('value', (snap: any) => {
+        userRef.on("value", (snap: any) => {
           console.log(snap.val());
           this.setState({
-            user: snap.val()
+            user: { ...snap.val(), daily_goal: 10 }
           });
         });
 
-        itemRef.on('value', (snap: any) => {
+        itemRef.on("value", (snap: any) => {
           const { filter } = this.state;
           this.setState({
             initialItems: snap.val(),
@@ -104,9 +119,9 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
             loading: false
           });
         });
-        this.props.history.push('/dashboard');
+        this.props.history.push("/dashboard");
       } else {
-        this.props.history.push('/');
+        this.props.history.push("/");
         this.setState({
           loading: false
         });
@@ -118,7 +133,16 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
     const { loading } = this.state;
     return (
       <div className="wtd">
-        {loading ? <MainLoading /> : <Main {...this.state} changeFilter={this.changeFilter} />}
+        {loading ? (
+          <MainLoading />
+        ) : (
+          <Main
+            {...this.state}
+            changeFilter={this.changeFilter}
+            moveTodoItem={this.moveTodoItem}
+            postponeTodoItem={this.postponeTodoItem}
+          />
+        )}
         <Alert stack={{ limit: 3 }} />
       </div>
     );
