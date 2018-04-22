@@ -1,6 +1,6 @@
-@import '~styles/common';
+@import "~styles/common";
 .wtd-dashboard-header {
-  @include e('setting-panels') {
+  @include e("setting-panels") {
     width: 100%;
     td {
       cursor: pointer;
@@ -27,5 +27,114 @@
         }
       }
     }
+  }
+}
+
+.wtd-settings {
+  @include e("panel") {
+  }
+  @include e("header") {
+    position: fixed;
+    width: 100%;
+    line-height: 44px;
+    height: 44px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    z-index: 3;
+  }
+  @include e("left-section") {
+    float: left;
+    padding-left: 2.8em;
+    width: 250px;
+    h1 {
+      font-size: 20px;
+      color: #000;
+    }
+  }
+  @include e("right-section") {
+    float: right;
+    text-align: right;
+
+    a {
+      position: relative;
+      text-align: center;
+      display: inline-block;
+      color: #aaa;
+      margin-right: 45px;
+      span {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        position: relative;
+        vertical-align: middle;
+        top: -2px;
+        margin-left: 5px;
+        @include close-button;
+
+        &:before,
+        &:after {
+          opacity: 1;
+          background-color: #aaa;
+        }
+      }
+    }
+  }
+  @include e("left-side-content") {
+    float: left;
+    width: 260px;
+    padding-top: 80px;
+  }
+  @include e("right-side-content") {
+    float: left;
+    width: calc(100% - 260px);
+    padding: 80px 25px 12px 45px;
+    background-color: #fff;
+    min-height: 100vh;
+    height: 100%;
+    border-left: 1px solid #f1f1f1;
+    border-right: 1px solid #f1f1f1;
+    position: relative;
+    z-index: 1;
+  }
+  @include e("panel") {
+    min-height: 22px;
+    font-size: 14px;
+    color: #333;
+    list-style: none;
+    cursor: pointer;
+    padding: 9px 0;
+    transition: color 0.1s ease-in, background-color 0.1s ease-in;
+    line-height: 1.25;
+
+    &:hover {
+      background-color: #fff;
+    }
+
+    span {
+      display: inline-block;
+    }
+    small {
+      display: inline-block;
+      margin-left: 4px;
+      color: #aaa;
+      font-size: 11px;
+    }
+    &.current {
+      background-color: #fff;
+      font-weight: bold;
+
+      small {
+        color: $mainColor;
+      }
+    }
+  }
+  @include e("panel-icon") {
+    color: $defaultFontColor;
+    font-size: 20px;
+    width: 25px;
+    padding-left: 8px;
+  }
+  @include e("panel-title") {
+    padding-left: 20px;
   }
 }
