@@ -8,6 +8,7 @@ import { createProjectItem } from "database/firebase";
 interface Props {
   changeFilter: ((standard: string, index?: number) => void);
   projects: any[];
+  filter: string;
 }
 export default class DashboardCollapseMenu extends React.Component<Props> {
   constructor(props: Props) {
@@ -20,11 +21,12 @@ export default class DashboardCollapseMenu extends React.Component<Props> {
   };
 
   mapToProjectComponent = () => {
-    const { projects } = this.props;
+    const { projects, filter } = this.props;
     return projects.map((project, index) => {
+      let isActive = project.name === filter ? "is-active" : "";
       return (
         <li
-          className="wtd-dashboard-collapse__project-panel"
+          className={`wtd-dashboard-collapse__project-panel ${isActive}`}
           onClick={() => this.props.changeFilter("project", index)}
         >
           <table>

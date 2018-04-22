@@ -1,6 +1,10 @@
 @import "~styles/common";
 .wtd-dashboard-collapse {
   @include e("project-panel") {
+    &.is-active {
+      background-color: #fff;
+      font-weight: bold;
+    }
     table {
       width: 100%;
       cursor: pointer;
@@ -90,6 +94,7 @@
     color: #666;
     padding: 0 16px;
     > .rc-collapse-content-box {
+      margin-top: 10px;
       margin-bottom: 16px;
     }
   }

@@ -1,9 +1,9 @@
-@import '~styles/common';
+@import "~styles/common";
 .add-todo-item {
   position: relative;
   margin-top: 10px;
   margin-bottom: 10px;
-  @include e('input-actions') {
+  @include e("input-actions") {
     width: 100%;
     border: 1px solid #ddd;
     border-radius: 3px;
@@ -26,10 +26,10 @@
     }
   }
 
-  @include e('actions') {
+  @include e("actions") {
   }
 
-  @include e('add-item') {
+  @include e("add-item") {
     font-size: 13px;
     line-height: 17px;
     padding: 6px 12px 7px 12px;
@@ -50,7 +50,7 @@
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
     }
   }
-  @include e('cancel-item') {
+  @include e("cancel-item") {
     color: #555;
     cursor: pointer;
     font-size: 13px;
@@ -61,7 +61,7 @@
       text-decoration: underline;
     }
   }
-  @include e('calendar') {
+  @include e("calendar") {
     position: absolute;
     right: 0;
     top: 40px;
@@ -70,5 +70,46 @@
     .Cal__Day__selection {
       background-color: $mainColor !important;
     }
+  }
+
+  @include e("hash-items") {
+    cursor: pointer;
+    top: 38px;
+    width: 481px;
+    max-height: 30vh;
+    overflow-y: scroll;
+    background-color: #fff;
+    position: absolute;
+    padding: 0;
+    z-index: 1000;
+    overflow: auto;
+    overflow-x: hidden;
+    color: #202020;
+    border-top: 0;
+    font-size: 13px;
+    text-align: left;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+  @include e("hash-item") {
+    padding: 12px 10px;
+    border-bottom: 1px solid #ddd;
+    min-height: 20px;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: #eee;
+    }
+  }
+  @include e("hash-items-color") {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border-radius: 50%;
+    background-color: #009ac8;
+    margin-right: 8px;
+  }
+  @include e("hash-items-name") {
+    display: inline-block;
   }
 }

@@ -57,7 +57,7 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
   constructor(props: any) {
     super(props);
   }
-  state = {
+  state: AppState = {
     projects: [],
     loading: true,
     user: null,
@@ -73,9 +73,13 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
   };
 
   public changeFilter = (standard: string, index?: number) => {
-    console.log(standard);
-    console.log(index);
     const { initialItems } = this.state;
+
+    if (standard === "project") {
+      if (typeof index !== "undefined") {
+        standard = this.state.projects[index].name;
+      }
+    }
 
     this.setState({
       items: filterItemsBySpecificStandard(initialItems, standard),
