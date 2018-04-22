@@ -1,13 +1,98 @@
-import * as React from 'react';
-import Collapse from 'rc-collapse';
+import * as React from "react";
+import Collapse from "rc-collapse";
 
-import './DashboardCollapseMenu.scss';
+import "./DashboardCollapseMenu.scss";
+import AddSidePanelItem from "components/dashboard/AddSidePanelItem";
+import { themes } from "api/settings";
+import { createProjectItem } from "database/firebase";
+interface Props {
+  changeFilter: ((standard: string, index?: number) => void);
+  projects: any[];
+}
+export default class DashboardCollapseMenu extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
+  }
 
-interface DashboardCollapseMenuProps {}
-export default class DashboardCollapseMenu extends React.Component<
-  DashboardCollapseMenuProps
-> {
+  state = {
+    toggleAddSidePanelItem: false,
+    content: ""
+  };
+
+  mapToProjectComponent = () => {
+    const { projects } = this.props;
+    return projects.map((project, index) => {
+      return (
+        <li
+          className="wtd-dashboard-collapse__project-panel"
+          onClick={() => this.props.changeFilter("project", index)}
+        >
+          <table>
+            <tbody>
+              <tr>
+                <td className="color">
+                  <div
+                    style={{
+                      backgroundColor: themes[project.colorIndex].color
+                    }}
+                  />
+                </td>
+                <td />
+                <td className="name">
+                  <span>{project.name}</span>
+                  <span>1</span>
+                </td>
+                <td className="menu" />
+              </tr>
+            </tbody>
+          </table>
+        </li>
+      );
+    });
+  };
+
+  submitSidePanel = (e: any) => {
+    e.preventDefault();
+    const refinedProjectItems = this.refineProjectItems(
+      this.props.projects,
+      this.state.content
+    );
+
+    createProjectItem(refinedProjectItems);
+    this.handleAddSidePanelButton();
+  };
+
+  refineProjectItems = (
+    items: any[],
+    content: string,
+    colorIndex: number = 0
+  ) => {
+    let tempData = items;
+
+    tempData.push({
+      name: content,
+      colorIndex,
+      filter: tempData.length
+    });
+
+    return tempData;
+  };
+
+  handleAddSidePanelButton = () => {
+    this.setState({
+      toggleAddSidePanelItem: !this.state.toggleAddSidePanelItem,
+      content: ""
+    });
+  };
+
+  handleSidePanelContent = (e: any) => {
+    this.setState({
+      content: e.target.value
+    });
+  };
+
   render() {
+    const { toggleAddSidePanelItem } = this.state;
     let Panel = Collapse.Panel;
 
     return (
@@ -17,13 +102,25 @@ export default class DashboardCollapseMenu extends React.Component<
           className="wtd-dashboard-collapse__panel"
           headerClass="wtd-dashboard-collapse__header"
         >
-          <ul>
-            <li>쇼핑</li>
-            <li>일</li>
-            <li>심부름</li>
-            <li>개인</li>
-            <li>가즈아</li>
-          </ul>
+          <ul>{this.mapToProjectComponent()}</ul>
+          {!toggleAddSidePanelItem && (
+            <AddSidePanelItem
+              onHandleAddSidePanelButton={this.handleAddSidePanelButton}
+            />
+          )}
+          {toggleAddSidePanelItem && (
+            <form onSubmit={this.submitSidePanel}>
+              <div>
+                <input
+                  type="text"
+                  value={this.state.content}
+                  onChange={this.handleSidePanelContent}
+                />
+                <button type="submit">프로젝트 추가</button>
+                <a onClick={this.handleAddSidePanelButton}>취소</a>
+              </div>
+            </form>
+          )}
         </Panel>
         <Panel
           header="라벨"

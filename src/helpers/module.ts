@@ -125,9 +125,11 @@ export const filterItemsBySpecificStandard = (
     return filterItemsByDate(filteredItem);
   } else if (standard === "days") {
     return filterItemsByDate(filteredItem, 6);
+  } else if (standard === "shopping") {
+    return filterItemsByProject(filteredItem, standard);
+  } else {
+    return [];
   }
-
-  return filteredItem;
 };
 
 // // 날짜 기준 데이터 필터링
@@ -205,7 +207,9 @@ export const filterItemsByDate = (items: any, date: number = 0): any[] => {
 };
 
 // 프로젝트 기준 데이터 필터링
-export const filterItemsByProject = () => {};
+export const filterItemsByProject = (items: any[], standard: string) => {
+  return filter(items, item => item.project === standard);
+};
 
 // 라벨 기준 데이터 필터링
 export const filterItemsByLabel = () => {};

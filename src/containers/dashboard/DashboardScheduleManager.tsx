@@ -25,6 +25,14 @@ export default class DashboardScheduleManager extends React.Component<Props> {
       title = "오늘";
     } else if (filter === "days") {
       title = "다음 7일";
+    } else if (filter === "shopping") {
+      title = "쇼핑";
+    } else if (filter === "errand") {
+      title = "심부름";
+    } else if (filter === "work") {
+      title = "일";
+    } else if (filter === "private") {
+      title = "개인";
     }
 
     return title;

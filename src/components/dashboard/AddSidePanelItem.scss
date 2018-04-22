@@ -1,0 +1,32 @@
+@import "~styles/common";
+.wtd-dashboard-add-side-panel-item {
+  @include e("add-task") {
+    display: block;
+    height: 3em;
+    line-height: 3em;
+    padding: 1px;
+    color: #dd4b39;
+    font-size: 14px;
+    span {
+      position: relative;
+      display: inline-block;
+      width: 11px;
+      height: 14px;
+      font-size: 11px;
+      margin-right: 15px;
+      margin-top: -2px;
+      text-decoration: none !important;
+      border: 0;
+      &:before {
+        content: "+";
+        position: absolute;
+        font-size: 23px;
+        line-height: 18px;
+        top: 0;
+      }
+    }
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

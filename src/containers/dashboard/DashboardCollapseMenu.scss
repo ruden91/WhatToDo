@@ -1,6 +1,35 @@
-@import '~styles/common';
+@import "~styles/common";
 .wtd-dashboard-collapse {
-  @include e('header') {
+  @include e("project-panel") {
+    table {
+      width: 100%;
+      cursor: pointer;
+      td {
+        text-align: left;
+        vertical-align: middle;
+        padding: 10px 0 10px 4px;
+        display: inline-block;
+        &.color {
+          margin-right: 5px;
+          div {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            font-size: 16px;
+            background-color: rgb(116, 232, 211);
+            border: 1px solid #f3f3f3;
+          }
+        }
+        &.name {
+          font-size: 14px;
+          color: #333;
+          padding-left: 0;
+        }
+      }
+    }
+  }
+  @include e("header") {
     transition: margin 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     border-bottom: 1px solid #f1f1f1;
     position: relative;
@@ -14,7 +43,7 @@
     margin: 0;
     .arrow {
       display: inline-block;
-      content: '\20';
+      content: "\20";
       width: 0;
       height: 0;
       font-size: 0;
@@ -30,9 +59,12 @@
       background-color: #f7f7f7;
     }
   }
-  @include e('panel') {
+  @include e("panel") {
   }
 
+  .rc-collapse-header {
+    outline: none;
+  }
   > .rc-collapse-item-disabled {
     > .rc-collapse-header {
       cursor: not-allowed;
@@ -58,7 +90,6 @@
     color: #666;
     padding: 0 16px;
     > .rc-collapse-content-box {
-      margin-top: 16px;
       margin-bottom: 16px;
     }
   }

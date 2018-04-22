@@ -4,7 +4,12 @@ import MainLoading from "components/MainLoading";
 import { withRouter } from "react-router-dom";
 import * as ReactDnd from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
-import { database, auth, postponeTodoItemData } from "database/firebase";
+import {
+  database,
+  auth,
+  postponeTodoItemData,
+  initProjectItems
+} from "database/firebase";
 
 import Alert from "react-s-alert";
 import {
@@ -39,6 +44,7 @@ interface AppState {
   user: any;
   items: any[];
   initialItems: any[];
+  projects: any[];
   inboxCount: number;
   todayCount: number;
   daysCount: number;
@@ -52,6 +58,7 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
     super(props);
   }
   state = {
+    projects: [],
     loading: true,
     user: null,
     items: [],
@@ -65,7 +72,9 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
     filter: "today"
   };
 
-  public changeFilter = (standard: string) => {
+  public changeFilter = (standard: string, index?: number) => {
+    console.log(standard);
+    console.log(index);
     const { initialItems } = this.state;
 
     this.setState({
@@ -124,12 +133,22 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
       if (currentUser) {
         let userRef = database.ref("users").child(currentUser.uid);
         let itemRef = database.ref("items").child(currentUser.uid);
+        let projectRef = database.ref("projects").child(currentUser.uid);
 
         userRef.on("value", (snap: any) => {
-          console.log(snap.val());
           this.setState({
             user: { ...snap.val(), daily_goal: 10 }
           });
+        });
+
+        projectRef.on("value", (snap: any) => {
+          if (!snap.val()) {
+            initProjectItems();
+          } else {
+            this.setState({
+              projects: snap.val()
+            });
+          }
         });
 
         itemRef.on("value", (snap: any) => {

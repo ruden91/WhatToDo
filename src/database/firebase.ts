@@ -257,7 +257,8 @@ export const createItem = (content: string, due: any): void => {
     all_notes_fetched: true,
     project_id: null,
     day_order: -1,
-    is_deleted: 0
+    is_deleted: 0,
+    project: "shopping"
   });
 };
 
@@ -311,4 +312,40 @@ export const postponeTodoItemData = (uniqueKey: string, due: string): void => {
     .update({
       due
     });
+};
+
+export const createProjectItem = (items: any[]) => {
+  let { uid }: any = auth.currentUser;
+  let projectRef = database.ref("projects").child(uid);
+
+  projectRef.set(items);
+};
+
+////////////// 초기데이터 설정 ////////////////////////////////
+export const initProjectItems = () => {
+  let { uid }: any = auth.currentUser;
+  let projectRef = database.ref("projects").child(uid);
+
+  projectRef.set([
+    {
+      name: "쇼핑",
+      filterIndex: 0,
+      colorIndex: 0
+    },
+    {
+      name: "심부름",
+      filterIndex: 1,
+      colorIndex: 1
+    },
+    {
+      name: "일",
+      filterIndex: 2,
+      colorIndex: 2
+    },
+    {
+      name: "개인",
+      filterIndex: 3,
+      colorIndex: 3
+    }
+  ]);
 };

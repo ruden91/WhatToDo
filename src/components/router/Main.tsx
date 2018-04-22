@@ -8,6 +8,7 @@ interface MainProps {
   user: any;
   filter: string;
   items: any[];
+  projects: any[];
   inboxCount: number;
   todayCount: number;
   daysCount: number;

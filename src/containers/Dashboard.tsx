@@ -14,6 +14,7 @@ interface DashboardProps {
   user: any;
   filter: string;
   items: any[];
+  projects: any[];
   inboxCount: number;
   todayCount: number;
   daysCount: number;
@@ -119,7 +120,7 @@ export default class Dashboard extends React.Component<
         <div className="wtd-container wtd-container--dashboard">
           <div className="wtd-dashboard__left-side-content">
             <DashboardAsideMenu {...this.props} />
-            <DashboardCollapseMenu />
+            <DashboardCollapseMenu {...this.props} />
           </div>
           <div className="wtd-dashboard__right-side-content">
             <DashboardScheduleManager {...this.props} />

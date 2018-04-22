@@ -51,7 +51,15 @@ export default class TodoItemsContainer extends React.Component<Props, States> {
       ];
     } else if (filter === "days") {
       result = this.sortByDate(items, 7);
+    } else {
+      result = [
+        {
+          items,
+          showButton: true
+        }
+      ];
     }
+
     return result.map((item: any, index: number) => (
       <TodoList
         items={item.items}
