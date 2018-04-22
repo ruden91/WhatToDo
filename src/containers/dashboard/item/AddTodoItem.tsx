@@ -6,12 +6,15 @@ import * as moment from "moment";
 import "moment/locale/ko";
 import "./AddTodoItem.scss";
 import ContentEditable from "react-contenteditable";
+import { find } from "lodash";
 
 interface Props {
   onHandleAddTodoItem: (tabIndex: number, index: number) => void;
   realDate: {} | null;
   item?: any;
   index?: string;
+  filter: string;
+  projects: any[];
 }
 interface State {
   content: string;
@@ -36,7 +39,6 @@ export default class AddTodoItem extends React.Component<Props, State> {
   handleHashCode = (e: any): void => {
     // keycode hash
     if (e.which === 35) {
-      console.log(this.state.content);
       this.setState({
         toggleHashItems: true
       });
@@ -76,8 +78,12 @@ export default class AddTodoItem extends React.Component<Props, State> {
   handleAddTodoForm = (e: any): void => {
     e.preventDefault();
     const { content, selectDate } = this.state;
-    const { item, index, onHandleAddTodoItem } = this.props;
+    const { item, projects, filter, index, onHandleAddTodoItem } = this.props;
     const refinedSelectDate = moment(selectDate).format("YYYY-MM-DD");
+
+    const projectIndex = find(projects, { name: filter })
+      ? find(projects, { name: filter }).filterIndex
+      : null;
 
     if (content === "") {
       return;
@@ -86,7 +92,8 @@ export default class AddTodoItem extends React.Component<Props, State> {
       updateItemContent(index, content, refinedSelectDate);
       onHandleAddTodoItem(-1, -1);
     } else {
-      createItem(content, refinedSelectDate);
+      console.log(this.props);
+      createItem(content, refinedSelectDate, projectIndex);
 
       this.setState({
         content: ""

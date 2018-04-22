@@ -115,7 +115,8 @@ export const makeWeeklyStats = (items: any[]): Object => {
 
 export const filterItemsBySpecificStandard = (
   items: any,
-  standard: string
+  standard: string,
+  index?: number
 ): any[] => {
   let filteredItem = filterNotCompletedItem(items);
 
@@ -125,10 +126,8 @@ export const filterItemsBySpecificStandard = (
     return filterItemsByDate(filteredItem);
   } else if (standard === "days") {
     return filterItemsByDate(filteredItem, 6);
-  } else if (standard === "shopping") {
-    return filterItemsByProject(filteredItem, standard);
   } else {
-    return [];
+    return filterItemsByProject(filteredItem, index);
   }
 };
 
@@ -207,8 +206,10 @@ export const filterItemsByDate = (items: any, date: number = 0): any[] => {
 };
 
 // 프로젝트 기준 데이터 필터링
-export const filterItemsByProject = (items: any[], standard: string) => {
-  return filter(items, item => item.project === standard);
+export const filterItemsByProject = (items: any[], index?: number) => {
+  console.log(items);
+  console.log(index);
+  return filter(items, item => item.project_index === index);
 };
 
 // 라벨 기준 데이터 필터링

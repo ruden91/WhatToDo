@@ -4,6 +4,7 @@ import "./DashboardScheduleManager.scss";
 interface Props {
   items: any[];
   filter: string;
+  projects: any[];
   moveTodoItem: (
     dragUniqKey: string,
     hoverUniqKey: string,

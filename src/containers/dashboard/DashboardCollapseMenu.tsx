@@ -74,7 +74,7 @@ export default class DashboardCollapseMenu extends React.Component<Props> {
     tempData.push({
       name: content,
       colorIndex,
-      filter: tempData.length
+      filterIndex: tempData.length
     });
 
     return tempData;
@@ -111,12 +111,16 @@ export default class DashboardCollapseMenu extends React.Component<Props> {
             />
           )}
           {toggleAddSidePanelItem && (
-            <form onSubmit={this.submitSidePanel}>
+            <form
+              onSubmit={this.submitSidePanel}
+              className="wtd-dashboard-collapse__form"
+            >
               <div>
                 <input
                   type="text"
                   value={this.state.content}
                   onChange={this.handleSidePanelContent}
+                  placeholder="프로젝트를 입력하세요."
                 />
                 <button type="submit">프로젝트 추가</button>
                 <a onClick={this.handleAddSidePanelButton}>취소</a>

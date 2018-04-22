@@ -6,6 +6,7 @@ import { map } from "lodash";
 interface Props {
   items: any[];
   filter: string;
+  projects: any[];
   moveTodoItem: (
     dragUniqKey: string,
     hoverUniqKey: string,
@@ -38,7 +39,7 @@ export default class TodoItemsContainer extends React.Component<Props, States> {
 
   mapToComponent = () => {
     const { todoListIndex, todoItemIndex } = this.state;
-    const { items, filter } = this.props;
+    const { items, filter, projects } = this.props;
     let result = [];
     if (filter === "today") {
       result = this.sortByDate(items, 1);
@@ -75,6 +76,7 @@ export default class TodoItemsContainer extends React.Component<Props, States> {
         todoItemIndex={todoItemIndex}
         realDate={item.realDate}
         filter={filter}
+        projects={projects}
       />
     ));
   };

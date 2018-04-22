@@ -232,7 +232,11 @@ export const fetchFirebaseUserSettingsData = (uid: string) => {
   });
 };
 
-export const createItem = (content: string, due: any): void => {
+export const createItem = (
+  content: string,
+  due: any,
+  projectIndex?: number
+): void => {
   let { uid }: any = auth.currentUser;
   let ItemRef = database
     .ref("items")
@@ -258,7 +262,7 @@ export const createItem = (content: string, due: any): void => {
     project_id: null,
     day_order: -1,
     is_deleted: 0,
-    project: "shopping"
+    project_index: projectIndex
   });
 };
 

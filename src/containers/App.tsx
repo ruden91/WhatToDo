@@ -52,6 +52,7 @@ interface AppState {
   todayCompletedCount: number;
   weeklyStats: any;
   filter: string;
+  projectIndex?: number;
 }
 class App extends React.Component<AppProps & RouteProps, AppState> {
   constructor(props: any) {
@@ -69,21 +70,23 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
     completedCount: 0,
     todayCompletedCount: 0,
     weeklyStats: [],
-    filter: "today"
+    filter: "today",
+    projectIndex: undefined
   };
 
   public changeFilter = (standard: string, index?: number) => {
     const { initialItems } = this.state;
-
-    if (standard === "project") {
+    let filter = standard;
+    if (filter === "project") {
       if (typeof index !== "undefined") {
-        standard = this.state.projects[index].name;
+        filter = this.state.projects[index].name;
       }
     }
 
     this.setState({
-      items: filterItemsBySpecificStandard(initialItems, standard),
-      filter: standard
+      items: filterItemsBySpecificStandard(initialItems, standard, index),
+      filter,
+      projectIndex: index
     });
   };
 
@@ -138,7 +141,7 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
         let userRef = database.ref("users").child(currentUser.uid);
         let itemRef = database.ref("items").child(currentUser.uid);
         let projectRef = database.ref("projects").child(currentUser.uid);
-
+        let projects: any[] = [];
         userRef.on("value", (snap: any) => {
           this.setState({
             user: { ...snap.val(), daily_goal: 10 }
@@ -149,14 +152,12 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
           if (!snap.val()) {
             initProjectItems();
           } else {
-            this.setState({
-              projects: snap.val()
-            });
+            projects = snap.val();
           }
         });
 
         itemRef.on("value", (snap: any) => {
-          const { filter } = this.state;
+          const { filter, projectIndex } = this.state;
           // transform object to array
           let initialItems = snap.val();
           let refinedItems = [];
@@ -172,14 +173,19 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
 
           this.setState({
             initialItems: refinedItems,
-            items: filterItemsBySpecificStandard(refinedItems, filter),
+            items: filterItemsBySpecificStandard(
+              refinedItems,
+              filter,
+              projectIndex
+            ),
             inboxCount: calculateNotCompletedItemsCount(refinedItems),
             todayCount: calculateItemsCount(refinedItems, 0),
             daysCount: calculateItemsCount(refinedItems, 7),
             completedCount: calculateCompletedItemsCount(refinedItems),
             todayCompletedCount: calculateDailyCompletedItems(refinedItems),
             weeklyStats: makeWeeklyStats(refinedItems),
-            loading: false
+            loading: false,
+            projects
           });
         });
         this.props.history.push("/dashboard");

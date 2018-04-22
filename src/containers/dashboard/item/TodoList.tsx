@@ -29,6 +29,7 @@ interface Props {
   date: string;
   realDate: {} | null;
   filter: string;
+  projects: any[];
   showButton: boolean;
   onHandleAddTodoItem: (tabIndex: number, index: number) => void;
   index: number;
@@ -71,7 +72,8 @@ class TodoList extends React.Component<Props, State> {
       todoItemIndex,
       index,
       realDate,
-      filter
+      filter,
+      projects
     } = this.props;
     let itemIndex = 0;
 
@@ -85,6 +87,8 @@ class TodoList extends React.Component<Props, State> {
             index={item.uniqueKey}
             realDate={realDate}
             item={item}
+            filter={filter}
+            projects={projects}
           />
         );
       } else {
@@ -117,7 +121,9 @@ class TodoList extends React.Component<Props, State> {
       todoListIndex,
       todoItemIndex,
       connectDropTarget,
-      isOver
+      isOver,
+      filter,
+      projects
     } = this.props;
 
     const { toggleDropContext } = this.state;
@@ -151,6 +157,8 @@ class TodoList extends React.Component<Props, State> {
             <AddTodoItem
               onHandleAddTodoItem={onHandleAddTodoItem}
               realDate={realDate}
+              filter={filter}
+              projects={projects}
             />
           )}
         {toggleDropContext &&
