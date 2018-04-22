@@ -160,7 +160,8 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
           const { filter, projectIndex } = this.state;
           // transform object to array
           let initialItems = snap.val();
-          let refinedItems = [];
+          let refinedItems: any[] = [];
+
           for (let key in initialItems) {
             let index = Object.keys(initialItems).indexOf(key);
 
@@ -170,6 +171,15 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
               uniqueKey: key
             });
           }
+
+          projects = projects.map(project => {
+            return {
+              ...project,
+              count: refinedItems.filter(item => {
+                return item.project_index === project.filterIndex;
+              }).length
+            };
+          });
 
           this.setState({
             initialItems: refinedItems,
