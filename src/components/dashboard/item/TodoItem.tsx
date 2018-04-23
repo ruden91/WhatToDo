@@ -5,7 +5,8 @@ import "./TodoItem.scss";
 import { findDOMNode } from "react-dom";
 import * as ReactDnd from "react-dnd";
 import ItemTypes from "itemTypes/todoTypes";
-
+import { themes } from "api/settings";
+import * as moment from "moment";
 /**
  * Specifies the drag source contract.
  * Only `beginDrag` function is required.
@@ -109,10 +110,13 @@ interface Props {
   connectDragPreview: ReactDnd.ConnectDragPreview;
   isDragging: boolean;
   content: string;
+  due?: string;
+  project_index?: number;
   uniqueKey: string;
   index: number;
   todoListIndex: number;
   filter: string;
+  projects: any[];
   onHandleAddTodoItem: (tabIndex: number, index: number) => void;
   onHandleDropContent: () => void;
   moveTodoItem: (
@@ -135,7 +139,6 @@ class TodoItem extends React.Component<Props, States> {
   };
 
   handleSideToggleMenu = () => {
-    console.log("handleSideToggleMenu");
     this.setState({
       toggleSideMenu: !this.state.toggleSideMenu
     });
@@ -144,6 +147,23 @@ class TodoItem extends React.Component<Props, States> {
   handleRemoveTodoItem = () => {
     const { uniqueKey } = this.props;
     removeItem(uniqueKey);
+  };
+
+  renderTaskNameAndColor = () => {
+    const { project_index, projects } = this.props;
+    let name =
+      project_index !== undefined ? projects[project_index].name : "관리함";
+    let color =
+      project_index !== undefined
+        ? themes[projects[project_index].colorIndex].color
+        : "#cccccc";
+
+    return (
+      <p>
+        {name}
+        <span style={{ backgroundColor: color }} />
+      </p>
+    );
   };
 
   render() {
@@ -189,8 +209,13 @@ class TodoItem extends React.Component<Props, States> {
                   }
                 >
                   <span>{this.props.content}</span>
+                  <span className="wtd-dashboard-todo-item__due">
+                    {moment(this.props.due).fromNow()}
+                  </span>
                 </td>
-                <td className="wtd-dashboard-todo-item__project-task" />
+                <td className="wtd-dashboard-todo-item__project-task">
+                  {this.renderTaskNameAndColor()}
+                </td>
                 <td className="wtd-dashboard-todo-item__menu">
                   <button onClick={() => this.handleSideToggleMenu()}>
                     <i className="fas fa-ellipsis-h" />

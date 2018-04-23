@@ -104,6 +104,7 @@ class TodoList extends React.Component<Props, State> {
             moveTodoItem={this.props.moveTodoItem}
             postponeTodoItem={this.props.postponeTodoItem}
             filter={filter}
+            projects={projects}
           />
         );
       }

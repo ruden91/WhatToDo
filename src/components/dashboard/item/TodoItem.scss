@@ -111,15 +111,41 @@
     user-select: text;
     text-align: left;
   }
+  @include e("due") {
+    float: right;
+    font-size: 11px;
+    display: inline-block;
+    padding-top: 4px;
+    color: #222;
+    padding-right: 2px;
+    border-bottom: 1px solid #dd4b39;
+  }
   @include e("project-task") {
     vertical-align: top;
     color: #202020;
     font-size: 11px;
+    width: 70px;
     text-align: right;
     white-space: nowrap;
     padding-left: 5px;
-    padding-top: 14px;
+    padding-top: 17px !important;
     padding-bottom: 12px;
+
+    p {
+      display: inline-block;
+      font-size: 11px;
+      span {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-left: 8px;
+        vertical-align: middle;
+        position: relative;
+        margin-right: 10px;
+        top: -1px;
+      }
+    }
   }
   @include e("menu") {
     padding-top: 15px !important;
