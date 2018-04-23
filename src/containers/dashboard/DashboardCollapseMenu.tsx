@@ -42,7 +42,7 @@ export default class DashboardCollapseMenu extends React.Component<Props> {
                 <td />
                 <td className="name">
                   <span>{project.name}</span>
-                  <span>{project.count}</span>
+                  <span>{project.count > 0 && project.count}</span>
                 </td>
                 <td className="menu" />
               </tr>

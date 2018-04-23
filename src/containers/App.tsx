@@ -18,7 +18,8 @@ import {
   calculateItemsCount,
   calculateDailyCompletedItems,
   makeWeeklyStats,
-  filterItemsBySpecificStandard
+  filterItemsBySpecificStandard,
+  filterNotCompletedItem
 } from "helpers/module";
 import { find, remove, findIndex } from "lodash";
 // import { filter, findIndex, map, find, merge } from "lodash";
@@ -175,7 +176,7 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
           projects = projects.map(project => {
             return {
               ...project,
-              count: refinedItems.filter(item => {
+              count: filterNotCompletedItem(refinedItems).filter(item => {
                 return item.project_index === project.filterIndex;
               }).length
             };

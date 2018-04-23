@@ -121,7 +121,7 @@ export const filterItemsBySpecificStandard = (
   let filteredItem = filterNotCompletedItem(items);
 
   if (standard === "inbox") {
-    return filteredItem;
+    return filteredItem.filter(item => item.project_index === undefined);
   } else if (standard === "today") {
     return filterItemsByDate(filteredItem);
   } else if (standard === "days") {

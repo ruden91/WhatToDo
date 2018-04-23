@@ -6,7 +6,6 @@ import { findDOMNode } from "react-dom";
 import * as ReactDnd from "react-dnd";
 import ItemTypes from "itemTypes/todoTypes";
 import { themes } from "api/settings";
-import * as moment from "moment";
 /**
  * Specifies the drag source contract.
  * Only `beginDrag` function is required.
@@ -210,7 +209,7 @@ class TodoItem extends React.Component<Props, States> {
                 >
                   <span>{this.props.content}</span>
                   <span className="wtd-dashboard-todo-item__due">
-                    {moment(this.props.due).fromNow()}
+                    {/* {this.props.due} */}
                   </span>
                 </td>
                 <td className="wtd-dashboard-todo-item__project-task">
