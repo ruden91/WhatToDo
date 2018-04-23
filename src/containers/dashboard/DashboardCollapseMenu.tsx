@@ -17,7 +17,9 @@ export default class DashboardCollapseMenu extends React.Component<Props> {
 
   state = {
     toggleAddSidePanelItem: false,
-    content: ""
+    content: "",
+    toggleColorList: false,
+    selectedTheme: 0
   };
 
   mapToProjectComponent = () => {
@@ -67,7 +69,7 @@ export default class DashboardCollapseMenu extends React.Component<Props> {
   refineProjectItems = (
     items: any[],
     content: string,
-    colorIndex: number = 0
+    colorIndex: number = this.state.selectedTheme
   ) => {
     let tempData = items;
 
@@ -90,6 +92,27 @@ export default class DashboardCollapseMenu extends React.Component<Props> {
   handleSidePanelContent = (e: any) => {
     this.setState({
       content: e.target.value
+    });
+  };
+
+  handleThemeList = () => {
+    this.setState({
+      toggleColorList: !this.state.toggleColorList
+    });
+  };
+  selectProjectTheme = (index: number) => {
+    this.setState({
+      toggleColorList: false,
+      selectedTheme: index
+    });
+  };
+  renderThemeItems = () => {
+    return themes.map((theme, index) => {
+      return (
+        <li onClick={() => this.selectProjectTheme(index)}>
+          <span style={{ backgroundColor: theme.color }} />
+        </li>
+      );
     });
   };
 
@@ -116,14 +139,28 @@ export default class DashboardCollapseMenu extends React.Component<Props> {
               className="wtd-dashboard-collapse__form"
             >
               <div>
-                <input
-                  type="text"
-                  value={this.state.content}
-                  onChange={this.handleSidePanelContent}
-                  placeholder="프로젝트를 입력하세요."
-                />
+                <div>
+                  <input
+                    type="text"
+                    value={this.state.content}
+                    onChange={this.handleSidePanelContent}
+                    placeholder="프로젝트를 입력하세요."
+                  />
+                  <a
+                    href="javascript:;"
+                    onClick={this.handleThemeList}
+                    className="wtd-dashboard-collapse__color-button"
+                    style={{
+                      backgroundColor: themes[this.state.selectedTheme].color
+                    }}
+                  />
+                </div>
                 <button type="submit">프로젝트 추가</button>
                 <a onClick={this.handleAddSidePanelButton}>취소</a>
+
+                {this.state.toggleColorList && (
+                  <ul>{this.renderThemeItems()}</ul>
+                )}
               </div>
             </form>
           )}

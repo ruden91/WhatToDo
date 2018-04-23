@@ -16,12 +16,11 @@
         &.color {
           margin-right: 5px;
           div {
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             display: inline-block;
             font-size: 16px;
-            background-color: rgb(116, 232, 211);
             border: 1px solid #f3f3f3;
           }
         }
@@ -38,10 +37,51 @@
   }
   @include e("form") {
     margin-top: 10px;
+    ul {
+      position: absolute;
+      top: 34px;
+      left: 0;
+      width: 226px;
+      height: 49px;
+      background-color: #fff;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
+      padding: 10px 0 10px 12px;
+      overflow-y: auto;
+      li {
+        display: inline-block;
+        margin-right: 5px;
+        margin-bottom: 10px;
+        span {
+          display: inline-block;
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+        }
+      }
+    }
+    div {
+      position: relative;
+      > div {
+        position: relative;
+
+        a {
+          position: absolute;
+          top: 11px;
+          left: 6px;
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          display: inline-block;
+          font-size: 16px;
+          border: 1px solid #f3f3f3;
+        }
+      }
+    }
     input {
       border: 1px solid #ddd;
       border-radius: 5px;
-      padding: 8px 10px;
+      padding: 8px 10px 8px 20px;
       width: 100%;
       background-color: #fff;
     }
