@@ -66,11 +66,6 @@
     position: absolute;
     right: 0;
     top: 40px;
-    .Cal__Header__root,
-    .Cal__Weekdays__root,
-    .Cal__Day__selection {
-      background-color: $mainColor !important;
-    }
   }
 
   @include e("hash-items") {

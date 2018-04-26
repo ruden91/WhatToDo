@@ -1,62 +1,32 @@
 import * as React from "react";
 
 import { themes } from "api/settings";
-
+import { updateTheme } from "database/firebase";
 import Scrollbars from "react-custom-scrollbars";
 import "./ThemeSetting.scss";
-interface Props {}
+interface Props {
+  settings: any;
+}
 
-interface State {}
+interface State {
+  themes: any[];
+}
 
 export default class ThemeSetting extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-
-    this.state = {
-      themes: themes
-    };
   }
+  state: State = {
+    themes
+  };
 
-  // componentWillMount () {
-  //   let themes = settings.themes();
-  //   const selectedThemeColor = this.props.settings.theme.color;
-  //   console.log(selectedThemeColor)
-  //   let refinedThemes = themes.map(theme => {
-  //     if (theme.color === selectedThemeColor) {
-  //       theme.active = true;
-  //     }
-  //     return theme;
-  //   })
-
-  //   this.setState({
-  //     themes: refinedThemes
-  //   })
-  // }
-
-  // handleThemeButton = (index) => {
-  //   const { themes } = this.state;
-  //   const uid = auth.currentUser.uid;
-  //   const themeRef = database.ref('settings/' + uid).child('theme');
-
-  //   let copiedThemes = themes.map((theme, themeIndex) => {
-  //     if (themeIndex === index) {
-  //       theme.active = true;
-  //     } else {
-  //       theme.active = false;
-  //     }
-  //     return theme;
-  //   })
-
-  //   themeRef.set({
-  //     color: copiedThemes.filter(theme => theme.active)[0].color
-  //   }).then(() => {
-  //     this.setState({
-  //       theme: copiedThemes
-  //     })
-  //   })
-  // }
+  handleThemeButton = (theme: any): void => {
+    updateTheme(theme);
+  };
 
   render() {
+    const { theme } = this.props.settings;
+    console.log(theme);
     return (
       <div className="wtd-dashboard-theme-setting">
         <h6>테마</h6>
@@ -65,24 +35,24 @@ export default class ThemeSetting extends React.Component<Props, State> {
           <h6>색상 선택</h6>
           <Scrollbars style={{ width: 310, height: 500 }}>
             <ul>
-              {themes.map((theme, index) => (
+              {themes.map((themeItem, index) => (
                 <li
                   key={index}
-                  className={theme.active ? "is-active" : ""}
-                  //   onClick={() => this.handleThemeButton(index)}
+                  className={themeItem.color === theme.color ? "is-active" : ""}
+                  onClick={() => this.handleThemeButton(themeItem)}
                 >
-                  <span style={{ backgroundColor: theme.color }} />
-                  <span>{theme.name}</span>
+                  <span style={{ backgroundColor: themeItem.color }} />
+                  <span>{themeItem.name}</span>
                   <i
                     className="fas fa-check wtd-dashboard-theme-setting__check-icon"
-                    style={{ color: theme.color }}
+                    style={{ color: themeItem.color }}
                   />
                 </li>
               ))}
             </ul>
           </Scrollbars>
           <div className="wtd-dashboard-theme-setting__monitor-container">
-            <header />
+            <header style={{ backgroundColor: theme.color }} />
 
             <aside>
               <span className="line" />
@@ -105,7 +75,7 @@ export default class ThemeSetting extends React.Component<Props, State> {
               <span className="circle-and-line" />
               <span className="circle-and-line" />
               <span className="circle-and-line" />
-              <span className="cross">
+              <span className="cross" style={{ color: theme.color }}>
                 <i className="fas fa-plus" />
               </span>
             </div>

@@ -11,6 +11,7 @@ interface Props {
     targetPosition: string
   ) => void;
   postponeTodoItem: (item: any) => void;
+  settings: any;
 }
 export default class DashboardScheduleManager extends React.Component<Props> {
   constructor(props: Props) {

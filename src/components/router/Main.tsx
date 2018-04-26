@@ -22,6 +22,7 @@ interface MainProps {
     targetPosition: string
   ) => void;
   postponeTodoItem: (item: any) => void;
+  settings: any;
 }
 
 const Main: React.SFC<MainProps> = AppProps => (

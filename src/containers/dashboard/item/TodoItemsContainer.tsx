@@ -13,6 +13,7 @@ interface Props {
     targetPosition: string
   ) => void;
   postponeTodoItem: (item: any) => void;
+  settings: any;
 }
 interface States {
   todoListIndex: number;
@@ -39,7 +40,7 @@ export default class TodoItemsContainer extends React.Component<Props, States> {
 
   mapToComponent = () => {
     const { todoListIndex, todoItemIndex } = this.state;
-    const { items, filter, projects } = this.props;
+    const { items, filter, projects, settings } = this.props;
     let result = [];
     if (filter === "today") {
       result = this.sortByDate(items, 1);
@@ -77,6 +78,7 @@ export default class TodoItemsContainer extends React.Component<Props, States> {
         realDate={item.realDate}
         filter={filter}
         projects={projects}
+        settings={settings}
       />
     ));
   };

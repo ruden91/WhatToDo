@@ -43,6 +43,7 @@ interface Props {
     targetPosition: string
   ) => void;
   postponeTodoItem: (item: any) => void;
+  settings: any;
 }
 
 interface State {
@@ -73,7 +74,8 @@ class TodoList extends React.Component<Props, State> {
       index,
       realDate,
       filter,
-      projects
+      projects,
+      settings
     } = this.props;
     let itemIndex = 0;
 
@@ -89,6 +91,7 @@ class TodoList extends React.Component<Props, State> {
             item={item}
             filter={filter}
             projects={projects}
+            settings={settings}
           />
         );
       } else {
@@ -124,7 +127,8 @@ class TodoList extends React.Component<Props, State> {
       connectDropTarget,
       isOver,
       filter,
-      projects
+      projects,
+      settings
     } = this.props;
 
     const { toggleDropContext } = this.state;
@@ -148,6 +152,7 @@ class TodoList extends React.Component<Props, State> {
               <a
                 href="javascript:;"
                 onClick={() => onHandleAddTodoItem(index, -1)}
+                style={{ color: settings.theme.color }}
               >
                 <span />작업 추가
               </a>
@@ -160,6 +165,7 @@ class TodoList extends React.Component<Props, State> {
               realDate={realDate}
               filter={filter}
               projects={projects}
+              settings={settings}
             />
           )}
         {toggleDropContext &&

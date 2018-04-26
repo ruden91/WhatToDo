@@ -8,12 +8,12 @@ import {
   database,
   auth,
   postponeTodoItemData,
-  initProjectItems
+  initProjectItems,
+  initSettings
 } from "database/firebase";
 
 import Alert from "react-s-alert";
 import {
-  calculateNotCompletedItemsCount,
   calculateCompletedItemsCount,
   calculateItemsCount,
   calculateDailyCompletedItems,
@@ -54,6 +54,7 @@ interface AppState {
   weeklyStats: any;
   filter: string;
   projectIndex?: number;
+  settings: any;
 }
 class App extends React.Component<AppProps & RouteProps, AppState> {
   constructor(props: any) {
@@ -72,7 +73,8 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
     todayCompletedCount: 0,
     weeklyStats: [],
     filter: "today",
-    projectIndex: undefined
+    projectIndex: undefined,
+    settings: {}
   };
 
   public changeFilter = (standard: string, index?: number) => {
@@ -142,7 +144,9 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
         let userRef = database.ref("users").child(currentUser.uid);
         let itemRef = database.ref("items").child(currentUser.uid);
         let projectRef = database.ref("projects").child(currentUser.uid);
+        let settingsRef = database.ref("settings").child(currentUser.uid);
         let projects: any[] = [];
+
         userRef.on("value", (snap: any) => {
           this.setState({
             user: { ...snap.val(), daily_goal: 10 }
@@ -154,6 +158,16 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
             initProjectItems();
           } else {
             projects = snap.val();
+          }
+        });
+
+        settingsRef.on("value", (snap: any) => {
+          if (!snap.val()) {
+            initSettings();
+          } else {
+            this.setState({
+              settings: snap.val()
+            });
           }
         });
 
@@ -189,7 +203,9 @@ class App extends React.Component<AppProps & RouteProps, AppState> {
               filter,
               projectIndex
             ),
-            inboxCount: calculateNotCompletedItemsCount(refinedItems),
+            inboxCount: filterNotCompletedItem(refinedItems).filter(
+              item => item.project_index === undefined
+            ).length,
             todayCount: calculateItemsCount(refinedItems, 0),
             daysCount: calculateItemsCount(refinedItems, 7),
             completedCount: calculateCompletedItemsCount(refinedItems),

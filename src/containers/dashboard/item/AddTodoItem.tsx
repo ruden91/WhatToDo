@@ -15,6 +15,7 @@ interface Props {
   index?: string;
   filter: string;
   projects: any[];
+  settings: any;
 }
 interface State {
   content: string;
@@ -123,7 +124,8 @@ export default class AddTodoItem extends React.Component<Props, State> {
   }
   render() {
     const { toggleHashItems, toggleCalendar, selectDate } = this.state;
-    const { item, onHandleAddTodoItem } = this.props;
+    const { item, onHandleAddTodoItem, settings } = this.props;
+    console.log(this.props);
     const hasItem = !!item;
 
     return (
@@ -153,7 +155,11 @@ export default class AddTodoItem extends React.Component<Props, State> {
             <tbody>
               <tr>
                 <td>
-                  <button type="submit" className="add-todo-item__add-item">
+                  <button
+                    type="submit"
+                    className="add-todo-item__add-item"
+                    style={{ backgroundColor: settings.theme.color }}
+                  >
                     {hasItem ? "업데이트" : "작업 추가"}
                   </button>
                 </td>
@@ -176,8 +182,12 @@ export default class AddTodoItem extends React.Component<Props, State> {
             selected={selectDate}
             height={280}
             onSelect={this.selectDate}
-            rowHeight={42}
             className="add-todo-item__calendar"
+            theme={{
+              headerColor: settings.theme.color,
+              selectionColor: settings.theme.color,
+              weekdayColor: settings.theme.color
+            }}
           />
         )}
         {toggleHashItems && (

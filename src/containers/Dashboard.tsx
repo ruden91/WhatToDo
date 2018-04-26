@@ -28,6 +28,7 @@ interface DashboardProps {
     targetPosition: string
   ) => void;
   postponeTodoItem: (item: any) => void;
+  settings: any;
 }
 interface DashboardState {
   toggleDashboardModal: boolean;
@@ -65,7 +66,12 @@ export default class Dashboard extends React.Component<
   // JSX 컴포넌트 형식을 반환하는 함수 타입체크 추가하기
   public renderConditionalDashboardModalComponent = (): any => {
     const { modalTarget } = this.state;
-    const { completedCount, todayCompletedCount, weeklyStats } = this.props;
+    const {
+      completedCount,
+      todayCompletedCount,
+      weeklyStats,
+      settings
+    } = this.props;
     const { daily_goal } = this.props.user;
 
     switch (modalTarget) {
@@ -81,7 +87,7 @@ export default class Dashboard extends React.Component<
           />
         );
       case "setting":
-        return <Settings />;
+        return <Settings settings={settings} />;
       case "notice":
         return <div>notice</div>;
     }

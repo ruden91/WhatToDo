@@ -7,8 +7,16 @@ import "./Settings.scss";
 import UserSetting from "containers/dashboard/settings/UserSetting";
 import ThemeSetting from "containers/dashboard/settings/ThemeSetting";
 
-export default class Settings extends React.Component {
-  state = {
+interface Props {
+  settings: any;
+}
+
+interface State {
+  toggleModal: boolean;
+  selectedSettingsPanel: string;
+}
+export default class Settings extends React.Component<Props, State> {
+  state: State = {
     toggleModal: true,
     selectedSettingsPanel: "user"
   };
@@ -26,13 +34,14 @@ export default class Settings extends React.Component {
   };
 
   renderConditionalSettingsModalComponent = () => {
+    const { settings } = this.props;
     const { selectedSettingsPanel } = this.state;
     if (selectedSettingsPanel === "user") {
       return <UserSetting />;
     } else if (selectedSettingsPanel === "basic") {
       return <div>wtf</div>;
     } else if (selectedSettingsPanel === "theme") {
-      return <ThemeSetting />;
+      return <ThemeSetting settings={settings} />;
     } else if (selectedSettingsPanel === "karma") {
       return <div>wtf</div>;
     } else {

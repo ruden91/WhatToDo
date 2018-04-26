@@ -306,6 +306,18 @@ export const updateItem = (uniqueKey: string): void => {
     });
 };
 
+export const updateTheme = (theme: any): void => {
+  let { uid }: any = auth.currentUser;
+
+  database
+    .ref("settings")
+    .child(uid)
+    .child("theme")
+    .update({
+      ...theme
+    });
+};
+
 export const postponeTodoItemData = (uniqueKey: string, due: string): void => {
   let { uid }: any = auth.currentUser;
 
@@ -352,4 +364,17 @@ export const initProjectItems = () => {
       colorIndex: 3
     }
   ]);
+};
+
+export const initSettings = () => {
+  let { uid }: any = auth.currentUser;
+  let settingsRef = database.ref("settings").child(uid);
+
+  settingsRef.set({
+    theme: {
+      name: "WhatToDo",
+      color: "#db4c3f",
+      active: false
+    }
+  });
 };
