@@ -13,10 +13,10 @@ export const calculateDailyCompletedItems = (items: any[]): number => {
   let filterBy = moment()
     .add(0, "days")
     .format("YYYY-MM-DD");
-
+  console.log(items);
   return size(
     filter(
-      items,
+      filterCompletedItem(items),
       (item: any) => moment(item.completed_at).format("YYYY-MM-DD") === filterBy
     )
   );
